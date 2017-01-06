@@ -5,4 +5,5 @@ package com.imfan.j.a91fan;
  */
 
 public class Test {
+    ;;;;;;
 }
