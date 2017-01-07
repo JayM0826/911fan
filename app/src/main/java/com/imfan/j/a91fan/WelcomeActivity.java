@@ -101,12 +101,13 @@ public class WelcomeActivity extends AppCompatActivity  {
      * 已经登陆过，自动登陆
      */
     private boolean canAutoLogin() {
-        String account = Preferences.getUserAccount();  // 获取缓存中的账户
-        String token = Preferences.getUserToken();  // 获取缓存中的口令，但不一定存在
+        //String account = Preferences.getUserAccount();  // 获取缓存中的账户
+        // String token = Preferences.getUserToken();  // 获取缓存中的口令，但不一定存在
 
-        Log.i(TAG, "get local sdk token =" + token);
+        //Log.i(TAG, "get local sdk token =" + token);
         // 如果账户和口令都在缓存中存在，那么则可以实现自动登陆
-        return !TextUtils.isEmpty(account) && !TextUtils.isEmpty(token);
+        return false;
+        // return !TextUtils.isEmpty(account) && !TextUtils.isEmpty(token);
     }
 
     private void parseNotifyIntent(Intent intent) {
