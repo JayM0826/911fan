@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.WXLoginActivity;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -84,7 +84,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     // 第一步，请求CODE
     private void sendAuthRequest() {
-        Toast.makeText(this, "request Code", Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, "request Code", Toast.LENGTH_LONG).show();
         // send oauth request
         SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
@@ -163,8 +163,10 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     headimgurl = response.getString("headimgurl");
                     privilege = response.getJSONArray("privilege");
                     unionid = response.getString("unionid");
-                    Toast.makeText(WXEntryActivity.this, "获取个人信息成功" + nickname, Toast.LENGTH_LONG).show();
-
+                    Log.i("UNIONID", unionid);
+                    Log.i("OPENID", openid);
+                    // Toast.makeText(WXEntryActivity.this, "获取个人信息成功" + nickname, Toast.LENGTH_LONG).show();
+                    finish();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

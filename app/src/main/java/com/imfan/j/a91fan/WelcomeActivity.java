@@ -29,6 +29,11 @@ public class WelcomeActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        /*Intent intent = new Intent(this, WXEntryActivity.class);
+        startActivity(intent);
+        finish();
+*/
+
         if (savedInstanceState != null){
             setIntent(new Intent()); // 从堆栈恢复，不再重复解析之前的intent
         }
@@ -74,7 +79,8 @@ public class WelcomeActivity extends AppCompatActivity  {
         if (TextUtils.isEmpty(Cache.getAccount())) {  // 查看缓存是否有账户数据
             // 并没有账户数据，继续判断当前app是否正在运行
             if (!SysInfoUtil.stackResumed(this)) {
-                WXLoginActivity.start(this);
+                Intent intent = new Intent(this, WXEntryActivity.class);
+                startActivity(intent);
             }
             finish();
         } else {
@@ -130,6 +136,7 @@ public class WelcomeActivity extends AppCompatActivity  {
         getWindow().setBackgroundDrawableResource(R.mipmap.welcome_bg);
         customSplash = true;
         WXEntryActivity.start(this);
+        finish();
     }
 
     private void showMainActivity() {
