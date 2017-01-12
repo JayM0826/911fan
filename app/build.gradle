@@ -27,16 +27,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/libammsdk.jar')
-
     compile 'com.netease.nimlib:basesdk:3.3.0'
     compile 'com.netease.nimlib:avchat:3.3.0'
     compile 'com.netease.nimlib:chatroom:3.3.0'
     compile 'com.netease.nimlib:rts:3.3.0'
     compile 'com.netease.nimlib:lucene:3.3.0'
-
     compile 'com.android.support:design:25.1.0'
-
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.google.code.gson:gson:2.8.0'
-
+    compile project(':uikit')
 }
