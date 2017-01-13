@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/easy_progress_bar"
             android:layout_centerHorizontal="true"
-            android:paddingTop="14dip"
             android:gravity="center"
+            android:paddingTop="14dip"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:visibility="gone" />
