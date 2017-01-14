@@ -9,12 +9,39 @@ import android.content.SharedPreferences;
 
 public class Preferences {
 
-    private static final String WX_KEY_USER_ACCOUNT = "account"; // 账户
 
+
+
+        private static final String Token = "token"; // 网易的token;
     // 第一步获取到的信息字段
     private static String WX_KEY_USER_CODE = "code";
     private static String WX_KEY_USER_COUNTRY = "country";
     private static String WX_KEY_USER_LANGUAGE = "lang";
+    // 第二步获取到的字段
+    private static String WX_KEY_USER_ACCESS_TOKEN = "access_token";
+    private static String WX_KEY_USER_EXPIRES_IN = "expires_in";
+    private static String WX_KEY_USER_REFRESH_TOKEN = "refresh_token";
+    private static String WX_KEY_USER_OPENID = "openid"; // 第三方APP中是唯一的
+    private static String WX_KEY_USER_SCOPE = "scope";
+    // 第三步获取到的信息字段
+    private static String WX_KEY_USER_NICKNAME = "nickname";
+    private static String WX_KEY_USER_SEX = "sex";
+    private static String WX_KEY_USER_PROVINCE = "province";
+    private static String WX_KEY_USER_CITY = "city";
+    private static String WX_KEY_USER_HEADIMGURL = "headimgurl";
+    private static String WX_KEY_USER_UNIONID = "unionid";
+
+public static String getUserAccount(){
+        return getWxKeyUserUnionid();
+    }
+
+    public static String getToken() {
+        return getString(Token);
+    }
+
+    public static void setToken(String token) {
+        saveString(Token, token);
+    }
 
     public static String getWxKeyUserLanguage() {
         return getString(WX_KEY_USER_LANGUAGE);
@@ -38,25 +65,6 @@ public class Preferences {
 
     public static void setWxKeyUserCode(String wxKeyUserCode) {
         saveString(WX_KEY_USER_CODE, wxKeyUserCode);
-    }
-
-
-
-
-    // 第二步获取到的字段
-    private static String WX_KEY_USER_ACCESS_TOKEN = "access_token";
-    private static String WX_KEY_USER_EXPIRES_IN = "expires_in";
-    private static String WX_KEY_USER_REFRESH_TOKEN = "refresh_token";
-    private static String WX_KEY_USER_OPENID = "openid"; // 第三方APP中是唯一的
-    private static String WX_KEY_USER_SCOPE = "scope";
-
-
-
-
-
-
-    public static String getWxKeyUserAccount() {
-        return getString(WX_KEY_USER_ACCOUNT);
     }
 
     public static String getWxKeyUserAccessToken() {
@@ -98,15 +106,6 @@ public class Preferences {
     public static void setWxKeyUserScope(String wxKeyUserScope) {
         saveString(WX_KEY_USER_SCOPE, wxKeyUserScope);
     }
-
-
-    // 第三步获取到的信息字段
-    private static String WX_KEY_USER_NICKNAME = "nickname";
-    private static String WX_KEY_USER_SEX = "sex";
-    private static String WX_KEY_USER_PROVINCE = "province";
-    private static String WX_KEY_USER_CITY = "city";
-    private static String WX_KEY_USER_HEADIMGURL = "headimgurl";
-    private static String WX_KEY_USER_UNIONID = "unionid";
 
     public static String getWxKeyUserNickname() {
         return getString(WX_KEY_USER_NICKNAME);
@@ -182,6 +181,7 @@ public class Preferences {
 
 
     static SharedPreferences getSharedPreferences() {
+
         return Cache.getContext().getSharedPreferences("userinfo", Context.MODE_PRIVATE);
     }
 }
