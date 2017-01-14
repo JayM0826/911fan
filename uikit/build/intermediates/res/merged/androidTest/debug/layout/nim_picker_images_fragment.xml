@@ -9,11 +9,11 @@
         style="@style/grid_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:fastScrollEnabled="false"
         android:horizontalSpacing="2dp"
         android:listSelector="@color/transparent"
         android:numColumns="4"
-        android:verticalSpacing="2dp" 
-        android:fastScrollEnabled="false">
+        android:verticalSpacing="2dp">
     </GridView>
 
 </RelativeLayout>

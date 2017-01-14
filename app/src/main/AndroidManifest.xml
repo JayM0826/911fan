@@ -52,8 +52,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="738fe69544ba41ee870cf3f717bd1cb6" />
@@ -108,9 +108,11 @@
             android:name="com.netease.cosine.target.receiver"
             android:value="com.netease.nimlib.service.NimReceiver" />
 
-
-        <activity android:name=".wxapi.WXEntryActivity"
-            android:exported="true"></activity>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true" />
+        <activity android:name=".location.activity.LocationAmapActivity" />
+        <activity android:name=".location.activity.NavigationAmapActivity"></activity>
     </application>
 
 </manifest>

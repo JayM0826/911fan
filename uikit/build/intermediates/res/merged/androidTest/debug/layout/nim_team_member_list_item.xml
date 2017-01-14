@@ -7,8 +7,8 @@
         android:id="@+id/frameLayoutHead"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_margin="8dp"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp">
 
         <com.netease.nim.uikit.common.ui.imageview.HeadImageView
             android:id="@+id/imageViewHeader"
@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
             android:contentDescription="@string/empty"
-            android:visibility="gone"
-            android:src="@drawable/nim_team_member_item_delete_icon"/>
+            android:src="@drawable/nim_team_member_item_delete_icon"
+            android:visibility="gone"/>
 
     </FrameLayout>
 
@@ -46,9 +46,9 @@
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/frameLayoutHead"
-        android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/frameLayoutHead"
         android:ellipsize="end"
         android:gravity="center"
         android:maxWidth="160dip"

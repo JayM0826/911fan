@@ -68,12 +68,12 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_cab_background_top_material.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/abc_ratingbar_material.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ratingbar_material.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/nim_g_image_preview_white_btn_selecter.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable/nim_g_image_preview_white_btn_selecter.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/abc_ratingbar_material.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ratingbar_material.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/abc_btn_radio_material.xml",
@@ -124,24 +124,24 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable/nim_message_button_bottom_emoji_selector.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/nim_message_button_bottom_send_selector.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable/nim_message_button_bottom_send_selector.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/abc_ic_voice_search_api_material.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ic_voice_search_api_material.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/nim_sticker_button_background_pressed_layer_list.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable/nim_sticker_button_background_pressed_layer_list.xml"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/nim_message_button_bottom_send_selector.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable/nim_message_button_bottom_send_selector.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/nim_nim_action_bar_button_selector.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable/nim_nim_action_bar_button_selector.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/abc_ic_go_search_api_material.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ic_go_search_api_material.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/nim_nim_action_bar_button_selector.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable/nim_nim_action_bar_button_selector.xml"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/nim_sticker_button_background_pressed_layer_list.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable/nim_sticker_button_background_pressed_layer_list.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable/abc_btn_check_material.xml",
