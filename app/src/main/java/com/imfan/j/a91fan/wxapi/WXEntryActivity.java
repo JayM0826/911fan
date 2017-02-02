@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.WelcomeActivity;
 import com.imfan.j.a91fan.main.MainActivity;
 import com.imfan.j.a91fan.netease.CheckSumBuilder;
 import com.imfan.j.a91fan.netease.NeteaseClient;
@@ -59,7 +61,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     // 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
     private static String code, lang, country;
     private ImageButton imageButton;
-    // 第二步：通过code获取access_token
+
     private String accessTokenUrl;
     private String access_token;
     private int expires_in;
@@ -108,6 +110,77 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         NeteaseClient.client.addHeader("Nonce", nonce);
         NeteaseClient.client.addHeader("CurTime", curTime);
         NeteaseClient.client.addHeader("CheckSum", checkSum);
+    }
+
+
+
+    // 刷新或续期access_token
+    //接口说明
+    /*access_token是调用授权关系接口的调用凭证，由于access_token有效期（目前为2个小时）较短，当access_token超时后，可以使用refresh_token进行刷新，access_token刷新结果有两种：
+            1.若access_token已超时，那么进行refresh_token会获取一个新的access_token，新的超时时间；
+            2.若access_token未超时，那么进行refresh_token不会改变access_token，但超时时间会刷新，相当于续期access_token。
+    refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权，所以，请开发者在refresh_token即将过期时（如第29天时），进行定时的自动刷新并保存好它。
+}*/
+
+    /**
+     * 刷新网易的token
+     */
+    static void refreshNeteaseToken() {
+        curTime = String.valueOf((new Date()).getTime() / 1000L);
+        checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
+
+
+        RequestParams params = new RequestParams();
+        Log.i("ACCID:", Preferences.getUserAccount());
+        params.add("accid", Preferences.getUserAccount());
+        Log.i("ACCID:", Preferences.getUserAccount());
+        addHeaders();
+
+        NeteaseClient.post("refreshToken.action", params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                // called before request is started
+                Log.i("refreshNeteaseToken()", "开始刷新网易token");
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
+                // called when response HTTP status is "200 OK"
+                Log.i("refreshNeteaseToken()", "通信成功" + statusCode);
+                try {
+
+                    int code = object.getInt("code");
+                    Log.i("refreshNeteaseToken()", "Json:" + code);
+
+                    // 解析json数据
+                    JSONObject jsonObject = object.getJSONObject("info");
+
+                    String token = jsonObject.getString("token");
+                    Preferences.setToken(token);
+                    Log.i("refreshNeteaseToken()", "新的Token:" + token);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Log.i("Register", "通信失败");
+            }
+
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+
     }
 
     /**
@@ -183,75 +256,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     }
 
-    // 刷新或续期access_token
-    //接口说明
-    /*access_token是调用授权关系接口的调用凭证，由于access_token有效期（目前为2个小时）较短，当access_token超时后，可以使用refresh_token进行刷新，access_token刷新结果有两种：
-            1.若access_token已超时，那么进行refresh_token会获取一个新的access_token，新的超时时间；
-            2.若access_token未超时，那么进行refresh_token不会改变access_token，但超时时间会刷新，相当于续期access_token。
-    refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权，所以，请开发者在refresh_token即将过期时（如第29天时），进行定时的自动刷新并保存好它。
-}*/
-
-    /**
-     * 刷新网易的token
-     */
-    static void refreshNeteaseToken() {
-        curTime = String.valueOf((new Date()).getTime() / 1000L);
-        checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
-
-
-        RequestParams params = new RequestParams();
-        Log.i("ACCID:", Preferences.getUserAccount());
-        params.add("accid", Preferences.getUserAccount());
-        Log.i("ACCID:", Preferences.getUserAccount());
-        addHeaders();
-
-        NeteaseClient.post("refreshToken.action", params, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onStart() {
-                // called before request is started
-                Log.i("refreshNeteaseToken()", "开始刷新网易token");
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
-                // called when response HTTP status is "200 OK"
-                Log.i("refreshNeteaseToken()", "通信成功" + statusCode);
-                try {
-
-                    int code = object.getInt("code");
-                    Log.i("refreshNeteaseToken()", "Json:" + code);
-
-                    // 解析json数据
-                    JSONObject jsonObject = object.getJSONObject("info");
-
-                    String token = jsonObject.getString("token");
-                    Preferences.setToken(token);
-                    Log.i("refreshNeteaseToken()", "新的Token:" + token);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Log.i("Register", "通信失败");
-            }
-
-
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
-            }
-        });
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -293,6 +297,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     }
 
+    // 第二步：通过code获取access_token
     private void getAccessToken() {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(accessTokenUrl, new JsonHttpResponseHandler() {
@@ -339,6 +344,16 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         });
     }
 
+    // 第三步获取用户个人信息（UnionID机制）
+    /*接口说明
+    此接口用于获取用户个人信息。开发者可通过OpenID来获取用户基本信息。
+    特别需要注意的是，如果开发者拥有多个移动应用、网站应用和公众帐号，
+    可通过获取用户基本信息中的unionid来区分用户的唯一性，因为只要是
+    同一个微信开放平台帐号下的移动应用、网站应用和公众帐号，用户的
+    unionid是唯一的。换句话说，同一用户，对同一个微信开放平台下的
+    不同应用，unionid是相同的。请注意，在用户修改微信头像后，旧的微
+    信头像URL将会失效，因此开发者应该自己在获取用户信息后，将头像图片
+    保存下来，避免微信头像URL失效后的异常情况。*/
     private void getUserInfo() {
 
 
@@ -371,11 +386,21 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     Preferences.setWxUnionid(unionid);
                     Log.i("UNIONID", unionid);
                     Log.i("UNIONID+1", Preferences.getUserAccount());
+
                     Toast.makeText(WXEntryActivity.this, "获取个人信息成功" + nickname, Toast.LENGTH_SHORT).show();
                     // CustomeActivityManager.getCustomeActivityManager().popAllActivity();
+
                     doNetEaseRegister();
-                    MainActivity.start(WXEntryActivity.this);
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            MainActivity.start(WXEntryActivity.this);
+                        }
+                    };
+                    new Handler().postDelayed(runnable, 1000);
+
                     finish();
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -393,6 +418,14 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         });
 
     }
+
+    // 刷新或续期access_token
+    //接口说明
+    /*access_token是调用授权关系接口的调用凭证，由于access_token有效期（目前为2个小时）较短，当access_token超时后，可以使用refresh_token进行刷新，access_token刷新结果有两种：
+            1.若access_token已超时，那么进行refresh_token会获取一个新的access_token，新的超时时间；
+            2.若access_token未超时，那么进行refresh_token不会改变access_token，但超时时间会刷新，相当于续期access_token。
+    refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权，所以，请开发者在refresh_token即将过期时（如第29天时），进行定时的自动刷新并保存好它。
+}*/
 
     // 微信发送请求到第三方应用时，会回调到该方法
     @Override
