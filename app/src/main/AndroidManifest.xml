@@ -112,7 +112,8 @@
             android:name=".wxapi.WXEntryActivity"
             android:exported="true" />
         <activity android:name=".location.activity.LocationAmapActivity" />
-        <activity android:name=".location.activity.NavigationAmapActivity"></activity>
+        <activity android:name=".location.activity.NavigationAmapActivity" />
+        <activity android:name=".main.MainActivity"></activity>
     </application>
 
 </manifest>

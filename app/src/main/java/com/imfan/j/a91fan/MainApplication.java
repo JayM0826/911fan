@@ -5,13 +5,12 @@ import android.graphics.Color;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.config.UserPreferences;
-
 import com.imfan.j.a91fan.session.NimDemoLocationProvider;
+import com.imfan.j.a91fan.util.Cache;
+import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.util.SystemUtil;
-
 import com.imfan.j.a91fan.util.crash.AppCrashHandler;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.custom.DefalutUserInfoProvider;
@@ -24,9 +23,8 @@ import com.netease.nimlib.sdk.msg.MessageNotifierCustomization;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.imfan.j.a91fan.Constant;
 
-import static com.imfan.j.a91fan.Constant.APP_ID;
+import static com.imfan.j.a91fan.util.Constant.WX_APP_ID;
 
 
 /**
@@ -51,8 +49,8 @@ public class MainApplication extends Application {
 
     private void regToWx(){
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
-        api = WXAPIFactory.createWXAPI(this, APP_ID, true);
-        api.registerApp(APP_ID);
+        api = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
+        api.registerApp(WX_APP_ID);
         Log.d(TAG, "注册成功");
     }
 
@@ -64,7 +62,6 @@ public class MainApplication extends Application {
         NIMClient.init(this, getLoginInfo(), getOptions());  // null是默认配置
         AppCrashHandler.getInstance(this);
         if (inMainProcess()){
-            // 不适用uikit模块
             initUIKit();
         }
     }
@@ -77,7 +74,7 @@ public class MainApplication extends Application {
         NimUIKit.setLocationProvider(new NimDemoLocationProvider());
 
         // 会话窗口的定制初始化。
-       // SessionHelper.init();
+        // SessionHelper.init();
 
         // 通讯录列表定制初始化
        // ContactHelper.init();
@@ -104,7 +101,7 @@ public class MainApplication extends Application {
 
     private LoginInfo getLoginInfo() {
         String account = Preferences.getUserAccount();
-        String token = Preferences.getToken();
+        String token = Preferences.getNeteaseToken();
 
         if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
             Cache.setAccount(account.toLowerCase());

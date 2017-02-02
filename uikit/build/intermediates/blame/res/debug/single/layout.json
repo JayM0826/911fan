@@ -16,24 +16,24 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_team_name_activity.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_screen_simple.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_screen_simple.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/layout/nim_picker_image_folder_activity.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_picker_image_folder_activity.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/layout/nim_message_item_name_layout.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_message_item_name_layout.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/layout/nim_menu_dialog_item.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_menu_dialog_item.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/layout/nim_message_item_name_layout.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_message_item_name_layout.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/layout/nim_popup_menu_list_black_item.xml",

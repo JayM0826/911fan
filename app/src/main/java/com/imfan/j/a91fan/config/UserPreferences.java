@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.alibaba.fastjson.JSONObject;
-import com.imfan.j.a91fan.Cache;
+import com.imfan.j.a91fan.util.Cache;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 
 /**

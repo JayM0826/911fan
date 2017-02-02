@@ -24,28 +24,28 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-xhdpi/nim_team_member_delete_pressed.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/nim_image_default.png",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-xhdpi/nim_image_default.png"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/nim_contact_checkbox_unchecked.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-xhdpi/nim_contact_checkbox_unchecked.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_scrubber_control_to_pressed_mtrl_000.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-xhdpi-v4/abc_scrubber_control_to_pressed_mtrl_000.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/nim_contact_checkbox_unchecked.png",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-xhdpi/nim_contact_checkbox_unchecked.png"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/nim_image_default.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-xhdpi/nim_image_default.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/nim_video_capture_start_btn.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-xhdpi/nim_video_capture_start_btn.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_btn_radio_to_on_mtrl_000.png",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-xhdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_ic_star_black_16dp.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-xhdpi-v4/abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_btn_radio_to_on_mtrl_000.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-xhdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/nim_team_owner_icon.png",
@@ -120,12 +120,12 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-xhdpi/nim_actionbar_dark_back_icon.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_popup_background_mtrl_mult.9.png",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-xhdpi-v4/abc_popup_background_mtrl_mult.9.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/nim_team_member_delete_normal.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-xhdpi/nim_team_member_delete_normal.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_popup_background_mtrl_mult.9.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-xhdpi-v4/abc_popup_background_mtrl_mult.9.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-xhdpi-v4/abc_textfield_activated_mtrl_alpha.9.png",

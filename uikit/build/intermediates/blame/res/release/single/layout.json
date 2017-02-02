@@ -28,16 +28,16 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_team_info_activity.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/notification_media_action.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_media_action.xml"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/abc_action_menu_item_layout.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_action_menu_item_layout.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/nim_zbra_loading_progress_bar.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_zbra_loading_progress_bar.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/abc_action_menu_item_layout.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_action_menu_item_layout.xml"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/notification_media_action.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_media_action.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/nim_contacts_count_item.xml",
@@ -56,24 +56,24 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_action_bar_title_item.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/nim_easy_alert_dialog_default_layout.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_easy_alert_dialog_default_layout.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/nim_capture_video_activity.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_capture_video_activity.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/nim_easy_alert_dialog_default_layout.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/layout/nim_easy_alert_dialog_default_layout.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/abc_action_mode_bar.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_action_mode_bar.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/design_navigation_item_header.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/design/25.0.0/res/layout/design_navigation_item_header.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/abc_screen_content_include.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_screen_content_include.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/design_navigation_item_header.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/design/25.0.0/res/layout/design_navigation_item_header.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/layout/design_layout_snackbar_include.xml",

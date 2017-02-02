@@ -1,47 +1,95 @@
 package com.imfan.j.a91fan;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
+import com.imfan.j.a91fan.main.MainActivity;
+import com.imfan.j.a91fan.util.Cache;
+import com.imfan.j.a91fan.util.CustomeActivityManager;
+import com.imfan.j.a91fan.util.Extras;
 import com.imfan.j.a91fan.util.LogUtil;
+import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.util.SysInfoUtil;
 import com.imfan.j.a91fan.wxapi.WXEntryActivity;
+import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.ArrayList;
 
 
-public class WelcomeActivity extends AppCompatActivity  {
+/**
+ * 欢迎界面，进入欢迎界面才能进入名副其实的MainActivity
+ */
+public class WelcomeActivity extends Activity {
 
     private static final String TAG = "WelcomeActivity";
-
+    private static boolean firstEnter = true; // 是否首次进入
     private boolean customSplash = false;
 
-    private static boolean firstEnter = true; // 是否首次进入
-
-
+    // 生命周期第一步
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 无状态栏，actionbar，且全屏
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_welcome);
 
-        /*Intent intent = new Intent(this, WXEntryActivity.class);
-        startActivity(intent);
-        finish();
-*/
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             setIntent(new Intent()); // 从堆栈恢复，不再重复解析之前的intent
         }
 
-        if (!firstEnter){ // 不是首次进入
+        if (!firstEnter) { // 不是首次进入
             onIntent();
-        }else{
+        } else {
             showSplashView();  // 首次进入则显示欢迎界面
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        CustomeActivityManager.getCustomeActivityManager().pushActivity(this);
+    }
+
+
+
+
+    // 生命周期第三步
+    @Override
+    protected void onResume() {  // 熟记Android生命周期的重要性
+        super.onResume();
+        CustomeActivityManager.getCustomeActivityManager().popActivity(this);
+        if (firstEnter) {  // 第一次进入
+            firstEnter = false;
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (canAutoLogin()) {
+                        onIntent();
+                    } else {
+                        WXEntryActivity.start(WelcomeActivity.this); // 启动登录程序
+                        finish(); // 结束欢迎页activity
+                    }
+                }
+            };
+            if (customSplash) { // 启动欢迎页，1秒退出
+                new Handler().postDelayed(runnable, 500);
+            } else {
+                runnable.run();
+            }
         }
     }
 
@@ -76,9 +124,10 @@ public class WelcomeActivity extends AppCompatActivity  {
     private void onIntent() {
         LogUtil.i(TAG, "onIntent...");
 
-        if (TextUtils.isEmpty(Cache.getAccount())) {  // 查看缓存是否有账户数据
+        if (TextUtils.isEmpty(Cache.getAccount())) {
             // 并没有账户数据，继续判断当前app是否正在运行
             if (!SysInfoUtil.stackResumed(this)) {
+                // 拉起微信登录
                 Intent intent = new Intent(this, WXEntryActivity.class);
                 startActivity(intent);
             }
@@ -86,14 +135,14 @@ public class WelcomeActivity extends AppCompatActivity  {
         } else {
             // 已经登录过了，处理过来的请求
             Intent intent = getIntent();
-            /*if (intent != null) {
+            if (intent != null) {
                 if (intent.hasExtra(NimIntent.EXTRA_NOTIFY_CONTENT)) {
                     parseNotifyIntent(intent);
                     return;
-                } else if (intent.hasExtra(Extras.EXTRA_JUMP_P2P) || intent.hasExtra(AVChatActivity.INTENT_ACTION_AVCHAT)) {
+                } else if (intent.hasExtra(Extras.EXTRA_JUMP_P2P) /*|| intent.hasExtra(AVChatActivity.INTENT_ACTION_AVCHAT)*/) {
                     parseNormalIntent(intent);
                 }
-            }*/
+            }
 
             if (!firstEnter && intent == null) {
                 finish();
@@ -104,17 +153,18 @@ public class WelcomeActivity extends AppCompatActivity  {
     }
 
     /**
-     * 已经登陆过，自动登陆
+     * 已经登陆过，自动登陆，网易这里的登录只需要用户名和token，别的不需要
      */
     private boolean canAutoLogin() {
-        //String account = Preferences.getUserAccount();  // 获取缓存中的账户
-        // String token = Preferences.getUserToken();  // 获取缓存中的口令，但不一定存在
+        String account = Preferences.getUserAccount();  // 获取缓存中的账户
+        String token = Preferences.getNeteaseToken();  // 获取缓存中的口令，但不一定存在
 
-        //Log.i(TAG, "get local sdk token =" + token);
+        Log.i(TAG, "get local sdk token =" + token);
         // 如果账户和口令都在缓存中存在，那么则可以实现自动登陆
-        return false;
-        // return !TextUtils.isEmpty(account) && !TextUtils.isEmpty(token);
+
+        return !TextUtils.isEmpty(account) && !TextUtils.isEmpty(token);
     }
+
 
     private void parseNotifyIntent(Intent intent) {
         ArrayList<IMMessage> messages = (ArrayList<IMMessage>) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
@@ -133,10 +183,9 @@ public class WelcomeActivity extends AppCompatActivity  {
      * 首次进入，打开欢迎界面
      */
     private void showSplashView() {
-        getWindow().setBackgroundDrawableResource(R.mipmap.welcome_bg);
+        getWindow().setBackgroundDrawableResource(R.drawable.login_bg);
         customSplash = true;
-        WXEntryActivity.start(this);
-        finish();
+
     }
 
     private void showMainActivity() {
@@ -144,9 +193,8 @@ public class WelcomeActivity extends AppCompatActivity  {
     }
 
     private void showMainActivity(Intent intent) {
-        // MainActivity.start(WelcomeActivity.this, intent);
+        MainActivity.start(WelcomeActivity.this, intent); // 跳转到主界面
         finish();
     }
-
 
 }
