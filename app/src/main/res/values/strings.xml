@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">91fan</string>
+    <string name="app_name">91Fan</string>
     <string name="errcode_success">用户同意</string>
     <string name="errcode_cancel">用户取消</string>
     <string name="ERR_AUTH_DENIED">用户拒绝授权</string>

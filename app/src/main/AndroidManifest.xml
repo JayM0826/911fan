@@ -58,7 +58,8 @@
             android:name="com.netease.nim.appKey"
             android:value="44e48bb1800a8ad7e3c44d8a424d4b59" />
 
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".WelcomeActivity"
+            android:theme="@style/WelcomeandWx">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -111,7 +112,8 @@
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:theme="@style/WelcomeandWx"/>
         <activity android:name=".main.MainActivity">
 
         </activity>

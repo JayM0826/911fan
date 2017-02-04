@@ -1,5 +1,6 @@
 package com.imfan.j.a91fan.main;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,14 +8,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.WelcomeActivity;
 import com.imfan.j.a91fan.uiabout.ChangeColorIconWithText;
 import com.imfan.j.a91fan.uiabout.TabCustomeFragment;
+import com.netease.nim.uikit.permission.MPermission;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -58,7 +65,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
          setOverflowButtonAlways();
-        //  getActionBar().setDisplayShowHomeEnabled(false);
+         getActionBar().setDisplayShowHomeEnabled(false);
 
         initView();
         initDatas();
@@ -69,6 +76,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     }
+
 
     /**
      * 初始化所有事件
@@ -215,6 +223,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         {
             mTabIndicators.get(i).setIconAlpha(0);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     /**
