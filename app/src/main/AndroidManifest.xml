@@ -110,7 +110,8 @@
 
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true"/>
         <activity android:name=".main.MainActivity">
 
         </activity>

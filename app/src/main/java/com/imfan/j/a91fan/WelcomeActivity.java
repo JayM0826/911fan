@@ -1,29 +1,21 @@
 package com.imfan.j.a91fan;
 
-import android.*;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.main.MainActivity;
 import com.imfan.j.a91fan.util.Cache;
-import com.imfan.j.a91fan.util.CustomeActivityManager;
 import com.imfan.j.a91fan.util.Extras;
 import com.imfan.j.a91fan.util.LogUtil;
 import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.util.SysInfoUtil;
 import com.imfan.j.a91fan.wxapi.WXEntryActivity;
-import com.netease.nim.uikit.common.activity.UI;
-import com.netease.nim.uikit.permission.MPermission;
-import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
-import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
@@ -48,6 +40,7 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // 无状态栏，actionbar，且全屏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -70,15 +63,14 @@ public class WelcomeActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        CustomeActivityManager.getCustomeActivityManager().pushActivity(this);
+
     }
 
     // 生命周期第三步
     @Override
     protected void onResume() {  // 熟记Android生命周期的重要性
         super.onResume();
-        CustomeActivityManager.getCustomeActivityManager().popActivity(this);
-        requestBasicPermission();
+
         if (firstEnter) {  // 第一次进入
             firstEnter = false;
             Runnable runnable = new Runnable() {
@@ -87,45 +79,21 @@ public class WelcomeActivity extends Activity {
                     if (canAutoLogin()) {
                         onIntent();
                     } else {
+                        WXEntryActivity.start(WelcomeActivity.this); // 启动登录程序
 
+                        finish(); // 结束欢迎页activity
                     }
                 }
             };
             if (customSplash) { // 启动欢迎页，1秒退出
-                new Handler().postDelayed(runnable, 500);
+                new Handler().postDelayed(runnable, 1000);
             } else {
                 runnable.run();
             }
         }
+
     }
 
-    private void requestBasicPermission() {
-        MPermission.with(WelcomeActivity.this)
-                .addRequestCode(BASIC_PERMISSION_REQUEST_CODE)
-                .permissions(
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-                .request();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        MPermission.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-    }
-
-    @OnMPermissionGranted(BASIC_PERMISSION_REQUEST_CODE)
-    public void onBasicPermissionSuccess() {
-        WXEntryActivity.start(WelcomeActivity.this); // 启动登录程序
-
-        Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
-        finish(); // 结束欢迎页activity
-    }
-
-    @OnMPermissionDenied(BASIC_PERMISSION_REQUEST_CODE)
-    public void onBasicPermissionFailed() {
-        Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -161,11 +129,11 @@ public class WelcomeActivity extends Activity {
         if (TextUtils.isEmpty(Cache.getAccount())) {
             // 并没有账户数据，继续判断当前app是否正在运行
             if (!SysInfoUtil.stackResumed(this)) {
-                // 拉起微信登录
                 Intent intent = new Intent(this, WXEntryActivity.class);
                 startActivity(intent);
+                finish();
             }
-            finish();
+
         } else {
             // 已经登录过了，处理过来的请求
             Intent intent = getIntent();

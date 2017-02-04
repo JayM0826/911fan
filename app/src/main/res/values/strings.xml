@@ -20,4 +20,16 @@
     <string name="tools_selected">选择工具</string>
     <string name="friends_map_navigation_web">在网页中打开</string>
     <string name="location_open_map_error">打开地图出错</string>
+
+    <!--tab text -->
+    <string name="action_search">查找</string>
+    <string name="action_add">添加</string>
+    <string name="menu_group_chat">发起群聊</string>
+    <string name="menu_feedback">意见反馈</string>
+    <string name="menu_addfriend">添加朋友</string>
+    <string name="menu_scan">扫一扫</string>
+    <string name="tab_contact">消息</string>
+    <string name="tab_found">动态墙</string>
+    <string name="tab_me">我</string>
+    <string name="tab_hobby">聊天大厅</string>
 </resources>

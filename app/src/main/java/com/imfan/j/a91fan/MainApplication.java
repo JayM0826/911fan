@@ -47,6 +47,20 @@ public class MainApplication extends Application {
         }
     };
 
+    public static LoginInfo getLoginInfo() {
+        String account = Preferences.getUserAccount();
+        String token = Preferences.getNeteaseToken();
+
+        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
+            Cache.setAccount(account.toLowerCase());
+            return new LoginInfo(account, token);
+        } else {
+
+            Log.i(TAG, "没有本地用户");
+            return null;
+        }
+    }
+
     private void regToWx() {
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
@@ -99,21 +113,7 @@ public class MainApplication extends Application {
         return packageName.equals(processName);
     }
 
-    private LoginInfo getLoginInfo() {
-        String account = Preferences.getUserAccount();
-        String token = Preferences.getNeteaseToken();
-
-        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
-            Cache.setAccount(account.toLowerCase());
-            return new LoginInfo(account, token);
-        } else {
-
-            Log.i(TAG, "没有本地用户");
-            return null;
-        }
-    }
-
-    private SDKOptions getOptions() {
+    public SDKOptions getOptions() {
         SDKOptions options = new SDKOptions();
 
         // 如果将新消息通知提醒托管给SDK完成，需要添加以下配置。

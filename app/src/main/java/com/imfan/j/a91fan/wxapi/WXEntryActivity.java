@@ -1,5 +1,6 @@
 package com.imfan.j.a91fan.wxapi;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,9 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.imfan.j.a91fan.MainApplication;
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.WelcomeActivity;
 import com.imfan.j.a91fan.main.MainActivity;
 import com.imfan.j.a91fan.netease.CheckSumBuilder;
 import com.imfan.j.a91fan.netease.NeteaseClient;
@@ -22,7 +25,11 @@ import com.loopj.android.http.RequestParams;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.sys.NetworkUtil;
+import com.netease.nim.uikit.permission.MPermission;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
 import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
@@ -62,8 +69,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     static String checkSum = null;
     // 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
     private static String code, lang, country;
+    private final int BASIC_PERMISSION_REQUEST_CODE = 110;
     private ImageButton imageButton;
-
     private String accessTokenUrl;
     private String access_token;
     private int expires_in;
@@ -71,8 +78,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private String openid;
     private String scope;
     private String nickname;
-
-
     // 第三步获取用户个人信息（UnionID机制）
     /*接口说明
     此接口用于获取用户个人信息。开发者可通过OpenID来获取用户基本信息。
@@ -111,10 +116,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     public static void start(Context context, boolean kickOut) {
         Intent intent = new Intent(context, WXEntryActivity.class);
         // 这个Flags的功能详见Keep中的链接
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("KICK_OUT", kickOut);  // kickout 账号在其他设备登陆
         context.startActivity(intent); // 起动微信登陆界面
     }
+
+
+
 
 
     // 刷新或续期access_token
@@ -215,18 +223,18 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onStart() {
                 // called before request is started
-                Log.i("Register", "开始注册");
+                Log.i("Register：", "开始注册");
 
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
                 // called when response HTTP status is "200 OK"
-                Log.i("Register", "通信成功" + statusCode);
+                Log.i("Register：", "通信成功" + statusCode);
                 try {
                     // 这里重复注册同一个id会使得code变为414
                     int code = object.getInt("code");
-                    Log.i("Register", "Json" + code);
+                    Log.i("注册返回JSON：", "Json" + code);
                     if (code == 414) { // 说明我们只需要去更新我们的token就可以了
                         refreshNeteaseToken();
                     } else {
@@ -235,16 +243,17 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                         String token = jsonObject.getString("token");
                         Preferences.setToken(token);
-                        Log.i("TOKEN", token);
+                        Log.i("注册页网易口令：", token);
 
                         String accid = jsonObject.getString("accid");
 
                         Preferences.setWxUnionid(accid);
+
                         String name = jsonObject.getString("name");
                         Preferences.setWxNickname(name);
 
-                        Log.i("accid", accid);
-                        Log.i("name", name);
+                        Log.i("微信注册页账户:", accid);
+                        Log.i("微信注册页昵称:", name);
                     }
 
 
@@ -276,6 +285,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); // 去掉状态栏
         setContentView(R.layout.activity_wxentry);
+
+        requestBasicPermission();
 
         //注册微信API
         api = WXAPIFactory.createWXAPI(this, WX_APP_ID);
@@ -335,10 +346,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     scope = response.getString("scope");
                     Preferences.setWxScope(scope);
 
-                    while (access_token.equals(null)) {
-                        // 空语句，只要没有获取到access_token就等待
-                        Log.e(TAG, "正在获取微信的access_token中");
-                    }
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
@@ -360,7 +367,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.i(TAG, "获取token失败");
-                Toast.makeText(WXEntryActivity.this, "invalid code", Toast.LENGTH_LONG).show();
+                Toast.makeText(WXEntryActivity.this, "invalid code", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -370,12 +377,14 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         // 云信只提供消息通道，并不包含用户资料逻辑。
         // 开发者需要在管理后台或通过服务器接口将用户帐号和token同步到云信服务器。
         // 在这里直接使用同步到云信服务器的帐号和token登录。
+        Log.i("账户Account:", Preferences.getUserAccount());
+        Log.i("密码Password", Preferences.getNeteaseToken());
 
         // 登录
         loginRequest = NimUIKit.doLogin(new LoginInfo(Preferences.getUserAccount(), Preferences.getNeteaseToken()), new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {
-                LogUtil.i(TAG, "login success");
+                LogUtil.i(TAG, "login success登录成功");
                 Toast.makeText(WXEntryActivity.this, "登录非常成功", Toast.LENGTH_SHORT).show();
                 loginRequest = null;
                 // 初始化消息提醒配置
@@ -391,9 +400,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 if (code == 302 || code == 404) {
                     Log.e(TAG + "账号与密码：", Preferences.getUserAccount() + "    " + Preferences.getNeteaseToken());
 
-                    Toast.makeText(WXEntryActivity.this, "账号或密码错误" + code, Toast.LENGTH_SHORT).show();
-                    MainActivity.start(WXEntryActivity.this, null);
-                    finish();
+
                 } else {
                     Toast.makeText(WXEntryActivity.this, "登录失败: " + code, Toast.LENGTH_SHORT).show();
                 }
@@ -401,7 +408,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
             @Override
             public void onException(Throwable exception) {
-                Toast.makeText(WXEntryActivity.this, "无效输入", Toast.LENGTH_LONG).show();
+                Toast.makeText(WXEntryActivity.this, "无效输入", Toast.LENGTH_SHORT).show();
                 loginRequest = null;
             }
         });
@@ -437,11 +444,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                     unionid = response.getString("unionid");
                     Preferences.setWxUnionid(unionid);
-                    Log.i("UNIONID", unionid);
-                    Log.i("UNIONID+1", Preferences.getUserAccount());
 
                     Toast.makeText(WXEntryActivity.this, "获取个人信息成功" + nickname, Toast.LENGTH_SHORT).show();
-                    // CustomeActivityManager.getCustomeActivityManager().popAllActivity();
 
                     doNetEaseRegister();
                     Runnable runnable = new Runnable() {
@@ -452,7 +456,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     };
                     new Handler().postDelayed(runnable, 500);
 
-                    finish();
 
 
                 } catch (JSONException e) {
@@ -463,7 +466,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_LONG).show();
+                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -496,6 +499,12 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        // NIMClient.init(this, MainApplication.getLoginInfo(), null);
+    }
+
+    @Override
     public void onResp(BaseResp resp) {
         int result = 0;
         switch (resp.errCode) {
@@ -503,6 +512,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 SendAuth.Resp newResp = (SendAuth.Resp) resp;
                 result = R.string.errcode_success;
                 Log.i(TAG, "返回码确认");
+                // imageButton.setVisibility(View.GONE);
                 code = newResp.code;
                 Preferences.setWxCode(code);
                 accessTokenUrl = accessTokenUrl1 + code + accessTokenUrl2;
@@ -511,11 +521,17 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 country = newResp.country;
                 Preferences.setWxCountry(country);
                 //  getCodeIsOK = true;  // 正确得到code，为下一步做好判别工作，只有这一步成功才可以进行下一步
-                while (code.equals(null)) {
-                    // 空语句，只要没有获取到access_token就等待
-                    Log.e(TAG, "正在努力的获取微信的code中...");
-                }
-                getAccessToken(); // 获取微信token
+
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        getAccessToken(); // 获取微信token
+                    }
+                };
+
+                new Handler().postDelayed(runnable, 500);
+
+
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:  // 用户取消
                 result = R.string.errcode_cancel;
@@ -530,7 +546,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         }
 
 
-        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
     }
 
     private void refresh_token() {
@@ -565,7 +581,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_LONG).show();
+                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_SHORT).show();
                     Log.i(TAG, "刷新token失败，错误码：" + errorResponse.getString("errcode"));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -583,7 +599,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 // "errcode":0,"errmsg":"ok"
                 try {
                     access_tokenIsOK = true;
-                    Toast.makeText(WXEntryActivity.this, response.getString("errmsg"), Toast.LENGTH_LONG).show();
+                    Toast.makeText(WXEntryActivity.this, response.getString("errmsg"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -592,7 +608,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_LONG).show();
+                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -600,6 +616,44 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             }
         });
     }
+
+
+    /**
+     * 基本权限管理
+     */
+    private void requestBasicPermission() {
+        MPermission.with(WXEntryActivity.this)
+                .addRequestCode(BASIC_PERMISSION_REQUEST_CODE)
+                .permissions(
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.CAMERA,
+                        android.Manifest.permission.READ_PHONE_STATE,
+                        android.Manifest.permission.RECORD_AUDIO,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                )
+                .request();
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        MPermission.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    @OnMPermissionGranted(BASIC_PERMISSION_REQUEST_CODE)
+    public void onBasicPermissionSuccess(){
+        Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @OnMPermissionDenied(BASIC_PERMISSION_REQUEST_CODE)
+    public void onBasicPermissionFailed(){
+        Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+    }
+
 
 }
 
