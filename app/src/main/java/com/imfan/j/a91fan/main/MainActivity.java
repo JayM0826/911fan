@@ -2,12 +2,11 @@ package com.imfan.j.a91fan.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.util.CustomeActivityManager;
 import com.imfan.j.a91fan.util.Preferences;
 
 public class MainActivity extends AppCompatActivity {

@@ -15,8 +15,8 @@ public class Constant {
     public static final String refresh_tokenUrl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + WX_APP_ID + "&grant_type=refresh_token&refresh_token=";
 
     // 网易的相关数据
-    public static final String NetEaseAPP_KEY = "0952b3dee7c044f9837a395f25f0d671";
-    public static final String NetEaseAPP_SECRET = "c15a0d350d0c";
+    public static final String NetEaseAPP_KEY = "44e48bb1800a8ad7e3c44d8a424d4b59";
+    public static final String NetEaseAPP_SECRET = "2db8e34c71c5";
 
 }
 

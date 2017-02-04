@@ -1,5 +1,6 @@
 package com.imfan.j.a91fan;
 
+import android.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.imfan.j.a91fan.main.MainActivity;
 import com.imfan.j.a91fan.util.Cache;
@@ -19,6 +21,9 @@ import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.util.SysInfoUtil;
 import com.imfan.j.a91fan.wxapi.WXEntryActivity;
 import com.netease.nim.uikit.common.activity.UI;
+import com.netease.nim.uikit.permission.MPermission;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
+import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
@@ -32,6 +37,10 @@ public class WelcomeActivity extends Activity {
 
     private static final String TAG = "WelcomeActivity";
     private static boolean firstEnter = true; // 是否首次进入
+    /**
+     * 基本权限管理
+     */
+    private final int BASIC_PERMISSION_REQUEST_CODE = 110;
     private boolean customSplash = false;
 
     // 生命周期第一步
@@ -64,14 +73,12 @@ public class WelcomeActivity extends Activity {
         CustomeActivityManager.getCustomeActivityManager().pushActivity(this);
     }
 
-
-
-
     // 生命周期第三步
     @Override
     protected void onResume() {  // 熟记Android生命周期的重要性
         super.onResume();
         CustomeActivityManager.getCustomeActivityManager().popActivity(this);
+        requestBasicPermission();
         if (firstEnter) {  // 第一次进入
             firstEnter = false;
             Runnable runnable = new Runnable() {
@@ -80,8 +87,7 @@ public class WelcomeActivity extends Activity {
                     if (canAutoLogin()) {
                         onIntent();
                     } else {
-                        WXEntryActivity.start(WelcomeActivity.this); // 启动登录程序
-                        finish(); // 结束欢迎页activity
+
                     }
                 }
             };
@@ -91,6 +97,34 @@ public class WelcomeActivity extends Activity {
                 runnable.run();
             }
         }
+    }
+
+    private void requestBasicPermission() {
+        MPermission.with(WelcomeActivity.this)
+                .addRequestCode(BASIC_PERMISSION_REQUEST_CODE)
+                .permissions(
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                .request();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        MPermission.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    @OnMPermissionGranted(BASIC_PERMISSION_REQUEST_CODE)
+    public void onBasicPermissionSuccess() {
+        WXEntryActivity.start(WelcomeActivity.this); // 启动登录程序
+
+        Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+        finish(); // 结束欢迎页activity
+    }
+
+    @OnMPermissionDenied(BASIC_PERMISSION_REQUEST_CODE)
+    public void onBasicPermissionFailed() {
+        Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -196,5 +230,6 @@ public class WelcomeActivity extends Activity {
         MainActivity.start(WelcomeActivity.this, intent); // 跳转到主界面
         finish();
     }
+
 
 }

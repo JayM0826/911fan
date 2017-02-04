@@ -11,9 +11,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.WelcomeActivity;
 import com.imfan.j.a91fan.main.MainActivity;
 import com.imfan.j.a91fan.netease.CheckSumBuilder;
 import com.imfan.j.a91fan.netease.NeteaseClient;
@@ -21,7 +19,12 @@ import com.imfan.j.a91fan.util.Preferences;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.netease.nim.uikit.NimUIKit;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.sys.NetworkUtil;
+import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -38,7 +41,6 @@ import java.util.Date;
 import cz.msebera.android.httpclient.Header;
 
 import static com.imfan.j.a91fan.MainApplication.api;
-
 import static com.imfan.j.a91fan.util.Constant.NetEaseAPP_KEY;
 import static com.imfan.j.a91fan.util.Constant.NetEaseAPP_SECRET;
 import static com.imfan.j.a91fan.util.Constant.WX_APP_ID;
@@ -89,6 +91,17 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private String unionid;
     // 检验授权凭证（access_token）是否有效
     private boolean access_tokenIsOK;
+    // 第三步获取用户个人信息（UnionID机制）
+    /*接口说明
+    此接口用于获取用户个人信息。开发者可通过OpenID来获取用户基本信息。
+    特别需要注意的是，如果开发者拥有多个移动应用、网站应用和公众帐号，
+    可通过获取用户基本信息中的unionid来区分用户的唯一性，因为只要是
+    同一个微信开放平台帐号下的移动应用、网站应用和公众帐号，用户的
+    unionid是唯一的。换句话说，同一用户，对同一个微信开放平台下的
+    不同应用，unionid是相同的。请注意，在用户修改微信头像后，旧的微
+    信头像URL将会失效，因此开发者应该自己在获取用户信息后，将头像图片
+    保存下来，避免微信头像URL失效后的异常情况。*/
+    private AbortableFuture<LoginInfo> loginRequest;
 
     // 这两个start函数是启动这个activity的函数
     public static void start(Context context) {
@@ -103,16 +116,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         context.startActivity(intent); // 起动微信登陆界面
     }
 
-    private static void addHeaders() {
-        NeteaseClient.client.removeAllHeaders();
-        NeteaseClient.client.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-        NeteaseClient.client.addHeader("AppKey", NetEaseAPP_KEY);
-        NeteaseClient.client.addHeader("Nonce", nonce);
-        NeteaseClient.client.addHeader("CurTime", curTime);
-        NeteaseClient.client.addHeader("CheckSum", checkSum);
-    }
-
-
 
     // 刷新或续期access_token
     //接口说明
@@ -122,17 +125,26 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权，所以，请开发者在refresh_token即将过期时（如第29天时），进行定时的自动刷新并保存好它。
 }*/
 
+    public static void addHeaders() {
+        NeteaseClient.client.removeAllHeaders();
+        NeteaseClient.client.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        NeteaseClient.client.addHeader("AppKey", NetEaseAPP_KEY);
+        NeteaseClient.client.addHeader("Nonce", nonce);
+        NeteaseClient.client.addHeader("CurTime", curTime);
+        NeteaseClient.client.addHeader("CheckSum", checkSum);
+    }
+
     /**
      * 刷新网易的token
      */
-    static void refreshNeteaseToken() {
+    static public void refreshNeteaseToken() {
         curTime = String.valueOf((new Date()).getTime() / 1000L);
         checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
 
 
         RequestParams params = new RequestParams();
         Log.i("ACCID:", Preferences.getUserAccount());
-        params.add("accid", Preferences.getUserAccount());
+        params.add("accid", Preferences.getUserAccount().toLowerCase());
         Log.i("ACCID:", Preferences.getUserAccount());
         addHeaders();
 
@@ -193,7 +205,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
 
         RequestParams params = new RequestParams();
-        params.add("accid", Preferences.getUserAccount());
+        params.add("accid", Preferences.getUserAccount().toLowerCase());
         params.add("name", Preferences.getWxNickname());
         // params.add("token", "1"); 由网易自动生成
         addHeaders();
@@ -227,8 +239,9 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                         String accid = jsonObject.getString("accid");
 
-
+                        Preferences.setWxUnionid(accid);
                         String name = jsonObject.getString("name");
+                        Preferences.setWxNickname(name);
 
                         Log.i("accid", accid);
                         Log.i("name", name);
@@ -326,10 +339,18 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         // 空语句，只要没有获取到access_token就等待
                         Log.e(TAG, "正在获取微信的access_token中");
                     }
-                    Log.e(TAG, "获取微信的access_token成功");
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.e(TAG, "获取微信的access_token成功");
+                            getUserInfo();
+                        }
+                    };
+
+                    new Handler().postDelayed(runnable, 500);
 
                     // 下一步将获取用户个人信息（UnionID机制），这里由于是异步的，所以要注意只有access_token成功，才可以获取个人信息
-                    getUserInfo();
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -344,16 +365,48 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         });
     }
 
-    // 第三步获取用户个人信息（UnionID机制）
-    /*接口说明
-    此接口用于获取用户个人信息。开发者可通过OpenID来获取用户基本信息。
-    特别需要注意的是，如果开发者拥有多个移动应用、网站应用和公众帐号，
-    可通过获取用户基本信息中的unionid来区分用户的唯一性，因为只要是
-    同一个微信开放平台帐号下的移动应用、网站应用和公众帐号，用户的
-    unionid是唯一的。换句话说，同一用户，对同一个微信开放平台下的
-    不同应用，unionid是相同的。请注意，在用户修改微信头像后，旧的微
-    信头像URL将会失效，因此开发者应该自己在获取用户信息后，将头像图片
-    保存下来，避免微信头像URL失效后的异常情况。*/
+    private void login() {
+
+        // 云信只提供消息通道，并不包含用户资料逻辑。
+        // 开发者需要在管理后台或通过服务器接口将用户帐号和token同步到云信服务器。
+        // 在这里直接使用同步到云信服务器的帐号和token登录。
+
+        // 登录
+        loginRequest = NimUIKit.doLogin(new LoginInfo(Preferences.getUserAccount(), Preferences.getNeteaseToken()), new RequestCallback<LoginInfo>() {
+            @Override
+            public void onSuccess(LoginInfo param) {
+                LogUtil.i(TAG, "login success");
+                Toast.makeText(WXEntryActivity.this, "登录非常成功", Toast.LENGTH_SHORT).show();
+                loginRequest = null;
+                // 初始化消息提醒配置
+                // initNotificationConfig();
+                // 进入主界面
+                MainActivity.start(WXEntryActivity.this, null);
+                finish();
+            }
+
+            @Override
+            public void onFailed(int code) {
+                loginRequest = null;
+                if (code == 302 || code == 404) {
+                    Log.e(TAG + "账号与密码：", Preferences.getUserAccount() + "    " + Preferences.getNeteaseToken());
+
+                    Toast.makeText(WXEntryActivity.this, "账号或密码错误" + code, Toast.LENGTH_SHORT).show();
+                    MainActivity.start(WXEntryActivity.this, null);
+                    finish();
+                } else {
+                    Toast.makeText(WXEntryActivity.this, "登录失败: " + code, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                Toast.makeText(WXEntryActivity.this, "无效输入", Toast.LENGTH_LONG).show();
+                loginRequest = null;
+            }
+        });
+    }
+
     private void getUserInfo() {
 
 
@@ -394,10 +447,10 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            MainActivity.start(WXEntryActivity.this);
+                            login();
                         }
                     };
-                    new Handler().postDelayed(runnable, 1000);
+                    new Handler().postDelayed(runnable, 500);
 
                     finish();
 

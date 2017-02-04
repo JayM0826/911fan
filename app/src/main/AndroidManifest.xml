@@ -56,7 +56,7 @@
 
         <meta-data
             android:name="com.netease.nim.appKey"
-            android:value="738fe69544ba41ee870cf3f717bd1cb6" />
+            android:value="44e48bb1800a8ad7e3c44d8a424d4b59" />
 
         <activity android:name=".WelcomeActivity">
             <intent-filter>
@@ -111,9 +111,9 @@
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true" />
-        <activity android:name=".location.activity.LocationAmapActivity" />
-        <activity android:name=".location.activity.NavigationAmapActivity" />
-        <activity android:name=".main.MainActivity"></activity>
+        <activity android:name=".main.MainActivity">
+
+        </activity>
     </application>
 
 </manifest>

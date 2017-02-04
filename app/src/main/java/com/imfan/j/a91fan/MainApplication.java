@@ -33,7 +33,7 @@ import static com.imfan.j.a91fan.util.Constant.WX_APP_ID;
 
 public class MainApplication extends Application {
 
-   public static IWXAPI api;
+    public static IWXAPI api;
     private static String TAG = "MainApplication";
     private MessageNotifierCustomization messageNotifierCustomization = new MessageNotifierCustomization() {
         @Override
@@ -47,7 +47,7 @@ public class MainApplication extends Application {
         }
     };
 
-    private void regToWx(){
+    private void regToWx() {
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
         api.registerApp(WX_APP_ID);
@@ -61,7 +61,7 @@ public class MainApplication extends Application {
         Cache.setContext(this);  // 这里是实例化Cahce
         NIMClient.init(this, getLoginInfo(), getOptions());  // null是默认配置
         AppCrashHandler.getInstance(this);
-        if (inMainProcess()){
+        if (inMainProcess()) {
             initUIKit();
         }
     }
@@ -77,7 +77,7 @@ public class MainApplication extends Application {
         // SessionHelper.init();
 
         // 通讯录列表定制初始化
-       // ContactHelper.init();
+        // ContactHelper.init();
 
         // 添加自定义推送文案以及选项，请开发者在各端（Android、IOS、PC、Web）消息发送时保持一致，以免出现通知不一致的情况
         // NimUIKit.CustomPushContentProvider(new DemoPushContentProvider());
@@ -141,10 +141,10 @@ public class MainApplication extends Application {
         options.preloadAttach = true;
 
         // 配置附件缩略图的尺寸大小，
-         options.thumbnailSize = MsgViewHolderThumbBase.getImageMaxEdge();
+        options.thumbnailSize = MsgViewHolderThumbBase.getImageMaxEdge();
 
         // 用户信息提供者
-       options.userInfoProvider = new DefalutUserInfoProvider(this);
+        options.userInfoProvider = new DefalutUserInfoProvider(this);
 
         // 定制通知栏提醒文案（可选，如果不定制将采用SDK默认文案）
         options.messageNotifierCustomization = messageNotifierCustomization;
