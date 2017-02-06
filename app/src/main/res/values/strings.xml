@@ -31,5 +31,5 @@
     <string name="tab_contact">消息</string>
     <string name="tab_found">动态墙</string>
     <string name="tab_me">我</string>
-    <string name="tab_hobby">聊天大厅</string>
+    <string name="tab_lobby">聊天大厅</string>
 </resources>

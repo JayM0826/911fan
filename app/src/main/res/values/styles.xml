@@ -1,54 +1,39 @@
 <resources>
 
-    <!-- Base application theme.
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        &lt;!&ndash; Customize your theme here. &ndash;&gt;
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>-->
 
-        <!--
 
-                Base application theme, dependent on API level. This theme is replaced
-                by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-
-        -->
-        <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-            <!--
-
-                        Theme customizations available in newer API levels can go in
-                        res/values-vXX/styles.xml, while customizations related to
-                        backward-compatibility can go here.
-
-            -->
-            <item name="android:windowTranslucentStatus">true</item>
-            <item name="android:statusBarColor">#ff4000</item>
-            <item name="android:actionBarStyle">@style/MyActionBar</item>
-            <item name="android:actionOverflowButtonStyle">@style/weixinActionOverflowButtonStyle</item>
-        </style>
-
-    <!-- ActionBar 样式 -->
-    <style name="MyActionBar"
-        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@drawable/actionbar_bg</item>
-    </style>
-        <!--  Application theme.  -->
-        <style name="AppTheme" parent="AppBaseTheme">
-            <item name="colorPrimary">@color/colorPrimary</item>
-            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-            <item name="colorAccent">@color/colorAccent</item>
-        </style>
-    <style name="weixinActionOverflowButtonStyle">
-        <item name="android:src">@drawable/actionbar_add_icon</item>
-    </style>
-
-    <style name="WelcomeandWx" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:itemTextAppearance">?android:attr/actionMenuTextAppearance</item>
+        <item name="actionMenuTextAppearance">@style/ActionMenuTheme</item>
+    </style>
+
+    <!-- navigation style -->
+    <style name="myToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+    <!-- toolbar的弹出菜单 -->
+    <style name="ActionMenuTheme" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/color_black_333333</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">24sp</item>
+
+    </style>
 
 </resources>

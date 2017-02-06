@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.imfan.j.a91fan.main.MainActivity;
+import com.imfan.j.a91fan.main.activity.MainActivity;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.Extras;
 import com.imfan.j.a91fan.util.LogUtil;
