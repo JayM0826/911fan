@@ -161,6 +161,10 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
         };
     }
 
+    public boolean onBackPressed() {
+        return false;
+    }
+
     /**
      * 查找页面控件
      */

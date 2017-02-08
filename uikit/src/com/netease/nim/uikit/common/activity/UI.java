@@ -55,14 +55,17 @@ public abstract class UI extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onPause() {
+        super.onPause();
+        CustomActivityManager.getCustomActivityManager().pushActivity(this);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
+        CustomActivityManager.getCustomActivityManager().popActivity(this);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

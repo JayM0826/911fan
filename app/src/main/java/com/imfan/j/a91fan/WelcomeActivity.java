@@ -5,17 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.imfan.j.a91fan.main.activity.MainActivity;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.Extras;
-import com.imfan.j.a91fan.util.LogUtil;
 import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.util.SysInfoUtil;
 import com.imfan.j.a91fan.wxapi.WXEntryActivity;
+
+import com.netease.nim.uikit.common.activity.UI;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 /**
  * 欢迎界面，进入欢迎界面才能进入名副其实的MainActivity
  */
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends UI {
 
     private static final String TAG = "WelcomeActivity";
     private static boolean firstEnter = true; // 是否首次进入
@@ -40,11 +41,6 @@ public class WelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        // 无状态栏，actionbar，且全屏
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_welcome);
 
@@ -161,7 +157,7 @@ public class WelcomeActivity extends Activity {
         String account = Preferences.getUserAccount();  // 获取缓存中的账户
         String token = Preferences.getNeteaseToken();  // 获取缓存中的口令，但不一定存在
 
-        Log.i(TAG, "get local sdk token =" + token);
+        LogUtil.i(TAG, "get local sdk token =" + token);
         // 如果账户和口令都在缓存中存在，那么则可以实现自动登陆
 
         return !TextUtils.isEmpty(account) && !TextUtils.isEmpty(token);

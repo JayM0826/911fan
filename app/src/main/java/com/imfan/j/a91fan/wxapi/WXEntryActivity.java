@@ -13,21 +13,28 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.config.UserPreferences;
+import com.imfan.j.a91fan.loginabout.LoginNetease;
 import com.imfan.j.a91fan.main.activity.MainActivity;
 import com.imfan.j.a91fan.netease.CheckSumBuilder;
 import com.imfan.j.a91fan.netease.NeteaseClient;
+import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.Preferences;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.netease.nim.uikit.NimUIKit;
+
+import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.sys.NetworkUtil;
 import com.netease.nim.uikit.permission.MPermission;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
 import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
@@ -57,13 +64,11 @@ import static com.imfan.j.a91fan.util.Constant.refresh_tokenUrl;
  */
 
 
-public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+public class WXEntryActivity extends UI implements IWXAPIEventHandler {
 
 
     private static final String TAG = "WXEntryActivity";
-    static String nonce = "123456";
-    static String curTime = null;
-    static String checkSum = null;
+
     // 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法
     private static String code, lang, country;
     private final int BASIC_PERMISSION_REQUEST_CODE = 110;
@@ -75,35 +80,14 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private String openid;
     private String scope;
     private String nickname;
-    // 第三步获取用户个人信息（UnionID机制）
-    /*接口说明
-    此接口用于获取用户个人信息。开发者可通过OpenID来获取用户基本信息。
-    特别需要注意的是，如果开发者拥有多个移动应用、网站应用和公众帐号，
-    可通过获取用户基本信息中的unionid来区分用户的唯一性，因为只要是
-    同一个微信开放平台帐号下的移动应用、网站应用和公众帐号，用户的
-    unionid是唯一的。换句话说，同一用户，对同一个微信开放平台下的
-    不同应用，unionid是相同的。请注意，在用户修改微信头像后，旧的微
-    信头像URL将会失效，因此开发者应该自己在获取用户信息后，将头像图片
-    保存下来，避免微信头像URL失效后的异常情况。*/
+
+
     private int sex; // 普通用户性别，1为男性，2为女性
     private String province;
     private String city;
     private String headimgurl;
     private JSONArray privilege; //用户特权信息，json数组，如微信沃卡用户为（chinaunicom,暂不保存
     private String unionid;
-    // 检验授权凭证（access_token）是否有效
-    private boolean access_tokenIsOK;
-    // 第三步获取用户个人信息（UnionID机制）
-    /*接口说明
-    此接口用于获取用户个人信息。开发者可通过OpenID来获取用户基本信息。
-    特别需要注意的是，如果开发者拥有多个移动应用、网站应用和公众帐号，
-    可通过获取用户基本信息中的unionid来区分用户的唯一性，因为只要是
-    同一个微信开放平台帐号下的移动应用、网站应用和公众帐号，用户的
-    unionid是唯一的。换句话说，同一用户，对同一个微信开放平台下的
-    不同应用，unionid是相同的。请注意，在用户修改微信头像后，旧的微
-    信头像URL将会失效，因此开发者应该自己在获取用户信息后，将头像图片
-    保存下来，避免微信头像URL失效后的异常情况。*/
-    private AbortableFuture<LoginInfo> loginRequest;
 
     // 这两个start函数是启动这个activity的函数
     public static void start(Context context) {
@@ -118,162 +102,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
         context.startActivity(intent); // 起动微信登陆界面
     }
 
-
-
-
-
-    // 刷新或续期access_token
-    //接口说明
-    /*access_token是调用授权关系接口的调用凭证，由于access_token有效期（目前为2个小时）较短，当access_token超时后，可以使用refresh_token进行刷新，access_token刷新结果有两种：
-            1.若access_token已超时，那么进行refresh_token会获取一个新的access_token，新的超时时间；
-            2.若access_token未超时，那么进行refresh_token不会改变access_token，但超时时间会刷新，相当于续期access_token。
-    refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权，所以，请开发者在refresh_token即将过期时（如第29天时），进行定时的自动刷新并保存好它。
-}*/
-
-    public static void addHeaders() {
-        NeteaseClient.client.removeAllHeaders();
-        NeteaseClient.client.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-        NeteaseClient.client.addHeader("AppKey", NetEaseAPP_KEY);
-        NeteaseClient.client.addHeader("Nonce", nonce);
-        NeteaseClient.client.addHeader("CurTime", curTime);
-        NeteaseClient.client.addHeader("CheckSum", checkSum);
-    }
-
-    /**
-     * 刷新网易的token
-     */
-    static public void refreshNeteaseToken() {
-        curTime = String.valueOf((new Date()).getTime() / 1000L);
-        checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
-
-
-        RequestParams params = new RequestParams();
-        Log.i("ACCID:", Preferences.getUserAccount());
-        params.add("accid", Preferences.getUserAccount().toLowerCase());
-        Log.i("ACCID:", Preferences.getUserAccount());
-        addHeaders();
-
-        NeteaseClient.post("refreshToken.action", params, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onStart() {
-                // called before request is started
-                Log.i("refreshNeteaseToken()", "开始刷新网易token");
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
-                // called when response HTTP status is "200 OK"
-                Log.i("refreshNeteaseToken()", "通信成功" + statusCode);
-                try {
-
-                    int code = object.getInt("code");
-                    Log.i("refreshNeteaseToken()", "Json:" + code);
-
-                    // 解析json数据
-                    JSONObject jsonObject = object.getJSONObject("info");
-
-                    String token = jsonObject.getString("token");
-                    Preferences.setToken(token);
-                    Log.i("refreshNeteaseToken()", "新的Token:" + token);
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Log.i("Register", "通信失败");
-            }
-
-
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
-            }
-        });
-
-    }
-
-    /**
-     * 注册网易
-     */
-    static public void doNetEaseRegister() {
-
-
-        curTime = String.valueOf((new Date()).getTime() / 1000L);
-        checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
-
-        RequestParams params = new RequestParams();
-        params.add("accid", Preferences.getUserAccount().toLowerCase());
-        params.add("name", Preferences.getWxNickname());
-        // params.add("token", "1"); 由网易自动生成
-        addHeaders();
-
-        NeteaseClient.post("create.action", params, new JsonHttpResponseHandler() {
-
-            @Override
-            public void onStart() {
-                // called before request is started
-                Log.i("Register：", "开始注册");
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
-                // called when response HTTP status is "200 OK"
-                Log.i("Register：", "通信成功" + statusCode);
-                try {
-                    // 这里重复注册同一个id会使得code变为414
-                    int code = object.getInt("code");
-                    Log.i("注册返回JSON：", "Json" + code);
-                    if (code == 414) { // 说明我们只需要去更新我们的token就可以了
-                        refreshNeteaseToken();
-                    } else {
-                        // 解析json数据
-                        JSONObject jsonObject = object.getJSONObject("info");
-
-                        String token = jsonObject.getString("token");
-                        Preferences.setToken(token);
-                        Log.i("注册页网易口令：", token);
-
-                        String accid = jsonObject.getString("accid");
-
-                        Preferences.setWxUnionid(accid);
-
-                        String name = jsonObject.getString("name");
-                        Preferences.setWxNickname(name);
-
-                        Log.i("微信注册页账户:", accid);
-                        Log.i("微信注册页昵称:", name);
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Log.i("Register", "通信失败");
-            }
-
-
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
-            }
-        });
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -338,7 +166,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                     openid = response.getString("openid");
                     Preferences.setWxOpenid(openid);
-                    Log.e(TAG, "获取access_token中的OpenID:" + openid);
+                    LogUtil.e(TAG, "获取access_token中的OpenID:" + openid);
 
                     scope = response.getString("scope");
                     Preferences.setWxScope(scope);
@@ -346,7 +174,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            Log.e(TAG, "获取微信的access_token成功");
+                            LogUtil.e(TAG, "获取微信的access_token成功");
                             getUserInfo();
                         }
                     };
@@ -363,57 +191,28 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.i(TAG, "获取token失败");
+                LogUtil.e(TAG, "获取token失败");
                 Toast.makeText(WXEntryActivity.this, "invalid code", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void login() {
-
-        // 云信只提供消息通道，并不包含用户资料逻辑。
-        // 开发者需要在管理后台或通过服务器接口将用户帐号和token同步到云信服务器。
-        // 在这里直接使用同步到云信服务器的帐号和token登录。
-        Log.i("账户Account:", Preferences.getUserAccount());
-        Log.i("密码Password", Preferences.getNeteaseToken());
-
-        // 登录
-        loginRequest = NimUIKit.doLogin(new LoginInfo(Preferences.getUserAccount(), Preferences.getNeteaseToken()), new RequestCallback<LoginInfo>() {
-            @Override
-            public void onSuccess(LoginInfo param) {
-                LogUtil.i(TAG, "login success登录成功");
-                Toast.makeText(WXEntryActivity.this, "登录非常成功", Toast.LENGTH_SHORT).show();
-                loginRequest = null;
-                // 初始化消息提醒配置
-                // initNotificationConfig();
-                // 进入主界面
-                MainActivity.start(WXEntryActivity.this, null);
-                finish();
-            }
-
-            @Override
-            public void onFailed(int code) {
-                loginRequest = null;
-                if (code == 302 || code == 404) {
-                    Log.e(TAG + "账号与密码：", Preferences.getUserAccount() + "    " + Preferences.getNeteaseToken());
 
 
-                } else {
-                    Toast.makeText(WXEntryActivity.this, "登录失败: " + code, Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onException(Throwable exception) {
-                Toast.makeText(WXEntryActivity.this, "无效输入", Toast.LENGTH_SHORT).show();
-                loginRequest = null;
-            }
-        });
-    }
 
     private void getUserInfo() {
 
-
+   /* 第三步获取微信用户个人信息（UnionID机制）
+    接口说明
+    此接口用于获取用户个人信息。开发者可通过OpenID来获取用户基本信息。
+    特别需要注意的是，如果开发者拥有多个移动应用、网站应用和公众帐号，
+    可通过获取用户基本信息中的unionid来区分用户的唯一性，因为只要是
+    同一个微信开放平台帐号下的移动应用、网站应用和公众帐号，用户的
+    unionid是唯一的。换句话说，同一用户，对同一个微信开放平台下的
+    不同应用，unionid是相同的。请注意，在用户修改微信头像后，旧的微
+    信头像URL将会失效，因此开发者应该自己在获取用户信息后，将头像图片
+    保存下来，避免微信头像URL失效后的异常情况。*/
         String userInfoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=" + access_token + "&openid=" + openid;
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(userInfoUrl, new JsonHttpResponseHandler() {
@@ -444,11 +243,16 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                     Toast.makeText(WXEntryActivity.this, "获取个人信息成功" + nickname, Toast.LENGTH_SHORT).show();
 
-                    doNetEaseRegister();
+                    LoginNetease.registerNetease();
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            login();
+                            LoginNetease.login(WXEntryActivity.this);
+                            // 初始化消息提醒配置
+                            initNotificationConfig();
+                            // 进入主界面
+                            MainActivity.start(WXEntryActivity.this, null);
+                            finish();
                         }
                     };
                     new Handler().postDelayed(runnable, 500);
@@ -472,13 +276,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     }
 
-    // 刷新或续期access_token
-    //接口说明
-    /*access_token是调用授权关系接口的调用凭证，由于access_token有效期（目前为2个小时）较短，当access_token超时后，可以使用refresh_token进行刷新，access_token刷新结果有两种：
-            1.若access_token已超时，那么进行refresh_token会获取一个新的access_token，新的超时时间；
-            2.若access_token未超时，那么进行refresh_token不会改变access_token，但超时时间会刷新，相当于续期access_token。
-    refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权，所以，请开发者在refresh_token即将过期时（如第29天时），进行定时的自动刷新并保存好它。
-}*/
+
 
     // 微信发送请求到第三方应用时，会回调到该方法
     @Override
@@ -498,7 +296,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     protected void onResume() {
         super.onResume();
-        // NIMClient.init(this, MainApplication.getLoginInfo(), null);
     }
 
     @Override
@@ -508,7 +305,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             case BaseResp.ErrCode.ERR_OK:  // 用户同意
                 SendAuth.Resp newResp = (SendAuth.Resp) resp;
                 result = R.string.errcode_success;
-                Log.i(TAG, "返回码确认");
+                LogUtil.i(TAG, "返回码确认");
                 // imageButton.setVisibility(View.GONE);
                 code = newResp.code;
                 Preferences.setWxCode(code);
@@ -547,7 +344,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     }
 
     private void refresh_token() {
-
+        // 刷新或续期access_token
+        //接口说明
+   /* access_token是调用授权关系接口的调用凭证，由于access_token有效期（目前为2个小时）较短，当access_token超时后，可以使用refresh_token进行刷新，access_token刷新结果有两种：
+            1.若access_token已超时，那么进行refresh_token会获取一个新的access_token，新的超时时间；
+            2.若access_token未超时，那么进行refresh_token不会改变access_token，但超时时间会刷新，相当于续期access_token。
+    refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权，所以，请开发者在refresh_token即将过期时（如第29天时），进行定时的自动刷新并保存好它。
+    */
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(refresh_tokenUrl + refresh_token, new JsonHttpResponseHandler() {
 
@@ -564,7 +367,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     Preferences.setWxRefreshToken(refresh_token);
 
                     openid = response.getString("openid");
-                    Log.e(TAG, "刷新token后的OpenID：" + openid);
+                    LogUtil.e(TAG, "刷新token后的OpenID：" + openid);
                     Preferences.setWxOpenid(openid);
 
                     scope = response.getString("scope");
@@ -579,7 +382,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_SHORT).show();
-                    Log.i(TAG, "刷新token失败，错误码：" + errorResponse.getString("errcode"));
+                    LogUtil.i(TAG, "刷新token失败，错误码：" + errorResponse.getString("errcode"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -588,6 +391,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     }
 
     private void checkAccess_token() {
+        // 检验微信access_token的有效性
         String url = "https://api.weixin.qq.com/sns/auth?access_token=" + access_token + " &openid=" + openid;
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url, new JsonHttpResponseHandler() {
@@ -595,7 +399,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // "errcode":0,"errmsg":"ok"
                 try {
-                    access_tokenIsOK = true;
                     Toast.makeText(WXEntryActivity.this, response.getString("errmsg"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -652,6 +455,19 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     }
 
 
+    private void initNotificationConfig() {
+        // 初始化消息提醒
+        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+
+        // 加载状态栏配置
+        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
+        if (statusBarNotificationConfig == null) {
+            statusBarNotificationConfig = Cache.getNotificationConfig();
+            UserPreferences.setStatusConfig(statusBarNotificationConfig);
+        }
+        // 更新配置
+        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
+    }
 }
 
 

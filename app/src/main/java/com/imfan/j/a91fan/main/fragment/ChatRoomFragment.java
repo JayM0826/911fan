@@ -8,4 +8,5 @@ import com.netease.nim.uikit.common.fragment.TFragment;
  */
 
 public class ChatRoomFragment extends TFragment {
+
 }

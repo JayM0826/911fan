@@ -1,28 +1,46 @@
 package com.imfan.j.a91fan;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
+
 
 import com.imfan.j.a91fan.config.UserPreferences;
-import com.imfan.j.a91fan.session.NimDemoLocationProvider;
 import com.imfan.j.a91fan.util.Cache;
+
 import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.util.SystemUtil;
-import com.imfan.j.a91fan.util.crash.AppCrashHandler;
 import com.netease.nim.uikit.NimUIKit;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.custom.DefalutUserInfoProvider;
 import com.netease.nim.uikit.session.viewholder.MsgViewHolderThumbBase;
 import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.NimStrings;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
+import com.netease.nimlib.sdk.mixpush.NIMPushClient;
 import com.netease.nimlib.sdk.msg.MessageNotifierCustomization;
+import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
+import com.netease.nimlib.sdk.team.model.IMMessageFilter;
+import com.netease.nimlib.sdk.team.model.UpdateTeamAttachment;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import com.imfan.j.a91fan.util.crash.AppCrashHandler;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static com.imfan.j.a91fan.util.Constant.WX_APP_ID;
 
@@ -41,9 +59,18 @@ public class MainApplication extends Application {
             return null; // 采用SDK默认文案
         }
 
+
         @Override
         public String makeTicker(String nick, IMMessage message) {
             return null; // 采用SDK默认文案
+        }
+    };
+    private BroadcastReceiver localeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED)) {
+                updateLocale();
+            }
         }
     };
 
@@ -56,7 +83,7 @@ public class MainApplication extends Application {
             return new LoginInfo(account, token);
         } else {
 
-            Log.i(TAG, "没有本地用户");
+            LogUtil.i(TAG, "没有本地用户");
             return null;
         }
     }
@@ -65,7 +92,7 @@ public class MainApplication extends Application {
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
         api.registerApp(WX_APP_ID);
-        Log.d(TAG, "注册成功");
+        LogUtil.i(TAG, "注册成功");
     }
 
     @Override
@@ -73,11 +100,55 @@ public class MainApplication extends Application {
         super.onCreate();
         regToWx(); // 向微信注册
         Cache.setContext(this);  // 这里是实例化Cahce
+
+        // 注册小米推送appID 、appKey 以及在云信管理后台添加的小米推送证书名称，该逻辑放在 NIMClient init 之前
+        // NIMPushClient.registerMiPush(this, "DEMO_MI_PUSH", "2882303761517502883", "5671750254883");
+        // 注册自定义小米推送消息处理，这个是可选项
+        //NIMPushClient.registerMixPushMessageHandler(new DemoMixPushMessageHandler());
+
+
         NIMClient.init(this, getLoginInfo(), getOptions());  // null是默认配置
         AppCrashHandler.getInstance(this);
+
+
         if (inMainProcess()) {
             initUIKit();
+
+            // 注册通知消息过滤器
+            registerIMMessageFilter();
+
+            // 初始化消息提醒
+            NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+
+            // 注册语言变化监听
+            registerLocaleReceiver(true);
         }
+    }
+
+    private void registerLocaleReceiver(boolean register) {
+        if (register) {
+            updateLocale();
+            IntentFilter filter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+            registerReceiver(localeReceiver, filter);
+        } else {
+            unregisterReceiver(localeReceiver);
+        }
+    }
+
+    private void updateLocale() {
+        NimStrings strings = new NimStrings();
+        strings.status_bar_multi_messages_incoming = getString(R.string.nim_status_bar_multi_messages_incoming);
+        strings.status_bar_image_message = getString(R.string.nim_status_bar_image_message);
+        strings.status_bar_audio_message = getString(R.string.nim_status_bar_audio_message);
+        strings.status_bar_custom_message = getString(R.string.nim_status_bar_custom_message);
+        strings.status_bar_file_message = getString(R.string.nim_status_bar_file_message);
+        strings.status_bar_location_message = getString(R.string.nim_status_bar_location_message);
+        strings.status_bar_notification_message = getString(R.string.nim_status_bar_notification_message);
+        strings.status_bar_ticker_text = getString(R.string.nim_status_bar_ticker_text);
+        strings.status_bar_unsupported_message = getString(R.string.nim_status_bar_unsupported_message);
+        strings.status_bar_video_message = getString(R.string.nim_status_bar_video_message);
+        strings.status_bar_hidden_message_content = getString(R.string.nim_status_bar_hidden_msg_content);
+        NIMClient.updateStrings(strings);
     }
 
     private void initUIKit() {
@@ -97,10 +168,7 @@ public class MainApplication extends Application {
         // NimUIKit.CustomPushContentProvider(new DemoPushContentProvider());
     }
 
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-    }
+
 
     @Override
     public void onLowMemory() {
@@ -173,5 +241,36 @@ public class MainApplication extends Application {
         // save cache，留做切换账号备用
         Cache.setNotificationConfig(config);
         return config;
+    }
+
+
+
+    /**
+     * 通知消息过滤器（如果过滤则该消息不存储不上报）
+     */
+    private void registerIMMessageFilter() {
+        NIMClient.getService(MsgService.class).registerIMMessageFilter(new IMMessageFilter() {
+            @Override
+            public boolean shouldIgnore(IMMessage message) {
+                if (UserPreferences.getMsgIgnore() && message.getAttachment() != null) {
+                    if (message.getAttachment() instanceof UpdateTeamAttachment) {
+                        UpdateTeamAttachment attachment = (UpdateTeamAttachment) message.getAttachment();
+                        for (Map.Entry<TeamFieldEnum, Object> field : attachment.getUpdatedFields().entrySet()) {
+                            if (field.getKey() == TeamFieldEnum.ICON) {
+                                return true;
+                            }
+                        }
+                    } else if (message.getAttachment() instanceof AVChatAttachment) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
     }
 }

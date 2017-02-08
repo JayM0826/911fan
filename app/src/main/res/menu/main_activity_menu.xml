@@ -3,8 +3,8 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search_btn"
-        android:icon="@drawable/action_bar_search_view_icon"
-        android:title=""
+        android:icon="@drawable/ic_action_search_filled_1024"
+        android:title="搜索"
         app:showAsAction="always"/>
 
 </menu>
