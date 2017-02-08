@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"
-            jay:icon="@drawable/ic_menu_start_conversation"
+            jay:icon="@drawable/user_message_lobby"
             jay:text="@string/tab_lobby"
             jay:text_size="12sp" />
 
@@ -50,7 +50,7 @@
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"
-            jay:icon="@drawable/ic_menu_friendslist"
+            jay:icon="@drawable/user_message"
             jay:text="@string/tab_contact"
             jay:text_size="12sp" />
 
@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"
-            jay:icon="@drawable/ic_menu_emoticons"
+            jay:icon="@drawable/user_share"
             jay:text="@string/tab_found"
             jay:text_size="12sp" />
 
@@ -72,7 +72,7 @@
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"
-            jay:icon="@drawable/ic_menu_allfriends"
+            jay:icon="@drawable/user_male"
             jay:text="@string/tab_me"
             jay:text_size="12sp" />
     </LinearLayout>

@@ -47,4 +47,17 @@
     <string name="nim_status_bar_unsupported_message">%1$s: 无法显示该内容</string>
     <string name="nim_status_bar_hidden_msg_content">你收到一条新消息</string>
 
+
+    <!--online 状态-->
+    <string name="line_logined">登录成功</string>
+    <string name="line_unlogin">未登录</string>
+    <string name="line_invalid">登录无效，请重试</string>
+    <string name="line_net_broken">网络故障</string>
+    <string name="line_connecting">连接中...</string>
+    <string name="line_logining">登录中</string>
+    <string name="line_syncing">正在同步数据</string>
+    <string name="line_kickout">强迫下线</string>
+    <string name="line_kick_by_other_client">其他终端登录，被迫下线</string>
+    <string name="line_forbidden">该用户被禁止登录，请去官网申请登录</string>
+    <string name="line_pwd_error">密码错误</string>
 </resources>

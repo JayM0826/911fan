@@ -16,6 +16,9 @@ public class LogoutManager {
         // ChatRoomHelper.logout();
         Cache.clear();
         LoginSyncDataStatusObserver.getInstance().reset();
+
+        /*在uikit库中我把public void destroy()中的removexxxx方法注释了，如果需要开启
+        * 请手动开启，在DropManager中*/
         DropManager.getInstance().destroy();
     }
 }

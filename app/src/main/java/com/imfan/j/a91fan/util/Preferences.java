@@ -35,6 +35,9 @@ public class Preferences {
     private static String WX_HEADIMGURL = "headimgurl";
     private static String WX_UNIONID = "unionid";
 
+    // 自建数据库创造的字段
+    private static int fanID; // 粉丝号，第多少号粉丝
+
     public static String getUserAccount() {
         return getWxUnionid();
     }

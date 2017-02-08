@@ -344,7 +344,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
     }
 
     private void refresh_token() {
-        // 刷新或续期access_token
+        // 刷新或续期微信access_token
         //接口说明
    /* access_token是调用授权关系接口的调用凭证，由于access_token有效期（目前为2个小时）较短，当access_token超时后，可以使用refresh_token进行刷新，access_token刷新结果有两种：
             1.若access_token已超时，那么进行refresh_token会获取一个新的access_token，新的超时时间；

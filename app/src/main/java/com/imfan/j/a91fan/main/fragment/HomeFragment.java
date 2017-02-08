@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.uiabout.ChangeColorIconWithText;
 import com.imfan.j.a91fan.uiabout.TabCustomeFragment;
 import com.netease.nim.uikit.common.fragment.TFragment;
@@ -59,10 +60,6 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // setToolBar(R.id.toolbar, R.string.app_name, R.mipmap.icon);
-
-       // setTitle(R.string.app_name);
 
         findViews();
         initData();
@@ -139,6 +136,7 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
             tabCustomeFragment.setArguments(bundle);
             fragments.add(tabCustomeFragment);
         }
+
 
 
 
