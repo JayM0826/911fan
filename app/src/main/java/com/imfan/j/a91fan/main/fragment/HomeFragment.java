@@ -9,8 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.main.adapter.MainPagerAdapter;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.uiabout.ChangeColorIconWithText;
 import com.imfan.j.a91fan.uiabout.TabCustomeFragment;
@@ -32,12 +34,8 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
             { "First Fragment !", "Second Fragment !", "Third Fragment !",
                     "Fourth Fragment !" };
 
+    private MainPagerAdapter adapter;
 
-    // 要显示的fragment集合
-    private List<Fragment> fragments = new ArrayList<Fragment>();
-
-    // fragment 适配器
-    private FragmentPagerAdapter adapter;
 
     // fragment的page
     private ViewPager pager;
@@ -60,7 +58,6 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         findViews();
         initData();
         setupPager();
@@ -128,35 +125,7 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
     初始化数据
      */
     private void initData(){
-        for (String title : mTitles)
-        {
-            TabCustomeFragment tabCustomeFragment = new TabCustomeFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString(TabCustomeFragment.TITLE, title);
-            tabCustomeFragment.setArguments(bundle);
-            fragments.add(tabCustomeFragment);
-        }
 
-
-
-
-        /*把 getFragmentManager（） 方法 换成 getChildFragmentManager（）；
-        因为你已经在fragment里面了，不能再次得到到外层的manager，只能用孩子的manager。*/
-        adapter = new FragmentPagerAdapter(getChildFragmentManager())
-        {
-
-            @Override
-            public int getCount()
-            {
-                return fragments.size();
-            }
-
-            @Override
-            public Fragment getItem(int position)
-            {
-                return fragments.get(position);
-            }
-        };
     }
 
     public boolean onBackPressed() {
@@ -185,8 +154,6 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
         tabIndicators.add(blogWall);
         tabIndicators.add(myProfile);
 
-
-
         chatRoom.setIconAlpha(1.0f);
 
 
@@ -196,10 +163,13 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
      * 设置viewPager
      */
     private void setupPager() {
+        /*把 getFragmentManager（） 方法 换成 getChildFragmentManager（）；
+        因为你已经在fragment里面了，不能再次得到到外层的manager，只能用孩子的manager。*/
+        adapter = new MainPagerAdapter(getFragmentManager(), MainTab.values().length, getActivity(), pager);
 
+        Toast.makeText(getContext(), "一共有" + MainTab.values().length + "个页面", Toast.LENGTH_SHORT).show();
 
-        pager.setOffscreenPageLimit(fragments.size());
-
+        pager.setOffscreenPageLimit(MainTab.values().length);
 
         // ADAPTER
         pager.setAdapter(adapter);

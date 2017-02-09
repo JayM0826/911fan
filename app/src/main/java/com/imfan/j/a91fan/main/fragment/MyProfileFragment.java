@@ -2,6 +2,7 @@ package com.imfan.j.a91fan.main.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,7 +15,7 @@ import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
  * Created by jay on 17-2-6.
  */
 
-public class MyProfileFragment extends TFragment {
+public class MyProfileFragment extends MainFragment {
 
     // constant
     private static final int PICK_AVATAR_REQUEST = 0x0E;
@@ -38,6 +39,15 @@ public class MyProfileFragment extends TFragment {
     private TextView emailText;
     private TextView signatureText;
     private NimUserInfo userInfo;
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        onCurrent();
+    }
 
+    @Override
+    protected void onInit() {
+
+    }
 
 }

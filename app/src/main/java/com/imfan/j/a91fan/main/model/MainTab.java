@@ -3,6 +3,7 @@ package com.imfan.j.a91fan.main.model;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.fragment.BlogWallFragment;
 import com.imfan.j.a91fan.main.fragment.ChatRoomFragment;
+import com.imfan.j.a91fan.main.fragment.MainFragment;
 import com.imfan.j.a91fan.main.fragment.MessageFragment;
 import com.imfan.j.a91fan.main.fragment.MyProfileFragment;
 import com.imfan.j.a91fan.main.reminder.ReminderId;
@@ -22,14 +23,14 @@ public enum MainTab {
 
     public final int reminderId;
 
-    public final Class<? extends TFragment> clazz;
+    public final Class<? extends MainFragment> clazz;
 
 
     public final int fragmentId;
 
     public final int layoutId;
 
-    MainTab(int index, int reminderId, Class<? extends TFragment> clazz,  int layoutId) {
+    MainTab(int index, int reminderId, Class<? extends MainFragment> clazz,  int layoutId) {
         this.tabIndex = index;
         this.reminderId = reminderId;
         this.clazz = clazz;

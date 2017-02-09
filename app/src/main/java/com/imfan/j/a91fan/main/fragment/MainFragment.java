@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.model.MainTab;
+import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.fragment.TabFragment;
 
 /**
  * Created by jay on 17-2-8.
  */
 
-public abstract class MainFragment extends TabFragment {
+public abstract class MainFragment extends TFragment {
     private boolean loaded = false;
 
     private MainTab tabData;
@@ -38,10 +39,9 @@ public abstract class MainFragment extends TabFragment {
         this.tabData = tabData;
     }
 
-    @Override
-    public void onCurrent() {
-        super.onCurrent();
 
+
+    public void onCurrent() {
         if (!loaded && loadRealLayout()) {
             loaded = true;
             onInit();
