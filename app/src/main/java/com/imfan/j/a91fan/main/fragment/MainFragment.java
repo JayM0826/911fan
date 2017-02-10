@@ -41,6 +41,8 @@ public abstract class MainFragment extends TFragment {
 
 
 
+    // 执行加载真实的布局，然后通过onInit的抽象方法在具体fragment实现出来，
+    // 进行页面的初始化
     public void onCurrent() {
         if (!loaded && loadRealLayout()) {
             loaded = true;

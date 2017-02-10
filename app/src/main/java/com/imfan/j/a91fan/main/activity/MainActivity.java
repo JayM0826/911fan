@@ -66,8 +66,8 @@ public class MainActivity extends UI {
         StatusCode status = NIMClient.getStatus(); // 获取在线状态
         if (status == LOGINED)
         {
-            // CustomToast.show(this, getString(R.string.line_logined));
-            Toast.makeText(this, R.string.line_logined, Toast.LENGTH_SHORT).show();
+            CustomToast.show(this, getString(R.string.line_logined));
+            // Toast.makeText(this, R.string.line_logined, Toast.LENGTH_SHORT).show();
             LogUtil.i(TAG, getString(R.string.line_logined));
         }
         onParseIntent();
@@ -150,11 +150,11 @@ public class MainActivity extends UI {
         switch (item.getItemId()){
             case R.id.search_btn:
                 LogUtil.i(TAG, "启动搜索");
-                Toast.makeText(this, "已经打开全局搜索界面", Toast.LENGTH_SHORT).show();
+                CustomToast.show(this, "已经打开全局搜索界面");
                 break;
             case R.id.notify_btn:
                 LogUtil.i(TAG, "打开推送通知");
-                Toast.makeText(this, "已经打开推送消息", Toast.LENGTH_SHORT).show();
+                CustomToast.show(this, "已经打开推送消息");
             default:
                 break;
         }
@@ -168,17 +168,17 @@ public class MainActivity extends UI {
             IMMessage message = (IMMessage) getIntent().getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
             switch (message.getSessionType()) {
                 case P2P:
-                    Toast.makeText(this, "你打开了P2P聊天。", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(this, "你打开了P2P聊天。");
                     // SessionHelper.startP2PSession(this, message.getSessionId());
                     LogUtil.i(TAG, "你打开了P2P聊天。");
                     break;
                 case Team:
-                    Toast.makeText(this, "你打开了群聊。", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(this, "你打开了群聊。");
                     LogUtil.i(TAG, "你打开了群聊。");
                     // SessionHelper.startTeamSession(this, message.getSessionId());
                     break;
                 case ChatRoom:
-                    Toast.makeText(this, "你打开了聊天室。", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(this, "你打开了聊天室。");
                     LogUtil.i(TAG, "你打开了聊天室。");
                     break;
                 default:
@@ -187,7 +187,7 @@ public class MainActivity extends UI {
         } else if (intent.hasExtra(EXTRA_APP_QUIT)) {
             onLogout();
             LogUtil.i(TAG, "马上注销！");
-            Toast.makeText(this, "你已经选择了注销。", Toast.LENGTH_SHORT).show();
+            CustomToast.show(this, "你已经选择了注销。");
             return;
         }  /*else if (intent.hasExtra(com.netease.nim.demo.main.model.Extras.EXTRA_JUMP_P2P)) {
             Intent data = intent.getParcelableExtra(com.netease.nim.demo.main.model.Extras.EXTRA_DATA);
@@ -216,7 +216,7 @@ public class MainActivity extends UI {
                 if (selected != null && !selected.isEmpty()) {
                     // TeamCreateHelper.createNormalTeam(MainActivity.this, selected, false, null);
                 } else {
-                    Toast.makeText(MainActivity.this, "请选择至少一个联系人！", Toast.LENGTH_SHORT).show();
+                    CustomToast.show(MainActivity.this, "请选择至少一个联系人！");
                 }
             } else if (requestCode == REQUEST_CODE_ADVANCED) {
                 final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);

@@ -19,6 +19,7 @@ import com.imfan.j.a91fan.main.activity.MainActivity;
 import com.imfan.j.a91fan.netease.CheckSumBuilder;
 import com.imfan.j.a91fan.netease.NeteaseClient;
 import com.imfan.j.a91fan.util.Cache;
+import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -134,7 +135,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
     // 第一步，请求CODE
     private void sendAuthRequest() {
         if (!NetworkUtil.isNetAvailable(this)) {
-            Toast.makeText(this, R.string.network_is_not_available, Toast.LENGTH_SHORT).show();
+            CustomToast.show(this, R.string.network_is_not_available);
             return;
         }
 
@@ -192,7 +193,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 LogUtil.e(TAG, "获取token失败");
-                Toast.makeText(WXEntryActivity.this, "invalid code", Toast.LENGTH_SHORT).show();
+                CustomToast.show(WXEntryActivity.this, "invalid code");
             }
         });
     }
@@ -241,7 +242,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
                     unionid = response.getString("unionid");
                     Preferences.setWxUnionid(unionid);
 
-                    Toast.makeText(WXEntryActivity.this, "获取个人信息成功" + nickname, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(WXEntryActivity.this, "获取个人信息成功" + nickname);
 
                     LoginNetease.registerNetease();
                     Runnable runnable = new Runnable() {
@@ -267,7 +268,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_SHORT).show();
+                    CustomToast.show(WXEntryActivity.this, errorResponse.getString("errmsg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -340,7 +341,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
         }
 
 
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        CustomToast.show(WXEntryActivity.this, result);
     }
 
     private void refresh_token() {
@@ -381,7 +382,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_SHORT).show();
+                    CustomToast.show(WXEntryActivity.this, errorResponse.getString("errmsg"));
                     LogUtil.i(TAG, "刷新token失败，错误码：" + errorResponse.getString("errcode"));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -399,7 +400,8 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // "errcode":0,"errmsg":"ok"
                 try {
-                    Toast.makeText(WXEntryActivity.this, response.getString("errmsg"), Toast.LENGTH_SHORT).show();
+
+                    CustomToast.show(WXEntryActivity.this, response.getString("errmsg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -408,7 +410,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    Toast.makeText(WXEntryActivity.this, errorResponse.getString("errmsg"), Toast.LENGTH_SHORT).show();
+                    CustomToast.show(WXEntryActivity.this, errorResponse.getString("errmsg"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -445,13 +447,13 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
 
     @OnMPermissionGranted(BASIC_PERMISSION_REQUEST_CODE)
     public void onBasicPermissionSuccess(){
-        Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+        CustomToast.show(WXEntryActivity.this, "授权成功");
 
     }
 
     @OnMPermissionDenied(BASIC_PERMISSION_REQUEST_CODE)
     public void onBasicPermissionFailed(){
-        Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+        CustomToast.show(WXEntryActivity.this, "授权失败");
     }
 
 

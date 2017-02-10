@@ -60,4 +60,16 @@
     <string name="line_kick_by_other_client">其他终端登录，被迫下线</string>
     <string name="line_forbidden">该用户被禁止登录，请去官网申请登录</string>
     <string name="line_pwd_error">密码错误</string>
+
+
+    <!--个人资料-->
+    <string name="user_nickname">昵称:</string>
+    <string name="user_fanid">FanID:</string>
+    <string name="user_blog">我的动态:</string>
+    <string name="user_following">我的关注:</string>
+    <string name="user_fans">我的粉丝:</string>
+    <string name="user_acticle">我的文章:</string>
+    <string name="user_draft">我的草稿:</string>
+    <string name="user_favorite">我的收藏:</string>
+
 </resources>

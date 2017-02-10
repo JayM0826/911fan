@@ -16,6 +16,7 @@ import com.imfan.j.a91fan.main.adapter.MainPagerAdapter;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.uiabout.ChangeColorIconWithText;
 import com.imfan.j.a91fan.uiabout.TabCustomeFragment;
+import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.common.fragment.TFragment;
 
 import java.util.ArrayList;
@@ -30,10 +31,7 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
 
     Toolbar toolbar;
     private View rootView;
-    private String[] mTitles = new String[]
-            { "First Fragment !", "Second Fragment !", "Third Fragment !",
-                    "Fourth Fragment !" };
-
+    
     private MainPagerAdapter adapter;
 
 
@@ -166,8 +164,6 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
         /*把 getFragmentManager（） 方法 换成 getChildFragmentManager（）；
         因为你已经在fragment里面了，不能再次得到到外层的manager，只能用孩子的manager。*/
         adapter = new MainPagerAdapter(getFragmentManager(), MainTab.values().length, getActivity(), pager);
-
-        Toast.makeText(getContext(), "一共有" + MainTab.values().length + "个页面", Toast.LENGTH_SHORT).show();
 
         pager.setOffscreenPageLimit(MainTab.values().length);
 

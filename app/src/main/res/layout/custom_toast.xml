@@ -2,32 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@drawable/toast_radius"
     android:orientation="vertical">
-
-    <LinearLayout
+    <ImageView
+        android:id="@+id/toast_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/green_4DC0A4">
-
-
+        android:src="@drawable/toast_cafe"/>
         <TextView
             android:id="@+id/toast_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@id/toast_iv"
+            android:layout_toRightOf="@id/toast_iv"
             android:gravity="center"
             android:textColor="#fff"
             android:textSize="18sp"/>
-    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/toast_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/cafe_toast"/>
+
+
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.imfan.j.a91fan.main.activity.MainActivity;
 import com.imfan.j.a91fan.util.Cache;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 /**
  * 欢迎界面，进入欢迎界面才能进入名副其实的MainActivity
  */
-public class WelcomeActivity extends UI {
+public class WelcomeActivity extends Activity {
 
     private static final String TAG = "WelcomeActivity";
     private static boolean firstEnter = true; // 是否首次进入
