@@ -1,19 +1,14 @@
 package com.imfan.j.a91fan.main.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.loginabout.LogoutManager;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.util.CustomToast;
-import com.netease.nim.uikit.common.fragment.TFragment;
-import com.netease.nim.uikit.common.ui.imageview.HeadImageView;
-import com.netease.nimlib.sdk.AbortableFuture;
-import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
+import com.imfan.j.a91fan.util.Preferences;
 
 /**
  * Created by jay on 17-2-6.
@@ -26,7 +21,7 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
 
     private final String TAG = "MyProfileFragment:";
     private View headLayout, blog, following, fans, article, favorite, draft;
-    private TextView settings;
+    private TextView user_logout, fanID, fanNickName;
 
     public MyProfileFragment(){
         setContainerId(MainTab.PROFILE.fragmentId);
@@ -40,32 +35,58 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
 
     @Override
     protected void onInit() {
-        headLayout = (View)getView().findViewById(R.id.head_layout);
+
+        findViews();
+        initEvents();
+        initDatas();
+
+
+
+
+    }
+
+    private void initDatas(){
+        fanNickName.setText(Preferences.getWxNickname());
+        if (!(Preferences.getFanId() == null)){ // fanid不为空
+            fanID.setText(Preferences.getFanId());
+        } // 否则默认显示
+
+
+    }
+
+    private void initEvents(){
         headLayout.setOnClickListener(this);
+        blog.setOnClickListener(this);
+        article.setOnClickListener(this);
+        draft.setOnClickListener(this);
+        favorite.setOnClickListener(this);
+        fans.setOnClickListener(this);
+        fans.setOnClickListener(this);
+        following.setOnClickListener(this);
+        user_logout.setOnClickListener(this);
+    }
+
+    private void findViews(){
+
+        fanID = (TextView)getView().findViewById(R.id.user_fanid);
+
+        fanNickName = (TextView)getView().findViewById(R.id.user_fanname);
+
+        headLayout = (View)getView().findViewById(R.id.head_layout);
 
         blog = (View)getView().findViewById(R.id.blog);
-        blog.setOnClickListener(this);
 
         article = (View)getView().findViewById(R.id.article);
-        article.setOnClickListener(this);
 
         draft = (View)getView().findViewById(R.id.draft);
-        draft.setOnClickListener(this);
 
         favorite = (View)getView().findViewById(R.id.favorite);
-        favorite.setOnClickListener(this);
 
         fans = (View)getView().findViewById(R.id.fans);
-        fans.setOnClickListener(this);
 
         following = (View)getView().findViewById(R.id.following);
-        following.setOnClickListener(this);
 
-        settings = (TextView)getView().findViewById(R.id.user_settings);
-        settings.setOnClickListener(this);
-
-
-
+        user_logout = (TextView)getView().findViewById(R.id.user_logout);
 
     }
 
@@ -93,8 +114,9 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
             case R.id.favorite:
                 CustomToast.show(getContext(), "将要打开我的收藏");
                 break;
-            case R.id.user_settings:
-                CustomToast.show(getContext(), "进行系统应用设置");
+            case R.id.user_logout:
+                LogoutManager.logout();
+                getActivity().finish();
                 break;
             default:
                 break;

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.config.UserPreferences;
+import com.imfan.j.a91fan.loginabout.LoginNetease;
 import com.imfan.j.a91fan.loginabout.LogoutManager;
 import com.imfan.j.a91fan.main.fragment.HomeFragment;
 import com.imfan.j.a91fan.util.CustomToast;
@@ -69,6 +70,9 @@ public class MainActivity extends UI {
             CustomToast.show(this, getString(R.string.line_logined));
             // Toast.makeText(this, R.string.line_logined, Toast.LENGTH_SHORT).show();
             LogUtil.i(TAG, getString(R.string.line_logined));
+        }else{
+            LogUtil.i(TAG, "登录失败" + status.getValue());
+            LoginNetease.login(this);
         }
         onParseIntent();
         // 等待同步数据完成
@@ -199,11 +203,10 @@ public class MainActivity extends UI {
     }
 
     // 注销
-    private void onLogout() {
+    public void onLogout() {
         // 清理缓存&注销监听
         LogoutManager.logout();
-        // 消除所有的Activity
-        CustomActivityManager.getCustomActivityManager().popAllActivity();
+
         finish();
     }
 

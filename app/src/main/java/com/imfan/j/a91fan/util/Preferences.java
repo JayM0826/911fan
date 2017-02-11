@@ -15,8 +15,10 @@ import android.content.SharedPreferences;
 public class Preferences {
 
 
-    private static final String NETEASE_TOKEN = "token"; // 网易的token;
 
+    private static final String NETEASE_TOKEN = "token"; // 网易的token;
+    // 自建数据库创造的字段
+    private static final String FAN_ID = "fan_id"; // 粉丝号，第多少号粉丝
     // 第一步获取到的信息字段
     private static String WX_CODE = "code";
     private static String WX_COUNTRY = "country";
@@ -35,8 +37,13 @@ public class Preferences {
     private static String WX_HEADIMGURL = "headimgurl";
     private static String WX_UNIONID = "unionid";
 
-    // 自建数据库创造的字段
-    private static int fanID; // 粉丝号，第多少号粉丝
+    public static String getFanId(){
+        return getString(FAN_ID);
+    }
+
+    public static void setFanId(String fanId){
+        saveString(FAN_ID, fanId);
+    }
 
     public static String getUserAccount() {
         return getWxUnionid();

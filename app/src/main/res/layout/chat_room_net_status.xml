@@ -9,10 +9,5 @@
     <include layout="@layout/network_status_bar" />
     <include layout="@layout/multiport_status_bar" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="测试成功"/>
-
 
 </LinearLayout>
