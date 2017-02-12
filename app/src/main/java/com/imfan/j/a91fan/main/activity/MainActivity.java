@@ -154,7 +154,7 @@ public class MainActivity extends UI {
         switch (item.getItemId()){
             case R.id.search_btn:
                 LogUtil.i(TAG, "启动搜索");
-                CustomToast.show(this, "已经打开全局搜索界面");
+                SearchActivity.start(this);
                 break;
             case R.id.notify_btn:
                 LogUtil.i(TAG, "打开推送通知");

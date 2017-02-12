@@ -5,10 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.loginabout.LogoutManager;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.main.reminder.ReminderManager;
-import com.imfan.j.a91fan.wxapi.WXEntryActivity;
+import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.recent.RecentContactsCallback;
 import com.netease.nim.uikit.recent.RecentContactsFragment;
@@ -16,7 +15,6 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.StatusCode;
 import com.netease.nimlib.sdk.auth.AuthServiceObserver;
-import com.netease.nimlib.sdk.auth.ClientType;
 import com.netease.nimlib.sdk.auth.OnlineClient;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
@@ -37,35 +35,6 @@ public class  MessageFragment extends MainFragment {
 
     private View notifyBar;
 
-    private View multiportBar;
-    Observer<List<OnlineClient>> clientsObserver = new Observer<List<OnlineClient>>() {
-        @Override
-        public void onEvent(List<OnlineClient> onlineClients) {
-            // SessionListFragment.this.onlineClients = onlineClients;
-            if (onlineClients == null || onlineClients.size() == 0) {
-                multiportBar.setVisibility(View.GONE);
-            } else {
-                multiportBar.setVisibility(View.VISIBLE);
-                TextView status = (TextView) multiportBar.findViewById(R.id.multiport_desc_label);
-                OnlineClient client = onlineClients.get(0);
-                /*switch (client.getClientType()) {
-                    case ClientType.Windows:
-                        status.setText(getString(R.string.multiport_logging) + getString(R.string.computer_version));
-                        break;
-                    case ClientType.Web:
-                        status.setText(getString(R.string.multiport_logging) + getString(R.string.web_version));
-                        break;
-                    case ClientType.iOS:
-                    case ClientType.Android:
-                        status.setText(getString(R.string.multiport_logging) + getString(R.string.mobile_version));
-                        break;
-                    default:
-                        multiportBar.setVisibility(View.GONE);
-                        break;
-                }*/
-            }
-        }
-    };
     private TextView notifyBarText;
     /**
      * 用户状态变化
@@ -93,8 +62,6 @@ public class  MessageFragment extends MainFragment {
             }
 
     };
-    // 同时在线的其他端的信息
-    private List<OnlineClient> onlineClients;
 
 
 
@@ -123,7 +90,7 @@ public class  MessageFragment extends MainFragment {
     }
 
     private void registerObservers(boolean register) {
-        NIMClient.getService(AuthServiceObserver.class).observeOtherClients(clientsObserver, register);
+        // NIMClient.getService(AuthServiceObserver.class).observeOtherClients(clientsObserver, register);
         NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, register);
     }
 
@@ -131,27 +98,8 @@ public class  MessageFragment extends MainFragment {
         notifyBar = getView().findViewById(R.id.status_notify_bar);
         notifyBarText = (TextView) getView().findViewById(R.id.status_desc_label);
         notifyBar.setVisibility(View.GONE);
-
-        multiportBar = getView().findViewById(R.id.multiport_notify_bar);
-        multiportBar.setVisibility(View.GONE);
-        multiportBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // MultiportActivity.startActivity(getActivity(), onlineClients);
-            }
-        });
-
-
     }
 
-    // 注销
-    private void onLogout() {
-        // 清理缓存&注销监听&清除状态
-        LogoutManager.logout();
-
-        WXEntryActivity.start(getActivity(), true);
-        getActivity().finish();
-    }
 
     // 将最近联系人列表fragment动态集成进来。
     private void addRecentContactsFragment() {
@@ -167,6 +115,7 @@ public class  MessageFragment extends MainFragment {
             @Override
             public void onRecentContactsLoaded() {
                 // 最近联系人列表加载完毕
+                CustomToast.show(getContext(), "联系人加载完毕");
             }
 
             @Override

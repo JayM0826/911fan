@@ -1,22 +1,17 @@
 package com.imfan.j.a91fan.main.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.adapter.MainPagerAdapter;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.uiabout.ChangeColorIconWithText;
-import com.imfan.j.a91fan.uiabout.TabCustomeFragment;
-import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.common.fragment.TFragment;
 
 import java.util.ArrayList;

@@ -14,9 +14,9 @@ import com.netease.nim.uikit.common.fragment.TFragment;
  */
 
 public enum MainTab {
-    CHAT_ROOM(0, ReminderId.INVALID, ChatRoomFragment.class,  R.layout.chat_room_net_status),
+    CHAT_ROOM(0, ReminderId.INVALID, ChatRoomFragment.class,  R.layout.fragment_profile),
     MESSAGE(1, ReminderId.SESSION, MessageFragment.class,  R.layout.chat_room_net_status),
-    BLOG_WALL(2, ReminderId.SESSION, BlogWallFragment.class,  R.layout.chat_room_net_status),
+    BLOG_WALL(2, ReminderId.SESSION, BlogWallFragment.class,  R.layout.fragment_profile),
     PROFILE(3, ReminderId.SESSION, MyProfileFragment.class,  R.layout.fragment_profile);
 
     public final int tabIndex;
@@ -26,6 +26,7 @@ public enum MainTab {
     public final Class<? extends MainFragment> clazz;
 
 
+    // 用来确定是第几个fragment,用来进行切换吧
     public final int fragmentId;
 
     public final int layoutId;
@@ -48,13 +49,4 @@ public enum MainTab {
         return null;
     }
 
-    public static final MainTab fromTabIndex(int tabIndex) {
-        for (MainTab value : MainTab.values()) {
-            if (value.tabIndex == tabIndex) {
-                return value;
-            }
-        }
-
-        return null;
-    }
 }

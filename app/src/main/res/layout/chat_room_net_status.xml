@@ -7,7 +7,6 @@
     android:orientation="vertical" >
 
     <include layout="@layout/network_status_bar" />
-    <include layout="@layout/multiport_status_bar" />
 
 
 </LinearLayout>
