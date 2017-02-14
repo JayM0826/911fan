@@ -14,13 +14,16 @@ public abstract class AbsContactItem {
      *
      * @see com.netease.nim.uikit.contact.core.item.ItemTypes
      */
+   // 抽象方法，待子类实现
     public abstract int getItemType();
 
     /**
      * 所属的分组
      */
+    // 抽象方法，待子类实现
     public abstract String belongsGroup();
 
+    // 不知道用途是什么
     protected final int compareType(AbsContactItem item) {
         return compareType(getItemType(), item.getItemType());
     }

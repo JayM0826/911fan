@@ -38,7 +38,7 @@ public class ContactSelectAdapter extends ContactDataAdapter {
         for (String account : selects) {
             final UserInfoProvider.UserInfo user = NimUIKit.getUserInfoProvider().getUserInfo(account);
             if (user != null) {
-                res.add(new ContactItem(ContactHelper.makeContactFromUserInfo(user), ItemTypes.FRIEND));
+                res.add(new ContactItem(ContactHelper.makeContactFromUserInfo(user, 2), ItemTypes.FRIEND));
             }
         }
 

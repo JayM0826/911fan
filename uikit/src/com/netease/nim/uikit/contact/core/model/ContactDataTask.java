@@ -1,7 +1,12 @@
 package com.netease.nim.uikit.contact.core.model;
 
+import android.os.Handler;
+import android.os.Looper;
+
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.contact.core.item.AbsContactItem;
 import com.netease.nim.uikit.contact.core.item.ContactItemFilter;
+import com.netease.nim.uikit.contact.core.provider.ContactDataProvider;
 import com.netease.nim.uikit.contact.core.query.IContactDataProvider;
 import com.netease.nim.uikit.contact.core.query.TextQuery;
 
@@ -40,7 +45,7 @@ public class ContactDataTask {
 
     }
 
-    public final void run(AbsContactDataList datas) {
+    public final void run(final AbsContactDataList datas) {
         // CANCELLED
         if (isCancelled()) {
             return;
@@ -54,17 +59,32 @@ public class ContactDataTask {
             return;
         }
 
-        // PROVIDE
-        List<AbsContactItem> items = dataProvider.provide(query);
+        dataProvider.provide(query);
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                // PROVIDE
+                List<AbsContactItem> items = ContactDataProvider.getData();
 
-        // ADD
-        add(datas, items, filter);
+                ContactDataProvider.clearData();
+                if (items == null){
+                    LogUtil.i("没事打Log", "最后的数据还是null");
+                }else{
+                    LogUtil.i("没事打Log", "最后的数据不是null");
+                }
+                // ADD
+                add(datas, items, filter);
 
-        // BUILD
-        datas.build();
+                // BUILD
+                datas.build();
 
-        // PUBLISH ALL
-        publish(datas, true);
+                // PUBLISH ALL
+                publish(datas, true);
+            }
+        };
+
+        new Handler(Looper.getMainLooper()).postDelayed(runnable, 170);
+
     }
 
     private void publish(AbsContactDataList datas, boolean all) {
@@ -82,6 +102,6 @@ public class ContactDataTask {
     public interface Host {
         public void onData(ContactDataTask task, AbsContactDataList datas, boolean all); // 搜索完成，返回数据给调用方
 
-        public boolean isCancelled(ContactDataTask task); // 判断调用放是否已经取消
+        public boolean isCancelled(ContactDataTask task); // 判断调用方是否已经取消
     }
 }

@@ -6,11 +6,19 @@ import com.netease.nim.uikit.contact.core.model.IContact;
 
 import android.text.TextUtils;
 
+/*该类扩展了通讯录数据项抽象类，要实现getItemType()和belongsGroup()方法
+
+其实这是所有搜索结果的单条数据显示模型，所有的搜索结果都要使用他来制作成能被搜索结果面板展示的样子*/
 public class ContactItem extends AbsContactItem implements Comparable<ContactItem> {
 	private final IContact contact;
 
 	private final int dataItemType;
 
+	/**
+	 *
+	 * @param contact 搜索的结果，可能为用户，群成员，群，好友
+	 * @param type 该条搜索结果的类型
+     */
 	public ContactItem(IContact contact, int type) {
 		this.contact = contact;
 		this.dataItemType = type;

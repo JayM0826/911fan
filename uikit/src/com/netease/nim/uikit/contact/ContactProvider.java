@@ -7,6 +7,8 @@ import java.util.List;
 /**
  * 通讯录（联系人）数据源提供者
  */
+
+/*使用的是默认的ContactProvider，实现了这个接口*/
 public interface ContactProvider {
     /**
      * 返回本地所有好友用户信息（通讯录一般列出所有的好友）

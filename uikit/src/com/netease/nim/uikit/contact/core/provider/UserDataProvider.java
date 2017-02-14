@@ -21,13 +21,19 @@ public final class UserDataProvider {
         List<UserInfoProvider.UserInfo> sources = query(query);
         List<AbsContactItem> items = new ArrayList<>(sources.size());
         for (UserInfoProvider.UserInfo u : sources) {
-            items.add(new ContactItem(ContactHelper.makeContactFromUserInfo(u), ItemTypes.FRIEND));
+
+            /*ContactHelper.makeContactFromUserInfo(u, 2)该方法返回IContact数据,正好可以放在ContactItem中
+
+            ContactItem(IContact contact, int type)这是ContactItem的构造方法，正好符合
+            ContactItem扩展了 AbsContactItem类*/
+            items.add(new ContactItem(ContactHelper.makeContactFromUserInfo(u, 2), ItemTypes.FRIEND));
         }
 
         LogUtil.i(UIKitLogTag.CONTACT, "contact provide data size =" + items.size());
         return items;
     }
 
+    // 核心语句，对这个类型的数据进行query字段的搜索,然后将hit到的数据进行返回
     private static final List<UserInfoProvider.UserInfo> query(TextQuery query) {
         if (query != null) {
             List<UserInfoProvider.UserInfo> users = NimUIKit.getContactProvider().getUserInfoOfMyFriends();

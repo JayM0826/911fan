@@ -120,11 +120,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".main.activity.SearchActivity"
+        <activity
+            android:name=".main.activity.SearchActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/global_search_bg"
-            android:windowSoftInputMode="stateUnspecified"></activity>
+            android:windowSoftInputMode="stateUnspecified" />
+        <activity android:name=".main.activity.TestActivity" />
+        <activity android:name=".main.activity.ChatToUserActivity"></activity>
     </application>
 
 </manifest>

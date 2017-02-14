@@ -208,12 +208,15 @@ public class ContactDataAdapter extends BaseAdapter {
      * @param abort 是否终止：例如搜索的时候，第一个搜索词还未搜索完成，第二个搜索词已生成，那么取消之前的搜索任务
      */
     private void startTask(TextQuery query, boolean abort) {
+        // abort设置为true，那么就要终止先前的所有任务
         if (abort) {
             for (Task task : tasks) {
                 task.cancel(false); // 设为true有风险！
             }
         }
 
+        /* 然后再次建立新任务,在ContactDataTask的run方法中进行query的真正查询，
+        使用的dataProvider的provide方法*/
         Task task = new Task(new ContactDataTask(query, dataProvider, filter) {
             @Override
             protected void onPreProvide(AbsContactDataList datas) {
@@ -226,9 +229,9 @@ public class ContactDataAdapter extends BaseAdapter {
                 }
             }
         });
-
+        // 添加新任务
         tasks.add(task);
-
+        // 执行新任务
         task.execute();
     }
 
@@ -314,6 +317,9 @@ public class ContactDataAdapter extends BaseAdapter {
 
         @Override
         protected Void doInBackground(Void... params) {
+
+           /* 这里是执行代码*/
+
             task.run(new ContactDataList(groupStrategy));
 
             return null;

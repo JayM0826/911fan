@@ -18,13 +18,15 @@ public interface ItemTypes {
      */
     int FUNC = 0; // 功能项
 
-    int FRIEND = 1; // 好友项
+    int USER = 1;
 
-    int TEAM = 2; // 群组项
+    int FRIEND = 2; // 好友项
 
-    int TEAM_MEMBER = 3; // 群成员
+    int TEAM = 3; // 群组项
 
-    int MSG = 4; // 消息
+    int TEAM_MEMBER = 4; // 群成员
+
+    int MSG = 5; // 消息
 
     /**
      * 子类型
