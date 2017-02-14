@@ -204,6 +204,7 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
                 // 打开加好友的Activity
                 Intent intent = new Intent(this, ChatToUserActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case ItemTypes.TEAM: {
                 // SessionHelper.startTeamSession(this, ((ContactItem) item).getContact().getContactId());
