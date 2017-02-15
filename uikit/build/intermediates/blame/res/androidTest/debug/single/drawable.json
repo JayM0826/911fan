@@ -132,24 +132,24 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_team_create_btn_selector.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_progress_bar_background.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_progress_bar_background.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_item_background_holo_light.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_progress_bar_background.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_progress_bar_background.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_view_pager_indicator_selector.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_view_pager_indicator_selector.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_tab_indicator_material.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_tab_indicator_material.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_ic_ab_back_material.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_tab_indicator_material.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_tab_indicator_material.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",

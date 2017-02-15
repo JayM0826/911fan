@@ -5,10 +5,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.contact.activity.UserProfileSettingActivity;
 import com.imfan.j.a91fan.loginabout.LogoutManager;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 
 /**
  * Created by jay on 17-2-6.
@@ -94,7 +96,7 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.head_layout:
-                CustomToast.show(getContext(), "修改用户资料");
+                UserProfileSettingActivity.start(getContext(), Preferences.getUserAccount().toLowerCase());
                 break;
             case R.id.blog:
                 CustomToast.show(getContext(), "将要打开我的动态");

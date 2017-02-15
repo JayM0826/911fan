@@ -9,20 +9,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.netease.nim.uikit.R;
-import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.media.picker.model.PhotoInfo;
 import com.netease.nim.uikit.common.media.picker.model.PickerContract;
-import com.netease.nim.uikit.model.ToolBarOptions;
 import com.netease.nim.uikit.session.constant.Extras;
 
 import java.io.File;
 import java.util.List;
 
-public class PickImageActivity extends UI {
+public class PickImageActivity extends AppCompatActivity {
 
     public static final int FROM_LOCAL = 1;
     public static final int FROM_CAMERA = 2;
@@ -34,6 +35,7 @@ public class PickImageActivity extends UI {
     private static final int REQUEST_CODE_CAMERA = FROM_CAMERA;
 
     private boolean inited = false;
+    private ActionBar actionBar;
 
     public static void start(Activity activity, int requestCode, int from, String outPath) {
         Intent intent = new Intent(activity, PickImageActivity.class);
@@ -60,9 +62,12 @@ public class PickImageActivity extends UI {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.nim_pick_image_activity);
-        ToolBarOptions options = new ToolBarOptions();
-        setToolBar(R.id.toolbar, options);
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);   //设置显示向上导航按钮
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.show();
     }
 
     @Override

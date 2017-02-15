@@ -89,7 +89,7 @@
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.PickImageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.CropImageActivity"
             android:screenOrientation="portrait"
@@ -97,11 +97,11 @@
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.PickerAlbumActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.PickerAlbumPreviewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.PreviewImageFromLocalActivity"
             android:configChanges="keyboardHidden|orientation"

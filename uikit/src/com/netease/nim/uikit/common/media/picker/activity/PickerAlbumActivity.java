@@ -3,14 +3,21 @@ package com.netease.nim.uikit.common.media.picker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.common.activity.UI;
+import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.media.picker.fragment.PickerAlbumFragment;
 import com.netease.nim.uikit.common.media.picker.fragment.PickerAlbumFragment.OnAlbumItemClickListener;
 import com.netease.nim.uikit.common.media.picker.fragment.PickerImageFragment;
@@ -31,42 +38,32 @@ import java.util.List;
 /**
  * Inner image picker, no longer use third-part application 
  */
-public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
+public class PickerAlbumActivity extends AppCompatActivity implements OnAlbumItemClickListener,
 	OnPhotoSelectClickListener, OnClickListener{
 
+	ActionBar actionBar;
 	private FrameLayout pickerAlbumLayout;
-	
 	private FrameLayout pickerPhotosLayout;
-	
 	private PickerAlbumFragment photoFolderFragment;
-	
 	private PickerImageFragment photoFragment;
-	
 	private RelativeLayout pickerBottomBar;
-	
 	private TextView pickerPreview;
-	
 	private TextView pickerSend;
-	
 	private List<PhotoInfo> hasSelectList = new ArrayList<PhotoInfo>();
-	
 	private boolean isMutiMode;
-	
 	private boolean isSupportOriginal;
-	
 	private boolean isSendOriginalImage;
-	
 	private int mutiSelectLimitSize;
-	
 	private boolean isAlbumPage;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.nim_picker_album_activity);
 
-		ToolBarOptions options = new ToolBarOptions();
-		setToolBar(R.id.toolbar, options);
+
+
+		requestWindowFeature(Window.FEATURE_ACTION_BAR);
+		setContentView(R.layout.nim_picker_album_activity);
 
 		proceedExtra();
 		initActionBar();
@@ -83,7 +80,11 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 	}
 	
 	private void initActionBar(){
-		setTitle(R.string.picker_image_folder);
+		actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);   //设置显示向上导航按钮
+		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setTitle(R.string.picker_image_folder);
+		actionBar.show();
 	}
 
 	private void initUI(){
@@ -106,6 +107,26 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 		switchContent(photoFolderFragment);
 		
 		isAlbumPage = true;
+	}
+
+	public TFragment switchContent(TFragment fragment) {
+		return switchContent(fragment, false);
+	}
+
+	protected TFragment switchContent(TFragment fragment, boolean needAddToBackStack) {
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction fragmentTransaction = fm.beginTransaction();
+		fragmentTransaction.replace(fragment.getContainerId(), fragment);
+		if (needAddToBackStack) {
+			fragmentTransaction.addToBackStack(null);
+		}
+		try {
+			fragmentTransaction.commitAllowingStateLoss();
+		} catch (Exception e) {
+
+		}
+
+		return fragment;
 	}
 	
 	@Override
@@ -134,7 +155,7 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 			photoFragment.resetFragment(photoList, hasSelectSize);
 		}
 		// update title
-		setTitle(info.getAlbumName());	
+		actionBar.setTitle(info.getAlbumName());
 		isAlbumPage = false;
 	}
 	
@@ -253,7 +274,7 @@ public class PickerAlbumActivity extends UI implements OnAlbumItemClickListener,
 	}
 	
 	private void backToAlbumPage(){
-		setTitle(R.string.picker_image_folder);	
+		actionBar.setTitle(R.string.picker_image_folder);
 		isAlbumPage = true;
 		pickerAlbumLayout.setVisibility(View.VISIBLE);
 		pickerPhotosLayout.setVisibility(View.GONE);

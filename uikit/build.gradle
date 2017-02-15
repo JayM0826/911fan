@@ -32,4 +32,5 @@ dependencies {
 
 
 
+    compile 'cn.pedant.sweetalert:library:1.3'
 }

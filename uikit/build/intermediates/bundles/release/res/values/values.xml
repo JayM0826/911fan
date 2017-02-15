@@ -65,6 +65,9 @@
     <color name="action_bar_black_title_1f1f1f">#1f1f1f</color>
     <color name="action_bar_black_title_color">#252525</color>
     <color name="black">#000000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
     <color name="color_aaaaaa_content_text">#ffaaaaaa</color>
     <color name="color_activity_blue_bg">#f7389fff</color>
     <color name="color_b3b3b3">#b3b3b3</color>
@@ -452,13 +455,12 @@
     <string name="withdrawn_msg">撤 回</string>
     <string name="without_content">暂无</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/color_gray_d9d9d9</item>
-        <item name="colorAccent">@color/color_blue_0888ff</item>
-        <item name="actionBarSize">@dimen/action_bar_height</item>
-        <item name="android:textColorPrimary">@color/black</item>
-        <item name="toolbarNavigationButtonStyle">@style/myToolbarNavigationButtonStyle</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#000000</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:itemTextAppearance">?android:attr/actionMenuTextAppearance</item>
@@ -468,7 +470,7 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_black_333333</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/color_blue_0888ff</item>

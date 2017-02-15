@@ -8,8 +8,11 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +38,7 @@ import java.util.List;
 public class PickerAlbumPreviewActivity extends UI implements OnClickListener, OnPageChangeListener {
 	
 	public static final int RESULT_FROM_USER  = RESULT_FIRST_USER + 1;
+	ActionBar actionBar;
 	private ViewPager imageViewPager;
 	private PickerPreviewPagerAdapter imageViewPagerAdapter;
 	private List<PhotoInfo> selectPhotoList = new ArrayList<PhotoInfo>();
@@ -53,7 +57,7 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 	private TextView previewSendBtn;
 	private ImageButton previewSelectBtn;
 	private int mutiSelectLimitSize;
-	
+
 	public static void start(Activity activity, List<PhotoInfo> photos, int position, boolean supportOrig,
 			boolean isOrig, List<PhotoInfo> selectPhotoList, int mutiSelectLimitSize) {
 		Intent intent = PickerContract.makePreviewDataIntent(photos, selectPhotoList);
@@ -64,7 +68,7 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 		intent.putExtra(Extras.EXTRA_MUTI_SELECT_SIZE_LIMIT, mutiSelectLimitSize);
 		activity.startActivityForResult(intent, RequestCode.PICKER_IMAGE_PREVIEW);
 	}
-
+	
 	public static void start(Fragment fragment, List<PhotoInfo> photos, int position, boolean supportOrig,
 			boolean isOrig, List<PhotoInfo> selectPhotoList, int mutiSelectLimitSize) {
 		Intent intent = PickerContract.makePreviewDataIntent(photos, selectPhotoList);
@@ -78,33 +82,37 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		setContentView(R.layout.nim_picker_image_preview_activity);
 
-		ToolBarOptions options = new ToolBarOptions();
-		setToolBar(R.id.toolbar, options);
 
 		proceedExtras();
 		initActionBar();
 		initUI();
 	}
-	
+
 	private void proceedExtras(){
 		Intent intent = getIntent();
 		isSupportOriginal = intent.getBooleanExtra(Extras.EXTRA_SUPPORT_ORIGINAL, false);
 		isSendOriginalImage = intent.getBooleanExtra(Extras.EXTRA_IS_ORIGINAL, false);
 		firstDisplayImageIndex = intent.getIntExtra(Extras.EXTRA_PREVIEW_CURRENT_POS, 0);
 		mutiSelectLimitSize = intent.getIntExtra(Extras.EXTRA_MUTI_SELECT_SIZE_LIMIT, 9);
-		
+
 		photoLists.addAll(PickerContract.getPhotos(intent));
 		totalSize = photoLists.size();
-		
+
 		selectPhotoList.clear();
 		selectPhotoList.addAll(PickerContract.getSelectPhotos(intent));
 	}
-	
+
 	private void initActionBar(){
+		actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(false);
 		previewSelectBtn = (ImageButton) findViewById(R.id.picker_image_preview_photos_select);
 		previewSelectBtn.setOnClickListener(this);
+
+		actionBar.show();
 	}
 	
 	private void initUI(){		
@@ -147,10 +155,10 @@ public class PickerAlbumPreviewActivity extends UI implements OnClickListener, O
 	
 	private void setTitleIndex(int index) {
 		if (totalSize <= 0) {
-			setTitle("");
+			actionBar.setTitle("");
 		}else {
 			index++;
-			setTitle(index + "/" + totalSize);
+			actionBar.setTitle(index + "/" + totalSize);
 		}
 	}
 	

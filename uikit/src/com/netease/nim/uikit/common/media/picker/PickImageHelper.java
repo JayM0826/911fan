@@ -10,6 +10,8 @@ import com.netease.nim.uikit.common.util.storage.StorageType;
 import com.netease.nim.uikit.common.util.storage.StorageUtil;
 import com.netease.nim.uikit.common.util.string.StringUtil;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 /**
  * Created by huangjun on 2015/9/22.
  */
@@ -23,12 +25,14 @@ public class PickImageHelper {
             return;
         }
 
+
         CustomAlertDialog dialog = new CustomAlertDialog(context);
         dialog.setTitle(option.titleResId);
 
         dialog.addItem(context.getString(R.string.input_panel_take), new CustomAlertDialog.onSeparateItemClickListener() {
             @Override
             public void onClick() {
+                // 从相机拍照图片
                 int from = PickImageActivity.FROM_CAMERA;
                 if (!option.crop) {
                     PickImageActivity.start((Activity) context, requestCode, from, option.outputPath, option.multiSelect, 1,
@@ -45,6 +49,7 @@ public class PickImageHelper {
                 .onSeparateItemClickListener() {
             @Override
             public void onClick() {
+                // 从本地相册选取图片
                 int from = PickImageActivity.FROM_LOCAL;
                 if (!option.crop) {
                     PickImageActivity.start((Activity) context, requestCode, from, option.outputPath, option.multiSelect,

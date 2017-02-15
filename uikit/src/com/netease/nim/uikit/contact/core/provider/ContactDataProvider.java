@@ -62,7 +62,7 @@ public class ContactDataProvider implements IContactDataProvider {
                         }
                     }
                 };
-                new Handler(Looper.getMainLooper()).postDelayed(runnable, 165);
+                new Handler(Looper.getMainLooper()).postDelayed(runnable, 175);
                 LogUtil.i("检测阻塞情况", "看看会不会阻塞,其实是不会阻塞的");
             }else{
                 data.addAll(provide(itemType, query));

@@ -83,7 +83,7 @@ public class ContactDataTask {
             }
         };
 
-        new Handler(Looper.getMainLooper()).postDelayed(runnable, 170);
+        new Handler(Looper.getMainLooper()).postDelayed(runnable, 180);
 
     }
 

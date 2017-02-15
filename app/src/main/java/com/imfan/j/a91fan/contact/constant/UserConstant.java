@@ -15,5 +15,6 @@ public class UserConstant {
     // 每个人创建时都会给一个纯数字的号码，与云信的id相映射，可能还会弄一个昵称存储，
     // 这样用户搜索昵称时也可以返回，从1开始，人为的创造一个数字用来表示是
     // 该明星的第多少号粉丝
-    public static final int KEY_ACCOUNT = 7;
+    public static final int KEY_ALIAS = 7;
+    public static final int KEY_ACCOUNT = 8;
 }

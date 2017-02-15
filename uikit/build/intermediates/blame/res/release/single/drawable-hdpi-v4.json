@@ -404,6 +404,10 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_loading_small_white.png"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-hdpi-v4/ic_launcher.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/res/drawable-hdpi-v4/ic_launcher.png"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-hdpi-v4/abc_list_selector_disabled_holo_dark.9.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-hdpi-v4/abc_list_selector_disabled_holo_dark.9.png"
     },

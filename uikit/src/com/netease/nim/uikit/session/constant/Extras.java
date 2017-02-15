@@ -4,6 +4,8 @@ package com.netease.nim.uikit.session.constant;
  * Created by zhoujianghua on 2015/8/11.
  */
 public interface Extras {
+    String EXTRA_FROM_NOTIFICATION = "from_notification";
+    String EXTRA_JUMP_P2P = "EXTRA_JUMP_P2P";
 
     String EXTRA_FILE_PATH = "file_path";
 

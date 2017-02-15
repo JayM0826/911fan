@@ -41,60 +41,16 @@ public class UserProvider {
 
     static AbsContactItem items;
     private static UserInfoProvider.UserInfo user;
-    private static Map<String, List<RequestCallback<UserInfoProvider.UserInfo>>> requestUserInfoMap = new ConcurrentHashMap<>(); // 重复请求处理
-
-    public static final void provide(TextQuery query) {
-
-        query(query);
-
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                items = null;
-                //Looper.prepare();
-                if (user != null){
-                /*contactHelper.makeContactFromUserInfo(u)该方法返回IContact数据,正好可以放在ContactItem中
-                ContactItem(IContact contact, int type)这是ContactItem的构造方法，正好符合
-                ContactItem扩展了 AbsContactItem类*/
-                    items = new ContactItem(ContactHelper.makeContactFromUserInfo(user, 1), ItemTypes.USER);
-                    LogUtil.i("UserProvider类:", "找到了用户");
-                    if (items == null){
-                        LogUtil.i("AbsContactItem provide:", "找到了用户还是为null");
-                    }else{
-                        LogUtil.i("AbsContactItem provide:", "找到了用户但不是为null");
-                    }
-                }else{
-                    LogUtil.i("UserProvided", "user 是null");
-                    items = null;
-
-                }
-
-                if (items == null){
-                    LogUtil.i("AbsContactItem provide:", "返回之前为null");
-                }else {
-                    LogUtil.i("AbsContactItem provide:", "返回之前不是null");
-                }
-                // return items;
-
-            }
-
-        };
-
-        // Looper.prepare();
-        new Handler(Looper.getMainLooper()).postDelayed(runnable, 160);
-
-
-
-
-    }
+    private static Map<String, List<RequestCallback<NimUserInfo>>> requestUserInfoMap = new ConcurrentHashMap<>(); // 重复请求处理
 
     /*核心语句，对这个类型的数据进行query字段的搜索,然后将hit到的数据进行返回*/
-    private static final void query(TextQuery query) {
+    public static final void provide(TextQuery query) {
         user = null;
+        items = null;
         if (query != null) {
-            getUserInfoFromRemote(query.text, new RequestCallback<UserInfoProvider.UserInfo>() {
+            getUserInfoFromRemote(query.text, new RequestCallback<NimUserInfo>() {
                 @Override
-                public void onSuccess(UserInfoProvider.UserInfo userResult) { // 成功获取用户，说明和后台是交互了，但是交互不说明一定有用户
+                public void onSuccess(NimUserInfo userResult) { // 成功获取用户，说明和后台是交互了，但是交互不说明一定有用户
                     if (userResult == null) {
                         LogUtil.i(getClass().getSimpleName(), "服务器没有这个用户！");
                         user = null;
@@ -102,9 +58,7 @@ public class UserProvider {
                         LogUtil.i(getClass().getSimpleName(), "在服务器中找到了这个用户");
 
                         user = userResult;
-                        if (user == null){
-                            LogUtil.i("他妈的见鬼了", "见鬼了！！！");
-                        }
+                        items = new ContactItem(ContactHelper.makeContactFromUserInfo(user, 1), ItemTypes.USER);
                     }
                 }
 
@@ -130,7 +84,7 @@ public class UserProvider {
 
     }
 
-    public static void getUserInfoFromRemote(final String account, final RequestCallback<UserInfoProvider.UserInfo> callback) {
+    public static void getUserInfoFromRemote(final String account, final RequestCallback<NimUserInfo> callback) {
         if (TextUtils.isEmpty(account)) {
             return;
         }
@@ -141,7 +95,7 @@ public class UserProvider {
             }
             return; // 已经在请求中，不要重复请求
         } else {
-            List<RequestCallback<UserInfoProvider.UserInfo>> cbs = new ArrayList<>();
+            List<RequestCallback<NimUserInfo>> cbs = new ArrayList<>();
             if (callback != null) {
                 cbs.add(callback);
             }
@@ -169,8 +123,8 @@ public class UserProvider {
 
                 // 处理回调
                 if (hasCallback) {
-                    List<RequestCallback<UserInfoProvider.UserInfo>> cbs = requestUserInfoMap.get(account);
-                    for (RequestCallback<UserInfoProvider.UserInfo> cb : cbs) {
+                    List<RequestCallback<NimUserInfo>> cbs = requestUserInfoMap.get(account);
+                    for (RequestCallback<NimUserInfo> cb : cbs) {
                         if (code == ResponseCode.RES_SUCCESS) {
                             cb.onSuccess(user);
                         } else {
