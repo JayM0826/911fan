@@ -161,12 +161,12 @@ public class UserProfileSettingActivity extends AppCompatActivity implements Vie
 
                 @Override
                 public void onFailed(int code) {
-                    Toast.makeText(UserProfileSettingActivity.this, "getUserInfoFromRemote failed:" + code, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(UserProfileSettingActivity.this, "getUserInfoFromRemote failed:" + code);
                 }
 
                 @Override
                 public void onException(Throwable exception) {
-                    Toast.makeText(UserProfileSettingActivity.this, "getUserInfoFromRemote exception:" + exception, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(UserProfileSettingActivity.this, "getUserInfoFromRemote exception:" + exception);
                 }
             });
         } else {
@@ -284,16 +284,15 @@ public class UserProfileSettingActivity extends AppCompatActivity implements Vie
                         @Override
                         public void onResult(int code, Void result, Throwable exception) {
                             if (code == ResponseCode.RES_SUCCESS) {
-                                Toast.makeText(UserProfileSettingActivity.this, R.string.head_update_success, Toast.LENGTH_SHORT).show();
+                                CustomToast.show(UserProfileSettingActivity.this, R.string.head_update_success);
                                 onUpdateDone();
                             } else {
-                                Toast.makeText(UserProfileSettingActivity.this, R.string.head_update_failed, Toast.LENGTH_SHORT).show();
+                                CustomToast.show(UserProfileSettingActivity.this, R.string.head_update_failed);
                             }
                         }
                     }); // 更新资料
                 } else {
-                    Toast.makeText(UserProfileSettingActivity.this, R.string.user_info_update_failed, Toast
-                            .LENGTH_SHORT).show();
+                    CustomToast.show(UserProfileSettingActivity.this, R.string.user_info_update_failed);
                     onUpdateDone();
                 }
             }
@@ -303,7 +302,7 @@ public class UserProfileSettingActivity extends AppCompatActivity implements Vie
     private void cancelUpload(int resId) {
         if (uploadAvatarFuture != null) {
             uploadAvatarFuture.abort();
-            Toast.makeText(UserProfileSettingActivity.this, resId, Toast.LENGTH_SHORT).show();
+            CustomToast.show(UserProfileSettingActivity.this, resId);
             onUpdateDone();
         }
     }

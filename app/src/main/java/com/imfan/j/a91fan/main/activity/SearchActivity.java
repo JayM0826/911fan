@@ -2,8 +2,8 @@ package com.imfan.j.a91fan.main.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.string.StringUtil;
@@ -24,8 +25,6 @@ import com.netease.nim.uikit.contact.core.item.MsgItem;
 import com.netease.nim.uikit.contact.core.model.ContactDataAdapter;
 import com.netease.nim.uikit.contact.core.model.ContactGroupStrategy;
 import com.netease.nim.uikit.contact.core.provider.ContactDataProvider;
-import com.netease.nim.uikit.contact.core.provider.MsgDataProvider;
-import com.netease.nim.uikit.contact.core.provider.TeamDataProvider;
 import com.netease.nim.uikit.contact.core.query.IContactDataProvider;
 import com.netease.nim.uikit.contact.core.viewholder.ContactHolder;
 import com.netease.nim.uikit.contact.core.viewholder.LabelHolder;
@@ -39,15 +38,13 @@ import com.netease.nimlib.sdk.search.model.MsgIndexRecord;
  */
 public class SearchActivity extends UI implements AdapterView.OnItemClickListener {
 
-
+    static public boolean hasData;
 
     // 第一个搜索用户，第二个不搜索用户
     IContactDataProvider dataProvider1 = new ContactDataProvider(ItemTypes.USER, ItemTypes.FRIEND, ItemTypes.TEAM, ItemTypes.MSG);
-    IContactDataProvider dataProvider2 = new ContactDataProvider(ItemTypes.FRIEND, ItemTypes.TEAM, ItemTypes.MSG);
-    private boolean choice; // 设置true为选择adapater1
     private ListView lvContacts;
     private SearchView searchView;
-    private ContactDataAdapter adapter1, adapter2;
+    private ContactDataAdapter adapter;
 
     public static final void start(Context context) {
         Intent intent = new Intent();
@@ -92,12 +89,10 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
 
                     lvContacts.setVisibility(View.GONE);
                 } else {
-                    lvContacts.setAdapter(adapter1);
-                    choice = true;
                     lvContacts.setVisibility(View.VISIBLE);
                     LogUtil.i("onQueryTextSubmit", "开始提交搜索");
                     // 执行核心操作，对query语句进行搜索
-                    adapter1.query(query);
+                    adapter.query(query);
                 }
 
                 return false;
@@ -147,23 +142,17 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
        /* DataProvider可以分为多个类型例如UserDataProvider，TeamDataProvider, MsgDataProvider
         至少三种类型，而IContactDataProvider是这多个类型的汇总类*/
 
-        adapter1 = new ContactDataAdapter(this, searchGroupStrategy, dataProvider1);
-        adapter1.addViewHolder(ItemTypes.LABEL, LabelHolder.class);
+        adapter = new ContactDataAdapter(SearchActivity.this, searchGroupStrategy, dataProvider1);
+        adapter.addViewHolder(ItemTypes.LABEL, LabelHolder.class);
         // 增加了USER的ViewHolder
-        adapter1.addViewHolder(ItemTypes.USER, ContactHolder.class);
-        adapter1.addViewHolder(ItemTypes.FRIEND, ContactHolder.class);
-        adapter1.addViewHolder(ItemTypes.TEAM, ContactHolder.class);
-        adapter1.addViewHolder(ItemTypes.MSG, MsgHolder.class);
+        adapter.addViewHolder(ItemTypes.USER, ContactHolder.class);
+        adapter.addViewHolder(ItemTypes.FRIEND, ContactHolder.class);
+        adapter.addViewHolder(ItemTypes.TEAM, ContactHolder.class);
+        adapter.addViewHolder(ItemTypes.MSG, MsgHolder.class);
 
-        adapter2 = new ContactDataAdapter(this, searchGroupStrategy, dataProvider2);
-        adapter2.addViewHolder(ItemTypes.LABEL, LabelHolder.class);
-        adapter2.addViewHolder(ItemTypes.FRIEND, ContactHolder.class);
-        adapter2.addViewHolder(ItemTypes.TEAM, ContactHolder.class);
-        adapter2.addViewHolder(ItemTypes.MSG, MsgHolder.class);
 
-        // 默认设置2
-        lvContacts.setAdapter(adapter2);
-        choice =false;
+
+        lvContacts.setAdapter(adapter);
         lvContacts.setOnItemClickListener(this);
         lvContacts.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -193,17 +182,12 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        AbsContactItem item;
-        if (choice == true){
-            item = (AbsContactItem) adapter1.getItem(position);
-        }else{
-            item = (AbsContactItem) adapter2.getItem(position);
-        }
+        AbsContactItem item = (AbsContactItem) adapter.getItem(position);
+
         switch (item.getItemType()) {
             case ItemTypes.USER:
-                // 打开加好友的Activity
-                Intent intent = new Intent(this, ChatToUserActivity.class);
-                startActivity(intent);
+                // 打开搜索出来的用户的详细资料的Activity
+                UserProfileActivity.start(this, ((ContactItem) item).getContact().getContactId());
                 finish();
                 break;
             case ItemTypes.TEAM: {

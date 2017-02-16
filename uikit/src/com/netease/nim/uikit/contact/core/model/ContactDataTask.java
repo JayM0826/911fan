@@ -1,8 +1,11 @@
 package com.netease.nim.uikit.contact.core.model;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
+import com.netease.nim.uikit.CustomToast;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.contact.core.item.AbsContactItem;
 import com.netease.nim.uikit.contact.core.item.ContactItemFilter;
@@ -23,10 +26,13 @@ public class ContactDataTask {
     private final TextQuery query; // 要搜索的信息，null为查询所有
     private Host host;
 
-    public ContactDataTask(TextQuery query, IContactDataProvider dataProvider, ContactItemFilter filter) {
+    private Context context;
+
+    public ContactDataTask(Context context, TextQuery query, IContactDataProvider dataProvider, ContactItemFilter filter) {
         this.query = query;
         this.dataProvider = dataProvider;
         this.filter = filter;
+        this.context = context;
     }
 
     private static void add(AbsContactDataList datas, List<AbsContactItem> items, ContactItemFilter filter) {
@@ -44,6 +50,7 @@ public class ContactDataTask {
     protected void onPreProvide(AbsContactDataList datas) {
 
     }
+
 
     public final void run(final AbsContactDataList datas) {
         // CANCELLED
@@ -64,26 +71,28 @@ public class ContactDataTask {
             @Override
             public void run() {
                 // PROVIDE
+
                 List<AbsContactItem> items = ContactDataProvider.getData();
 
-                ContactDataProvider.clearData();
-                if (items == null){
-                    LogUtil.i("没事打Log", "最后的数据还是null");
-                }else{
-                    LogUtil.i("没事打Log", "最后的数据不是null");
+                if (items.size() == 0) {
+                    CustomToast.show(context, "冷冷清清,什么也没搜到");
                 }
-                // ADD
-                add(datas, items, filter);
+                    add(datas, items, filter);
+                    ContactDataProvider.clearData();
+                    items = null; // 清空
+                    // BUILD
+                    datas.build();
 
-                // BUILD
-                datas.build();
+                    // PUBLISH ALL
+                    publish(datas, true);
 
-                // PUBLISH ALL
-                publish(datas, true);
+
+
+
             }
         };
 
-        new Handler(Looper.getMainLooper()).postDelayed(runnable, 180);
+        new Handler(Looper.getMainLooper()).postDelayed(runnable, 200);
 
     }
 

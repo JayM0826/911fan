@@ -43,7 +43,6 @@ public class ContactDataProvider implements IContactDataProvider {
     @Override
     public List<AbsContactItem> provide(TextQuery query) {
         data = new ArrayList<>();
-
         /*将所有的查询的特定类型的返回结果都加入到这个data里面去，然后在ContactDataTask
         的run方法中进行provide的调用。*/
         for (int itemType : itemTypes) {
@@ -53,21 +52,17 @@ public class ContactDataProvider implements IContactDataProvider {
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
-
-                        data.add(UserProvider.items);
-                        if (UserProvider.items == null){
-                            LogUtil.i("ContactDataProvider:", "返回的数据是null！");
-                        }else {
-                            LogUtil.i("ContactDataProvider:", "这条信息在下面就不会阻塞");
+                        if (UserProvider.items != null){
+                            data.add(UserProvider.items);
                         }
                     }
                 };
-                new Handler(Looper.getMainLooper()).postDelayed(runnable, 175);
-                LogUtil.i("检测阻塞情况", "看看会不会阻塞,其实是不会阻塞的");
+                new Handler(Looper.getMainLooper()).postDelayed(runnable, 195);
             }else{
                 data.addAll(provide(itemType, query));
             }
         }
+
 
         return null;
 

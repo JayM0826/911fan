@@ -9,6 +9,7 @@ import com.imfan.j.a91fan.main.activity.MainActivity;
 import com.imfan.j.a91fan.netease.CheckSumBuilder;
 import com.imfan.j.a91fan.netease.NeteaseClient;
 import com.imfan.j.a91fan.util.Cache;
+import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.wxapi.WXEntryActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -191,11 +192,11 @@ public class LoginNetease {
         LogUtil.i("密码Password", Preferences.getNeteaseToken());
 
         // 登录
-        NimUIKit.doLogin(new LoginInfo(Preferences.getUserAccount(), Preferences.getNeteaseToken()), new RequestCallback<LoginInfo>() {
+        NimUIKit.doLogin(new LoginInfo(Preferences.getUserAccount().toLowerCase(), Preferences.getNeteaseToken()), new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {
                 LogUtil.i(TAG, "login success登录成功");
-                Toast.makeText(context, "登录非常成功", Toast.LENGTH_SHORT).show();
+                // CustomToast.show(context, "登录非常成功");
             }
 
             @Override
@@ -205,13 +206,13 @@ public class LoginNetease {
 
 
                 } else {
-                    Toast.makeText(context, "登录失败: " + code, Toast.LENGTH_SHORT).show();
+                    CustomToast.show(context, "登录失败: " + code);
                 }
             }
 
             @Override
             public void onException(Throwable exception) {
-                Toast.makeText(context, "无效输入", Toast.LENGTH_SHORT).show();
+                CustomToast.show(context, "无效输入");
             }
         });
     }

@@ -76,7 +76,7 @@ public class NimUserInfoCache {
             if (callback != null) {
                 cbs.add(callback);
             }
-            requestUserInfoMap.put(account, cbs);
+            requestUserInfoMap.put(account, cbs); // 将请求放入了request队列中
         }
 
         List<String> accounts = new ArrayList<>(1);
@@ -93,8 +93,12 @@ public class NimUserInfoCache {
 
                 NimUserInfo user = null;
                 boolean hasCallback = requestUserInfoMap.get(account).size() > 0;
+
                 if (code == ResponseCode.RES_SUCCESS && users != null && !users.isEmpty()) {
                     user = users.get(0);
+                    if (user != null){
+                        account2UserMap.put(account, user);
+                    }
                     // 这里不需要更新缓存，由监听用户资料变更（添加）来更新缓存
                 }
 
@@ -110,7 +114,7 @@ public class NimUserInfoCache {
                     }
                 }
 
-                requestUserInfoMap.remove(account);
+                requestUserInfoMap.remove(account);  // 将该请求删除
             }
         });
     }
@@ -172,6 +176,12 @@ public class NimUserInfoCache {
 
     public NimUserInfo getUserInfo(String account) {
         if (TextUtils.isEmpty(account) || account2UserMap == null) {
+            if (account2UserMap == null){
+                LogUtil.i("NimUserInfo getUserInfo", "account2UserMap == null");
+            }
+            else{
+                LogUtil.i("NimUserInfo getUserInfo", "账户为空null");
+            }
             LogUtil.e(UIKitLogTag.USER_CACHE, "getUserInfo null, account=" + account + ", account2UserMap=" + account2UserMap);
             return null;
         }

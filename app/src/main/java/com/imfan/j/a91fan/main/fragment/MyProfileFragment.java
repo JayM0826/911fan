@@ -1,8 +1,11 @@
 package com.imfan.j.a91fan.main.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileSettingActivity;
@@ -10,7 +13,12 @@ import com.imfan.j.a91fan.loginabout.LogoutManager;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
+import com.netease.nim.uikit.cache.NimUserInfoCache;
+import com.netease.nim.uikit.common.ui.imageview.HeadImageView;
 import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.uinfo.constant.GenderEnum;
+import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 /**
  * Created by jay on 17-2-6.
@@ -21,7 +29,9 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
 
 
 
+    private static NimUserInfo userInfo;
     private final String TAG = "MyProfileFragment:";
+    HeadImageView userHead;
     private View headLayout, blog, following, fans, article, favorite, draft;
     private TextView user_logout, fanID, fanNickName;
 
@@ -38,22 +48,19 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
     @Override
     protected void onInit() {
 
+
         findViews();
         initEvents();
-        initDatas();
-
-
 
 
     }
 
-    private void initDatas(){
-        fanNickName.setText(Preferences.getWxNickname());
-        if (!(Preferences.getFanId() == null)){ // fanid不为空
-            fanID.setText(Preferences.getFanId());
-        } // 否则默认显示
+    @Override
+    public void onResume() {
 
+        super.onResume();
 
+        getUserInfo();
     }
 
     private void initEvents(){
@@ -72,6 +79,7 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
 
         fanID = (TextView)getView().findViewById(R.id.user_fanid);
 
+        userHead = (HeadImageView)getView().findViewById(R.id.user_head1);
         fanNickName = (TextView)getView().findViewById(R.id.user_fanname);
 
         headLayout = (View)getView().findViewById(R.id.head_layout);
@@ -89,6 +97,7 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
         following = (View)getView().findViewById(R.id.following);
 
         user_logout = (TextView)getView().findViewById(R.id.user_logout);
+
 
     }
 
@@ -123,5 +132,40 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
             default:
                 break;
         }
+    }
+
+    private void getUserInfo() {
+
+        userInfo = NimUserInfoCache.getInstance().getUserInfo(Preferences.getUserAccount().toLowerCase());
+
+        if (userInfo == null) {
+            NimUserInfoCache.getInstance().getUserInfoFromRemote(Preferences.getUserAccount().toLowerCase(), new RequestCallback<NimUserInfo>() {
+                @Override
+                public void onSuccess(NimUserInfo param) {
+                    userInfo = param;
+                    updateUI();
+                }
+
+                @Override
+                public void onFailed(int code) {
+                    CustomToast.show(getContext(), "getUserInfoFromRemote failed:" + code);
+                }
+
+                @Override
+                public void onException(Throwable exception) {
+                    CustomToast.show(getContext(), "getUserInfoFromRemote exception:" + exception);
+                }
+            });
+        } else {
+            updateUI();
+        }
+    }
+
+    private void updateUI() {
+
+        userHead.loadBuddyAvatar(Preferences.getUserAccount().toLowerCase());
+        fanNickName.setText(userInfo.getName());
+        fanID.setText(Preferences.getUserAccount().toLowerCase());
+
     }
 }

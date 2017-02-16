@@ -217,7 +217,7 @@ public class ContactDataAdapter extends BaseAdapter {
 
         /* 然后再次建立新任务,在ContactDataTask的run方法中进行query的真正查询，
         使用的dataProvider的provide方法*/
-        Task task = new Task(new ContactDataTask(query, dataProvider, filter) {
+        Task task = new Task(new ContactDataTask(context, query, dataProvider, filter) {
             @Override
             protected void onPreProvide(AbsContactDataList datas) {
                 List<? extends AbsContactItem> itemsND = onNonDataItems();

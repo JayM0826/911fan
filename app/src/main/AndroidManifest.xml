@@ -135,7 +135,10 @@
         <activity
             android:name=".contact.activity.UserProfileSettingActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".contact.activity.UserProfileEditItemActivity"
+        <activity
+            android:name=".contact.activity.UserProfileEditItemActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".contact.activity.UserProfileActivity"
             android:theme="@style/AppTheme"></activity>
     </application>
 

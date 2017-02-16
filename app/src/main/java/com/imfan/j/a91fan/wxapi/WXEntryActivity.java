@@ -242,7 +242,6 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
                     unionid = response.getString("unionid");
                     Preferences.setWxUnionid(unionid);
 
-                    CustomToast.show(WXEntryActivity.this, "获取个人信息成功" + nickname);
 
                     LoginNetease.registerNetease();
                     Runnable runnable = new Runnable() {

@@ -33,6 +33,7 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.netease.nimlib.sdk.team.model.IMMessageFilter;
 import com.netease.nimlib.sdk.team.model.UpdateTeamAttachment;
+import com.netease.nimlib.sdk.uinfo.UserServiceObserve;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
@@ -113,6 +114,8 @@ public class MainApplication extends Application {
 
         if (inMainProcess()) {
             initUIKit();
+
+
 
             // 注册通知消息过滤器
             registerIMMessageFilter();

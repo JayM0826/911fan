@@ -3,6 +3,7 @@ package com.netease.nim.uikit.contact.core.provider;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.netease.nim.uikit.NimUIKit;
@@ -39,7 +40,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class UserProvider {
 
-    static AbsContactItem items;
+    static AbsContactItem items = null;
     private static UserInfoProvider.UserInfo user;
     private static Map<String, List<RequestCallback<NimUserInfo>>> requestUserInfoMap = new ConcurrentHashMap<>(); // 重复请求处理
 
@@ -52,11 +53,8 @@ public class UserProvider {
                 @Override
                 public void onSuccess(NimUserInfo userResult) { // 成功获取用户，说明和后台是交互了，但是交互不说明一定有用户
                     if (userResult == null) {
-                        LogUtil.i(getClass().getSimpleName(), "服务器没有这个用户！");
                         user = null;
                     }else{
-                        LogUtil.i(getClass().getSimpleName(), "在服务器中找到了这个用户");
-
                         user = userResult;
                         items = new ContactItem(ContactHelper.makeContactFromUserInfo(user, 1), ItemTypes.USER);
                     }
@@ -78,8 +76,6 @@ public class UserProvider {
                     user = null;
                 }
             });
-        }else {
-            LogUtil.i("UserInfoProvider.UserInfo query:", "搜索用户关键词为null！");
         }
 
     }

@@ -159,8 +159,10 @@ public class MainActivity extends UI {
             case R.id.notify_btn:
                 LogUtil.i(TAG, "打开推送通知");
                 CustomToast.show(this, "已经打开推送消息");
+                /*
+                注册activity，测试用
                 Intent intent = new Intent(this, TestActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
             default:
                 break;
         }
