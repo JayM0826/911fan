@@ -1,15 +1,15 @@
 [
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_audio_animation_list_left_2.png",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_audio_animation_list_left_2.png"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_message_input_send_normal.9.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_message_input_send_normal.9.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_picker_orignal_normal.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_picker_orignal_normal.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_message_input_send_normal.9.png",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_message_input_send_normal.9.png"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_audio_animation_list_left_2.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_audio_animation_list_left_2.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/explosion_five.png",
@@ -482,6 +482,10 @@
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_emoji_icon.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_emoji_icon.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_launcher.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/res/drawable-hdpi-v4/ic_launcher.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_ic_menu_share_mtrl_alpha.png",

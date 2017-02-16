@@ -7,16 +7,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.config.UserPreferences;
-import com.imfan.j.a91fan.loginabout.LoginNetease;
-import com.imfan.j.a91fan.loginabout.LogoutManager;
+import com.imfan.j.a91fan.netease.LoginNetease;
+import com.imfan.j.a91fan.netease.LogoutManager;
 import com.imfan.j.a91fan.main.fragment.HomeFragment;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.LoginSyncDataStatusObserver;
-import com.netease.nim.uikit.common.activity.CustomActivityManager;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.util.log.LogUtil;

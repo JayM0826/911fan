@@ -1,4 +1,4 @@
-package com.imfan.j.a91fan.loginabout;
+package com.imfan.j.a91fan.netease;
 
 import android.content.Context;
 import android.widget.Toast;

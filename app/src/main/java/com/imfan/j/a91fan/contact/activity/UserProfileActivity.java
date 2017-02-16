@@ -218,9 +218,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 } else {
                     onAddFriendByVerify(); // 发起好友验证请求
                 }
-            } else if (v == removeFriendBtn) {
+            } else if (v == removeFriendBtn) { // 删除好友
                 onRemoveFriend();
-            } else if (v == chatBtn) {
+            } else if (v == chatBtn) { // 去聊天
                 onChat();
             }
         }
@@ -240,9 +240,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.user_profile_activity);
-
-
-
 
         account = getIntent().getStringExtra(Extras.EXTRA_ACCOUNT);
 
@@ -295,7 +292,7 @@ public class UserProfileActivity extends AppCompatActivity {
         emailText = (TextView) emailLayout.findViewById(R.id.value);
         signatureLayout = findView(R.id.signature);
         signatureText = (TextView) signatureLayout.findViewById(R.id.value);
-        aliasLayout = findView(R.id.alias);
+        aliasLayout = findView(R.id.alias1);
         ((TextView) birthdayLayout.findViewById(R.id.attribute)).setText(R.string.birthday);
         ((TextView) phoneLayout.findViewById(R.id.attribute)).setText(R.string.phone);
         ((TextView) emailLayout.findViewById(R.id.attribute)).setText(R.string.email);
@@ -643,6 +640,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void onChat() {
         Log.i(TAG, "onChat");
         // 先不去聊天
+        CustomToast.show(this, "我想聊天，为什么不让人家聊！");
         // SessionHelper.startP2PSession(this, account);
     }
 }

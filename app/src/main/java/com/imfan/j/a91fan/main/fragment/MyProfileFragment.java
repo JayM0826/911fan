@@ -1,23 +1,18 @@
 package com.imfan.j.a91fan.main.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileSettingActivity;
-import com.imfan.j.a91fan.loginabout.LogoutManager;
+import com.imfan.j.a91fan.netease.LogoutManager;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.common.ui.imageview.HeadImageView;
-import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.uinfo.constant.GenderEnum;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 /**

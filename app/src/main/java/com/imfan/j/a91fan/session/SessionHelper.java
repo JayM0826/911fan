@@ -1,11 +1,6 @@
 /*
 package com.imfan.j.a91fan.session;
 
-*/
-/**
- * Created by jay on 17-1-15.
- *//*
-
 
 import android.app.Activity;
 import android.content.Context;
@@ -50,9 +45,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 */
-/**
- * UIKit自定义消息界面用法展示类
+/* UIKit自定义消息界面用法展示类
  *//*
+
 
 public class SessionHelper {
 
@@ -330,10 +325,9 @@ public class SessionHelper {
     }
 
 
-    */
-/**
+*
      * 消息转发过滤器
-     *//*
+
 
     private static void registerMsgForwardFilter() {
         NimUIKit.setMsgForwardFilter(new MsgForwardFilter() {
@@ -355,10 +349,9 @@ public class SessionHelper {
         });
     }
 
-    */
-/**
+*
      * 消息撤回过滤器
-     *//*
+
 
     private static void registerMsgRevokeFilter() {
         NimUIKit.setMsgRevokeFilter(new MsgRevokeFilter() {

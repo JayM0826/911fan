@@ -1,4 +1,4 @@
-package com.imfan.j.a91fan.loginabout;
+package com.imfan.j.a91fan.netease;
 
 import com.imfan.j.a91fan.util.Cache;
 import com.netease.nim.uikit.LoginSyncDataStatusObserver;

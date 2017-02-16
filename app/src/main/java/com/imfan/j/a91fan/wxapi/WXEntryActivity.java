@@ -1,30 +1,23 @@
 package com.imfan.j.a91fan.wxapi;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.config.UserPreferences;
-import com.imfan.j.a91fan.loginabout.LoginNetease;
+import com.imfan.j.a91fan.netease.LoginNetease;
 import com.imfan.j.a91fan.main.activity.MainActivity;
-import com.imfan.j.a91fan.netease.CheckSumBuilder;
-import com.imfan.j.a91fan.netease.NeteaseClient;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.netease.nim.uikit.NimUIKit;
 
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;
@@ -32,11 +25,8 @@ import com.netease.nim.uikit.common.util.sys.NetworkUtil;
 import com.netease.nim.uikit.permission.MPermission;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
-import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
-import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -48,13 +38,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
-
 import cz.msebera.android.httpclient.Header;
 
 import static com.imfan.j.a91fan.MainApplication.api;
-import static com.imfan.j.a91fan.util.Constant.NetEaseAPP_KEY;
-import static com.imfan.j.a91fan.util.Constant.NetEaseAPP_SECRET;
 import static com.imfan.j.a91fan.util.Constant.WX_APP_ID;
 import static com.imfan.j.a91fan.util.Constant.accessTokenUrl1;
 import static com.imfan.j.a91fan.util.Constant.accessTokenUrl2;
