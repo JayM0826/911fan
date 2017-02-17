@@ -121,6 +121,8 @@ public final class NimUIKit {
         DataCacheManager.observeSDKDataChanged(true);
         if (!TextUtils.isEmpty(getAccount())) {
             DataCacheManager.buildDataCache(); // build data cache on auto login
+        }else{
+            LogUtil.e("你麻痹", "UIKIT中的getAccount 为空");
         }
 
         // init tools
@@ -264,12 +266,12 @@ public final class NimUIKit {
      * @param customization 定制化信息。针对不同的聊天对象，可提供不同的定制化。
      * @param anchor        跳转到指定消息的位置，不需要跳转填null
      */
-    public static void startChatting(Context context, String id, SessionTypeEnum sessionType, SessionCustomization
+    public static void startChatting(Context context, String account, SessionTypeEnum sessionType, SessionCustomization
             customization, IMMessage anchor) {
-        if (sessionType == SessionTypeEnum.P2P) {
-            P2PMessageActivity.start(context, id, customization, anchor);
-        } else if (sessionType == SessionTypeEnum.Team) {
-            TeamMessageActivity.start(context, id, customization, null, anchor);
+        if (sessionType == SessionTypeEnum.P2P) { // 单聊
+            P2PMessageActivity.start(context, account, customization, anchor);
+        } else if (sessionType == SessionTypeEnum.Team) { // 群聊
+            TeamMessageActivity.start(context, account, customization, null, anchor);
         }
     }
 

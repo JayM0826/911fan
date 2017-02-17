@@ -57,7 +57,7 @@ public class ContactDataProvider implements IContactDataProvider {
                         }
                     }
                 };
-                new Handler(Looper.getMainLooper()).postDelayed(runnable, 195);
+                new Handler(Looper.getMainLooper()).postDelayed(runnable, 230);
             }else{
                 data.addAll(provide(itemType, query));
             }

@@ -34,7 +34,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
 
     FriendDataCache.FriendDataChangedObserver friendDataChangedObserver = new FriendDataCache.FriendDataChangedObserver() {
         @Override
-        public void onAddedOrUpdatedFriends(List<String> accounts) {
+        public void onAddedOrUpdatedFriends(List<String> accounts) { // 注：sessionId就是account
             setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
         }
 
@@ -87,7 +87,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
 
         // 单聊特例话数据，包括个人信息，
         requestBuddyInfo();
-        registerObservers(true);
+        registerObservers(true); // 设置监听器
     }
 
     @Override
@@ -109,9 +109,11 @@ public class P2PMessageActivity extends BaseMessageActivity {
     }
 
     private void requestBuddyInfo() {
+        // 这是设置toolbar的title
         setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
     }
 
+    // 注册了好几个监听器
     private void registerObservers(boolean register) {
         if (register) {
             registerUserInfoObserver();

@@ -3,6 +3,7 @@ package com.netease.nim.uikit.uinfo;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.cache.TeamDataCache;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 
 import java.util.List;
@@ -14,9 +15,21 @@ public class UserInfoHelper {
     // 获取用户显示在标题栏和最近联系人中的名字
     public static String getUserTitleName(String id, SessionTypeEnum sessionType) {
         if (sessionType == SessionTypeEnum.P2P) {
+
+            if (NimUIKit.getAccount() == null){
+                LogUtil.e("我曹尼玛天杀的", "NimUIKit.getAccount() == null");
+            }
+
+            if (id.equals(null)){
+                LogUtil.e("我曹尼玛天杀的", "id 为null");
+
+            }
+
             if (NimUIKit.getAccount().equals(id)) {
+                LogUtil.e("我曹尼玛天杀的", "走到我的电脑哪里");
                 return "我的电脑";
             } else {
+                LogUtil.e("我曹尼玛天杀的", "没有走到我的电脑哪里");
                 return NimUserInfoCache.getInstance().getUserDisplayName(id);
             }
         }  else if (sessionType == SessionTypeEnum.Team) {

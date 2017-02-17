@@ -7,6 +7,11 @@ import android.widget.TextView;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.main.reminder.ReminderManager;
+import com.imfan.j.a91fan.session.SessionHelper;
+import com.imfan.j.a91fan.session.extension.GuessAttachment;
+import com.imfan.j.a91fan.session.extension.RTSAttachment;
+import com.imfan.j.a91fan.session.extension.SnapChatAttachment;
+import com.imfan.j.a91fan.session.extension.StickerAttachment;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.recent.RecentContactsCallback;
@@ -15,7 +20,6 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.StatusCode;
 import com.netease.nimlib.sdk.auth.AuthServiceObserver;
-import com.netease.nimlib.sdk.auth.OnlineClient;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -126,7 +130,7 @@ public class  MessageFragment extends MainFragment {
             @Override
             public void onItemClick(RecentContact recent) {
                 // 回调函数，以供打开会话窗口时传入定制化参数，或者做其他动作
-                /*switch (recent.getSessionType()) {
+                switch (recent.getSessionType()) {
                     case P2P:
                         SessionHelper.startP2PSession(getActivity(), recent.getContactId());
                         break;
@@ -135,14 +139,14 @@ public class  MessageFragment extends MainFragment {
                         break;
                     default:
                         break;
-                }*/
+                }
             }
 
             @Override
             public String getDigestOfAttachment(MsgAttachment attachment) {
                 // 设置自定义消息的摘要消息，展示在最近联系人列表的消息缩略栏上
                 // 当然，你也可以自定义一些内建消息的缩略语，例如图片，语音，音视频会话等，自定义的缩略语会被优先使用。
-                /*if (attachment instanceof GuessAttachment) {
+                if (attachment instanceof GuessAttachment) {
                     GuessAttachment guess = (GuessAttachment) attachment;
                     return guess.getValue().getDesc();
                 } else if (attachment instanceof RTSAttachment) {
@@ -152,7 +156,6 @@ public class  MessageFragment extends MainFragment {
                 } else if (attachment instanceof SnapChatAttachment) {
                     return "[阅后即焚]";
                 }
-*/
                 return null;
             }
 

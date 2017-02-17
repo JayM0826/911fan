@@ -39,11 +39,28 @@ import static com.imfan.j.a91fan.util.Constant.NetEaseAPP_SECRET;
 public class LoginNetease {
 
     private static final String TAG = Class.class.getSimpleName();
+    private static LoginNetease loginNetease;
     static private String nonce = "123456"; // 当做随机数使用
     static private String curTime = null;
     static private String checkSum = null;
 
-    public static void registerNetease(){
+    public static LoginNetease getInstance(){
+        if (loginNetease == null){
+            loginNetease = new LoginNetease();
+        }
+        return loginNetease;
+    }
+
+    private  static void addHeaders() {
+        NeteaseClient.client.removeAllHeaders();
+        NeteaseClient.client.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        NeteaseClient.client.addHeader("AppKey", NetEaseAPP_KEY);
+        NeteaseClient.client.addHeader("Nonce", nonce);
+        NeteaseClient.client.addHeader("CurTime", curTime);
+        NeteaseClient.client.addHeader("CheckSum", checkSum);
+    }
+
+    public  void registerNetease(final Context context){
         curTime = String.valueOf((new Date()).getTime() / 1000L);
         checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
 
@@ -70,7 +87,7 @@ public class LoginNetease {
                     int code = object.getInt("code");
                     LogUtil.i("注册返回JSON：", "Json" + code);
                     if (code == 414) { // 说明我们只需要去更新我们的token就可以了
-                        refreshNeteaseToken();
+                        refreshNeteaseToken(context);
                     } else {
                         // 解析json数据
                         JSONObject jsonObject = object.getJSONObject("info");
@@ -88,6 +105,13 @@ public class LoginNetease {
 
                         LogUtil.i("微信注册页账户:", accid);
                         LogUtil.i("微信注册页昵称:", name);
+
+                        login(context);
+                        // 初始化消息提醒配置
+
+
+
+
                     }
 
 
@@ -112,20 +136,10 @@ public class LoginNetease {
 
     }
 
-    private  static void addHeaders() {
-        NeteaseClient.client.removeAllHeaders();
-        NeteaseClient.client.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-        NeteaseClient.client.addHeader("AppKey", NetEaseAPP_KEY);
-        NeteaseClient.client.addHeader("Nonce", nonce);
-        NeteaseClient.client.addHeader("CurTime", curTime);
-        NeteaseClient.client.addHeader("CheckSum", checkSum);
-    }
-
-
    /* **
        刷新网易的token
     */
-    static public void refreshNeteaseToken() {
+    public void refreshNeteaseToken(final Context context) {
         curTime = String.valueOf((new Date()).getTime() / 1000L);
         checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
 
@@ -133,7 +147,6 @@ public class LoginNetease {
         RequestParams params = new RequestParams();
         LogUtil.i("ACCID:", Preferences.getUserAccount());
         params.add("accid", Preferences.getUserAccount().toLowerCase());
-        LogUtil.i("ACCID:", Preferences.getUserAccount());
         addHeaders();
 
         NeteaseClient.post("refreshToken.action", params, new JsonHttpResponseHandler() {
@@ -160,7 +173,7 @@ public class LoginNetease {
                     String token = jsonObject.getString("token");
                     Preferences.setToken(token);
                     LogUtil.i("refreshNeteaseToken()", "新的Token:" + token);
-
+                    login(context);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -183,7 +196,7 @@ public class LoginNetease {
 
     }
 
-    public  static void login(final Context context) {
+    public   void login(final Context context) {
 
         // 云信只提供消息通道，并不包含用户资料逻辑。
         // 开发者需要在管理后台或通过服务器接口将用户帐号和token同步到云信服务器。
@@ -197,6 +210,9 @@ public class LoginNetease {
             public void onSuccess(LoginInfo param) {
                 LogUtil.i(TAG, "login success登录成功");
                 // CustomToast.show(context, "登录非常成功");
+                initNotificationConfig();
+                // 进入主界面
+                MainActivity.start(context, null);
             }
 
             @Override
@@ -215,6 +231,20 @@ public class LoginNetease {
                 CustomToast.show(context, "无效输入");
             }
         });
+    }
+
+    private  void initNotificationConfig() {
+        // 初始化消息提醒
+        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+
+        // 加载状态栏配置
+        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
+        if (statusBarNotificationConfig == null) {
+            statusBarNotificationConfig = Cache.getNotificationConfig();
+            UserPreferences.setStatusConfig(statusBarNotificationConfig);
+        }
+        // 更新配置
+        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
     }
 
 

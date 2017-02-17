@@ -4,17 +4,24 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.config.UserPreferences;
 import com.imfan.j.a91fan.netease.LoginNetease;
 import com.imfan.j.a91fan.netease.LogoutManager;
 import com.imfan.j.a91fan.main.fragment.HomeFragment;
+import com.imfan.j.a91fan.session.SessionHelper;
+import com.imfan.j.a91fan.team.TeamCreateHelper;
 import com.imfan.j.a91fan.util.CustomToast;
+import com.imfan.j.a91fan.util.Extras;
+import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.LoginSyncDataStatusObserver;
+import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.util.log.LogUtil;
@@ -62,6 +69,7 @@ public class MainActivity extends UI {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        NimUIKit.setAccount(Preferences.getUserAccount().toLowerCase());
         StatusCode status = NIMClient.getStatus(); // 获取在线状态
         if (status == LOGINED)
         {
@@ -70,7 +78,7 @@ public class MainActivity extends UI {
             LogUtil.i(TAG, getString(R.string.line_logined));
         }else{
             LogUtil.i(TAG, "登录失败" + status.getValue());
-            LoginNetease.login(this);
+            LoginNetease.getInstance().login(this);
         }
         onParseIntent();
         // 等待同步数据完成
@@ -83,6 +91,13 @@ public class MainActivity extends UI {
                 DialogMaker.dismissProgressDialog();
             }
         });
+
+        LogUtil.i(TAG, "sync completed = " + syncCompleted);
+        if (!syncCompleted) {
+            DialogMaker.showProgressDialog(MainActivity.this, getString(R.string.prepare_data)).setCanceledOnTouchOutside(false);
+        }else {
+            syncPushNoDisturb(UserPreferences.getStatusConfig());
+        }
 
         showMainFragment();
 
@@ -174,17 +189,14 @@ public class MainActivity extends UI {
             IMMessage message = (IMMessage) getIntent().getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
             switch (message.getSessionType()) {
                 case P2P:
-                    CustomToast.show(this, "你打开了P2P聊天。");
-                    // SessionHelper.startP2PSession(this, message.getSessionId());
+                    SessionHelper.startP2PSession(this, message.getSessionId());
                     LogUtil.i(TAG, "你打开了P2P聊天。");
                     break;
                 case Team:
-                    CustomToast.show(this, "你打开了群聊。");
                     LogUtil.i(TAG, "你打开了群聊。");
-                    // SessionHelper.startTeamSession(this, message.getSessionId());
+                    SessionHelper.startTeamSession(this, message.getSessionId());
                     break;
                 case ChatRoom:
-                    CustomToast.show(this, "你打开了聊天室。");
                     LogUtil.i(TAG, "你打开了聊天室。");
                     break;
                 default:
@@ -195,13 +207,13 @@ public class MainActivity extends UI {
             LogUtil.i(TAG, "马上注销！");
             CustomToast.show(this, "你已经选择了注销。");
             return;
-        }  /*else if (intent.hasExtra(com.netease.nim.demo.main.model.Extras.EXTRA_JUMP_P2P)) {
-            Intent data = intent.getParcelableExtra(com.netease.nim.demo.main.model.Extras.EXTRA_DATA);
-            String account = data.getStringExtra(com.netease.nim.demo.main.model.Extras.EXTRA_ACCOUNT);
+        }  else if (intent.hasExtra(Extras.EXTRA_JUMP_P2P)) {
+            Intent data = intent.getParcelableExtra(Extras.EXTRA_DATA);
+            String account = data.getStringExtra(Extras.EXTRA_ACCOUNT);
             if (!TextUtils.isEmpty(account)) {
                 SessionHelper.startP2PSession(this, account);
             }
-        }*/
+        }
     }
 
     // 注销
@@ -219,16 +231,18 @@ public class MainActivity extends UI {
             if (requestCode == REQUEST_CODE_NORMAL) {
                 final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
                 if (selected != null && !selected.isEmpty()) {
-                    // TeamCreateHelper.createNormalTeam(MainActivity.this, selected, false, null);
+                    TeamCreateHelper.createNormalTeam(MainActivity.this, selected, false, null);
                 } else {
                     CustomToast.show(MainActivity.this, "请选择至少一个联系人！");
                 }
             } else if (requestCode == REQUEST_CODE_ADVANCED) {
                 final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
-                // TeamCreateHelper.createAdvancedTeam(MainActivity.this, selected);
+                TeamCreateHelper.createAdvancedTeam(MainActivity.this, selected);
             }
         }
 
     }
+
+
 
 }

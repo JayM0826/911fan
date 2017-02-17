@@ -1,4 +1,3 @@
-/*
 package com.imfan.j.a91fan.session;
 
 
@@ -11,6 +10,26 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
+import com.imfan.j.a91fan.session.action.AVChatAction;
+import com.imfan.j.a91fan.session.action.FileAction;
+import com.imfan.j.a91fan.session.action.GuessAction;
+import com.imfan.j.a91fan.session.action.SnapChatAction;
+import com.imfan.j.a91fan.session.action.TipAction;
+import com.imfan.j.a91fan.session.extension.CustomAttachParser;
+import com.imfan.j.a91fan.session.extension.CustomAttachment;
+import com.imfan.j.a91fan.session.extension.GuessAttachment;
+import com.imfan.j.a91fan.session.extension.RTSAttachment;
+import com.imfan.j.a91fan.session.extension.SnapChatAttachment;
+import com.imfan.j.a91fan.session.extension.StickerAttachment;
+import com.imfan.j.a91fan.session.viewholder.MsgViewHolderAVChat;
+import com.imfan.j.a91fan.session.viewholder.MsgViewHolderDefCustom;
+import com.imfan.j.a91fan.session.viewholder.MsgViewHolderFile;
+import com.imfan.j.a91fan.session.viewholder.MsgViewHolderGuess;
+import com.imfan.j.a91fan.session.viewholder.MsgViewHolderRTS;
+import com.imfan.j.a91fan.session.viewholder.MsgViewHolderSnapChat;
+import com.imfan.j.a91fan.session.viewholder.MsgViewHolderSticker;
+import com.imfan.j.a91fan.session.viewholder.MsgViewHolderTip;
 import com.imfan.j.a91fan.util.Cache;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.TeamDataCache;
@@ -44,9 +63,8 @@ import com.netease.nimlib.sdk.team.model.Team;
 import java.util.ArrayList;
 import java.util.List;
 
-*/
-/* UIKit自定义消息界面用法展示类
- *//*
+ /*UIKit自定义消息界面用法展示类*/
+
 
 
 public class SessionHelper {
@@ -61,6 +79,33 @@ public class SessionHelper {
 
     private static NIMPopupMenu popupMenu;
     private static List<PopupMenuItem> menuItemList;
+    private static NIMPopupMenu.MenuItemClickListener listener = new NIMPopupMenu.MenuItemClickListener() {
+        @Override
+        public void onItemClick(final PopupMenuItem item) {
+            switch (item.getTag()) {
+                case ACTION_HISTORY_QUERY:
+                    //MessageHistoryActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum()); // 漫游消息查询
+                    break;
+                case ACTION_SEARCH_MESSAGE:
+                    // SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
+                    break;
+                case ACTION_CLEAR_MESSAGE:
+                    EasyAlertDialogHelper.createOkCancelDiolag(item.getContext(), null, "确定要清空吗？", true, new EasyAlertDialogHelper.OnDialogActionListener() {
+                        @Override
+                        public void doCancelAction() {
+
+                        }
+
+                        @Override
+                        public void doOkAction() {
+                            NIMClient.getService(MsgService.class).clearChattingHistory(item.getSessionId(), item.getSessionTypeEnum());
+                            MessageListPanelHelper.getInstance().notifyClearMessages(item.getSessionId());
+                        }
+                    }).show();
+                    break;
+            }
+        }
+    };
 
     public static void init() {
         // 注册自定义消息附件解析器
@@ -92,8 +137,10 @@ public class SessionHelper {
 
     public static void startP2PSession(Context context, String account, IMMessage anchor) {
         if (!Cache.getAccount().equals(account)) {
+            // 向其他人聊天,不是同一个人
             NimUIKit.startP2PSession(context, account, anchor);
         } else {
+            // 向自己聊天
             NimUIKit.startChatting(context, account, SessionTypeEnum.P2P, getMyP2pCustomization(), anchor);
         }
     }
@@ -140,7 +187,6 @@ public class SessionHelper {
                 actions.add(new AVChatAction(AVChatType.AUDIO));
                 actions.add(new AVChatAction(AVChatType.VIDEO));
             }
-            actions.add(new RTSAction());
             actions.add(new SnapChatAction());
             actions.add(new GuessAction());
             actions.add(new FileAction());
@@ -161,7 +207,7 @@ public class SessionHelper {
             SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
-                    MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
+                    // MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
                 }
             };
 
@@ -307,6 +353,10 @@ public class SessionHelper {
         NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
     }
 
+/*
+*
+*//*     * 消息转发过滤器*/
+
     private static void setSessionListener() {
         SessionEventListener listener = new SessionEventListener() {
             @Override
@@ -323,11 +373,6 @@ public class SessionHelper {
 
         NimUIKit.setSessionListener(listener);
     }
-
-
-*
-     * 消息转发过滤器
-
 
     private static void registerMsgForwardFilter() {
         NimUIKit.setMsgForwardFilter(new MsgForwardFilter() {
@@ -349,8 +394,8 @@ public class SessionHelper {
         });
     }
 
-*
-     * 消息撤回过滤器
+/**
+     * 消息撤回过滤器*/
 
 
     private static void registerMsgRevokeFilter() {
@@ -384,7 +429,6 @@ public class SessionHelper {
         }, true);
     }
 
-
     private static void initPopuptWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
         if (popupMenu == null) {
             menuItemList = new ArrayList<>();
@@ -395,34 +439,6 @@ public class SessionHelper {
         popupMenu.notifyData();
         popupMenu.show(view);
     }
-
-    private static NIMPopupMenu.MenuItemClickListener listener = new NIMPopupMenu.MenuItemClickListener() {
-        @Override
-        public void onItemClick(final PopupMenuItem item) {
-            switch (item.getTag()) {
-                case ACTION_HISTORY_QUERY:
-                    MessageHistoryActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum()); // 漫游消息查询
-                    break;
-                case ACTION_SEARCH_MESSAGE:
-                    SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
-                    break;
-                case ACTION_CLEAR_MESSAGE:
-                    EasyAlertDialogHelper.createOkCancelDiolag(item.getContext(), null, "确定要清空吗？", true, new EasyAlertDialogHelper.OnDialogActionListener() {
-                        @Override
-                        public void doCancelAction() {
-
-                        }
-
-                        @Override
-                        public void doOkAction() {
-                            NIMClient.getService(MsgService.class).clearChattingHistory(item.getSessionId(), item.getSessionTypeEnum());
-                            MessageListPanelHelper.getInstance().notifyClearMessages(item.getSessionId());
-                        }
-                    }).show();
-                    break;
-            }
-        }
-    };
 
     private static List<PopupMenuItem> getMoreMenuItems(Context context, String sessionId, SessionTypeEnum sessionTypeEnum) {
         List<PopupMenuItem> moreMenuItems = new ArrayList<PopupMenuItem>();
@@ -435,4 +451,3 @@ public class SessionHelper {
         return moreMenuItems;
     }
 }
-*/

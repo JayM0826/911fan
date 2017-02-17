@@ -19,6 +19,7 @@ import com.imfan.j.a91fan.util.Preferences;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.sys.NetworkUtil;
@@ -227,21 +228,18 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
 
                     unionid = response.getString("unionid");
                     Preferences.setWxUnionid(unionid);
+                    NimUIKit.setAccount(unionid.toLowerCase());
 
 
-                    LoginNetease.registerNetease();
-                    Runnable runnable = new Runnable() {
+
+                    LoginNetease.getInstance().registerNetease(WXEntryActivity.this);
+                    /*Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
                             LoginNetease.login(WXEntryActivity.this);
-                            // 初始化消息提醒配置
-                            initNotificationConfig();
-                            // 进入主界面
-                            MainActivity.start(WXEntryActivity.this, null);
-                            finish();
                         }
                     };
-                    new Handler().postDelayed(runnable, 500);
+                    new Handler().postDelayed(runnable, 800);*/
 
 
 
@@ -442,19 +440,8 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
     }
 
 
-    private void initNotificationConfig() {
-        // 初始化消息提醒
-        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
 
-        // 加载状态栏配置
-        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
-        if (statusBarNotificationConfig == null) {
-            statusBarNotificationConfig = Cache.getNotificationConfig();
-            UserPreferences.setStatusConfig(statusBarNotificationConfig);
-        }
-        // 更新配置
-        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
-    }
+
 }
 
 

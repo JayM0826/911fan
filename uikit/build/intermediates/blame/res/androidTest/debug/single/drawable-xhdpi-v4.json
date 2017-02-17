@@ -160,6 +160,10 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_actionbar_dark_logo_icon.png"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/ic_launcher.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.pnikosis/materialish-progress/1.0/res/drawable-xhdpi-v4/ic_launcher.png"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_team_member_add_pressed.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_team_member_add_pressed.png"
     },

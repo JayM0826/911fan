@@ -13,7 +13,10 @@
         android:label="Tests for com.netease.nim.uikit.test"
         android:targetPackage="com.netease.nim.uikit.test" />
 
-    <application>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
         <uses-library android:name="android.test.runner" />
         <!-- 会话窗口 -->
         <!--
@@ -98,11 +101,11 @@
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.PickerAlbumActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.PickerAlbumPreviewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.PreviewImageFromLocalActivity"
             android:configChanges="keyboardHidden|orientation"

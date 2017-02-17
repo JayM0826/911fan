@@ -46,7 +46,11 @@ public class Preferences {
     }
 
     public static String getUserAccount() {
-        return getWxUnionid();
+        if (getWxUnionid() == null){
+            return null;
+        }else {
+            return getWxUnionid().toLowerCase();
+        }
     }
 
     public static String getNeteaseToken() {

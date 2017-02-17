@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.constant.UserConstant;
+import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Extras;
@@ -641,7 +642,7 @@ public class UserProfileActivity extends AppCompatActivity {
         Log.i(TAG, "onChat");
         // 先不去聊天
         CustomToast.show(this, "我想聊天，为什么不让人家聊！");
-        // SessionHelper.startP2PSession(this, account);
+        SessionHelper.startP2PSession(this, account);
     }
 }
 

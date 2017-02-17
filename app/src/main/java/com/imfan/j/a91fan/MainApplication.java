@@ -8,10 +8,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Environment;
+import android.support.multidex.MultiDex;
 import android.text.TextUtils;
+import android.util.Log;
 
 
 import com.imfan.j.a91fan.config.UserPreferences;
+import com.imfan.j.a91fan.contact.helper.ContactHelper;
+import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.util.Cache;
 
 import com.imfan.j.a91fan.util.Preferences;
@@ -22,10 +26,13 @@ import com.netease.nim.uikit.custom.DefalutUserInfoProvider;
 import com.netease.nim.uikit.session.viewholder.MsgViewHolderThumbBase;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.NimStrings;
+import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
+import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.mixpush.NIMPushClient;
 import com.netease.nimlib.sdk.msg.MessageNotifierCustomization;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -89,6 +96,23 @@ public class MainApplication extends Application {
         }
     }
 
+    // 不知道为啥用
+     /*如何获取Context
+
+    通常我们想要获取Context对象，主要有以下四种方法
+    1：View.getContext,返回当前View对象的Context对象，通常是当前正在展示的Activity对象。
+    2：Activity.getApplicationContext,获取当前Activity所在的(应用)进程的Context对象，
+    通常我们使用Context对象时，要优先考虑这个全局的进程Context。
+    3：ContextWrapper.getBaseContext():用来获取一个ContextWrapper进行装饰之前的Context，
+    可以使用这个方法，这个方法在实际开发中使用并不多，也不建议使用。
+    4：Activity.this 返回当前的Activity实例，如果是UI控件需要使用Activity作为Context对象
+    ，但是默认的Toast实际上使用ApplicationContext也可以。
+*/
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+        MultiDex.install(this);
+    }
+
     private void regToWx() {
         // 通过WXAPIFactory工厂，获取IWXAPI的实例
         api = WXAPIFactory.createWXAPI(this, WX_APP_ID, true);
@@ -110,23 +134,22 @@ public class MainApplication extends Application {
 
         NIMClient.init(this, getLoginInfo(), getOptions());  // null是默认配置
         AppCrashHandler.getInstance(this);
-
+        // ExtraOptions.provide();
 
         if (inMainProcess()) {
             initUIKit();
-
-
-
             // 注册通知消息过滤器
             registerIMMessageFilter();
 
             // 初始化消息提醒
             NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
 
+
             // 注册语言变化监听
             registerLocaleReceiver(true);
         }
     }
+
 
     private void registerLocaleReceiver(boolean register) {
         if (register) {
@@ -162,10 +185,10 @@ public class MainApplication extends Application {
         // NimUIKit.setLocationProvider(new NimDemoLocationProvider());
 
         // 会话窗口的定制初始化。
-        // SessionHelper.init();
+        SessionHelper.init();
 
         // 通讯录列表定制初始化
-        // ContactHelper.init();
+         ContactHelper.init();
 
         // 添加自定义推送文案以及选项，请开发者在各端（Android、IOS、PC、Web）消息发送时保持一致，以免出现通知不一致的情况
         // NimUIKit.CustomPushContentProvider(new DemoPushContentProvider());
