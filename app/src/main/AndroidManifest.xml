@@ -128,10 +128,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/global_search_bg"
             android:windowSoftInputMode="stateUnspecified" />
-        <activity android:name=".main.activity.TestActivity" />
-        <activity
-            android:name=".main.activity.ChatToUserActivity"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".contact.activity.UserProfileSettingActivity"
             android:theme="@style/AppTheme" />

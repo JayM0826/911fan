@@ -73,7 +73,7 @@ public class MainActivity extends UI {
         StatusCode status = NIMClient.getStatus(); // 获取在线状态
         if (status == LOGINED)
         {
-            CustomToast.show(this, getString(R.string.line_logined));
+            // CustomToast.show(this, getString(R.string.line_logined));
             // Toast.makeText(this, R.string.line_logined, Toast.LENGTH_SHORT).show();
             LogUtil.i(TAG, getString(R.string.line_logined));
         }else{
@@ -172,10 +172,7 @@ public class MainActivity extends UI {
             case R.id.notify_btn:
                 LogUtil.i(TAG, "打开推送通知");
                 CustomToast.show(this, "已经打开推送消息");
-                /*
-                注册activity，测试用
-                Intent intent = new Intent(this, TestActivity.class);
-                startActivity(intent);*/
+                break;
             default:
                 break;
         }

@@ -5,17 +5,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.view.View;
+import android.view.Window;
 
 import com.netease.nim.uikit.R;
-import com.netease.nim.uikit.common.activity.UI;
+import com.netease.nim.uikit.common.activity.UII;
 import com.netease.nim.uikit.common.ui.imageview.CropImageView;
 import com.netease.nim.uikit.common.util.media.BitmapDecoder;
 import com.netease.nim.uikit.common.util.media.ImageUtil;
 import com.netease.nim.uikit.model.ToolBarOptions;
 import com.netease.nim.uikit.session.constant.Extras;
 
-public class CropImageActivity extends UI {
+public class CropImageActivity extends UII {
 
     public static final int PICKER_IMAGE_EDIT = 0x1040;
 
@@ -24,6 +26,7 @@ public class CropImageActivity extends UI {
     private String filePath;
 
     private CropImageView cropImageView;
+    private ActionBar actionBar;
 
     public static void startForData(Activity activity, String srcFile, int outputX, int outputY, int requestCode) {
         Intent intent = new Intent(activity, CropImageActivity.class);
@@ -47,11 +50,14 @@ public class CropImageActivity extends UI {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.nim_crop_image_activity);
 
-        ToolBarOptions options = new ToolBarOptions();
-        options.titleId = R.string.crop;
-        setToolBar(R.id.toolbar, options);
+
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.show();
+        actionBar.setTitle(R.string.crop);
 
         processIntent();
 

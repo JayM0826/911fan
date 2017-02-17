@@ -119,7 +119,7 @@ public class  MessageFragment extends MainFragment {
             @Override
             public void onRecentContactsLoaded() {
                 // 最近联系人列表加载完毕
-                CustomToast.show(getContext(), "联系人加载完毕");
+                // CustomToast.show(getContext(), "联系人加载完毕");
             }
 
             @Override

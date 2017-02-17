@@ -97,7 +97,7 @@
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.CropImageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name="com.netease.nim.uikit.common.media.picker.activity.PickerAlbumActivity"
             android:screenOrientation="portrait"

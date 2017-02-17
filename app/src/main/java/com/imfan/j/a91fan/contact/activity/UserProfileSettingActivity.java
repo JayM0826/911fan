@@ -4,36 +4,26 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.constant.UserConstant;
 import com.imfan.j.a91fan.contact.helper.UserUpdateHelper;
-import com.imfan.j.a91fan.main.activity.SearchActivity;
-import com.imfan.j.a91fan.main.activity.TestActivity;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
-import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.media.picker.PickImageHelper;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.ui.imageview.HeadImageView;
 import com.netease.nim.uikit.common.util.log.LogUtil;
-import com.netease.nim.uikit.model.ToolBarOptions;
 import com.netease.nim.uikit.session.actions.PickImageAction;
 import com.netease.nim.uikit.session.constant.Extras;
 import com.netease.nimlib.sdk.AbortableFuture;
@@ -47,8 +37,6 @@ import com.netease.nimlib.sdk.uinfo.constant.UserInfoFieldEnum;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 import java.io.File;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class UserProfileSettingActivity extends AppCompatActivity implements View.OnClickListener {
     // constant

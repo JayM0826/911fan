@@ -15,14 +15,11 @@ public class ToolBarOptions {
      * toolbar的title
      */
     public String titleString;
-    /**
-     * toolbar的logo资源id
-     */
-    public int logoId = R.drawable.nim_actionbar_nest_dark_logo;
+
     /**
      * toolbar的返回按钮资源id，默认开启的资源nim_actionbar_dark_back_icon
      */
-    public int navigateId = R.drawable.nim_actionbar_dark_back_icon;
+    public int navigateId = R.drawable.ic_arrow_back_white_24dp;
     /**
      * toolbar的返回按钮，默认开启
      */

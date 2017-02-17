@@ -28,7 +28,6 @@ import java.util.List;
 /**
  * 点对点聊天界面
  * <p/>
- * Created by huangjun on 2015/2/1.
  */
 public class P2PMessageActivity extends BaseMessageActivity {
 
@@ -53,19 +52,21 @@ public class P2PMessageActivity extends BaseMessageActivity {
             setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
         }
     };
+
     private boolean isResume = false;
+
     /**
      * 命令消息接收观察者
      */
-    Observer<CustomNotification> commandObserver = new Observer<CustomNotification>() {
+    /*Observer<CustomNotification> commandObserver = new Observer<CustomNotification>() {
         @Override
         public void onEvent(CustomNotification message) {
             if (!sessionId.equals(message.getSessionId()) || message.getSessionType() != SessionTypeEnum.P2P) {
                 return;
             }
-            showCommandMessage(message);
+            // showCommandMessage(message);
         }
-    };
+    };*/
     private UserInfoObservable.UserInfoObserver uinfoObserver;
 
     public static void start(Context context, String contactId, SessionCustomization customization, IMMessage anchor) {
@@ -120,7 +121,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
         } else {
             unregisterUserInfoObserver();
         }
-        NIMClient.getService(MsgServiceObserve.class).observeCustomNotification(commandObserver, register);
+        // NIMClient.getService(MsgServiceObserve.class).observeCustomNotification(commandObserver, register);
         FriendDataCache.getInstance().registerFriendDataChangedObserver(friendDataChangedObserver, register);
     }
 
@@ -145,7 +146,8 @@ public class P2PMessageActivity extends BaseMessageActivity {
         }
     }
 
-    protected void showCommandMessage(CustomNotification message) {
+    // 可以查看对方发送消息的状态
+    /*protected void showCommandMessage(CustomNotification message) {
         if (!isResume) {
             return;
         }
@@ -164,7 +166,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
         } catch (Exception e) {
 
         }
-    }
+    }*/
 
     @Override
     protected MessageFragment fragment() {

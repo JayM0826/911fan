@@ -39,7 +39,7 @@ public abstract class MsgViewHolderBase extends TViewHolder {
     protected TextView nameTextView;
     protected FrameLayout contentContainer;
     protected LinearLayout nameContainer;
-    protected TextView readReceiptTextView;
+    // protected TextView readReceiptTextView;
     // contentContainerView的默认长按事件。如果子类需要不同的处理，可覆盖onItemLongClick方法
     // 但如果某些子控件会拦截触摸消息，导致contentContainer收不到长按事件，子控件也可在inflate时重新设置
     protected View.OnLongClickListener longClickListener;
@@ -147,7 +147,7 @@ public abstract class MsgViewHolderBase extends TViewHolder {
         contentContainer = findViewById(R.id.message_item_content);
         nameIconView = findViewById(R.id.message_item_name_icon);
         nameContainer = findViewById(R.id.message_item_name_layout);
-        readReceiptTextView = findView(R.id.textViewAlreadyRead);
+        // readReceiptTextView = findView(R.id.textViewAlreadyRead);
 
         View.inflate(view.getContext(), getContentResId(), contentContainer);
         inflateContentView();
@@ -163,7 +163,8 @@ public abstract class MsgViewHolderBase extends TViewHolder {
         setOnClickListener();
         setLongClickListener();
         setContent();
-        setReadReceipt();
+        // 把已读回执去掉了
+        // setReadReceipt();
 
         bindContentView();
     }
@@ -332,11 +333,11 @@ public abstract class MsgViewHolderBase extends TViewHolder {
         }
     }
 
-    private void setReadReceipt() {
+    /*private void setReadReceipt() {
         if (!TextUtils.isEmpty(getAdapter().getUuid()) && message.getUuid().equals(getAdapter().getUuid())) {
             readReceiptTextView.setVisibility(View.VISIBLE);
         } else {
             readReceiptTextView.setVisibility(View.GONE);
         }
-    }
+    }*/
 }

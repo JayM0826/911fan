@@ -77,14 +77,14 @@ public class SessionHelper {
     private static SessionCustomization teamCustomization;
     private static SessionCustomization myP2pCustomization;
 
-    private static NIMPopupMenu popupMenu;
+    /*private static NIMPopupMenu popupMenu;
     private static List<PopupMenuItem> menuItemList;
     private static NIMPopupMenu.MenuItemClickListener listener = new NIMPopupMenu.MenuItemClickListener() {
         @Override
         public void onItemClick(final PopupMenuItem item) {
             switch (item.getTag()) {
                 case ACTION_HISTORY_QUERY:
-                    //MessageHistoryActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum()); // 漫游消息查询
+                    // MessageHistoryActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum()); // 漫游消息查询
                     break;
                 case ACTION_SEARCH_MESSAGE:
                     // SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
@@ -106,7 +106,7 @@ public class SessionHelper {
             }
         }
     };
-
+*/
     public static void init() {
         // 注册自定义消息附件解析器
         NIMClient.getService(MsgService.class).registerCustomAttachmentParser(new CustomAttachParser());
@@ -190,19 +190,19 @@ public class SessionHelper {
             actions.add(new SnapChatAction());
             actions.add(new GuessAction());
             actions.add(new FileAction());
-            actions.add(new TipAction());
+            // actions.add(new TipAction());
             p2pCustomization.actions = actions;
             p2pCustomization.withSticker = true;
 
             // 定制ActionBar右边的按钮，可以加多个
-            ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
+            /*ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
             SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
                     initPopuptWindow(context, view, sessionId, SessionTypeEnum.P2P);
                 }
             };
-            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;
+            cloudMsgButton.iconId = R.drawable.ic_access_time_white_24dp;
 
             SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
                 @Override
@@ -211,11 +211,11 @@ public class SessionHelper {
                 }
             };
 
-            infoButton.iconId = R.drawable.nim_ic_message_actionbar_p2p_add;
+            infoButton.iconId = R.drawable.ic_person_add_white_24dp;
 
             buttons.add(cloudMsgButton);
-            buttons.add(infoButton);
-            p2pCustomization.buttons = buttons;
+            buttons.add(infoButton);*/
+            p2pCustomization.buttons = null;
         }
 
         return p2pCustomization;
@@ -264,7 +264,7 @@ public class SessionHelper {
             myP2pCustomization.actions = actions;
             myP2pCustomization.withSticker = true;
             // 定制ActionBar右边的按钮，可以加多个
-            ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
+           /* ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
             SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
@@ -272,10 +272,10 @@ public class SessionHelper {
                 }
             };
 
-            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;
+            cloudMsgButton.iconId = R.drawable.ic_access_time_white_24dp;
 
-            buttons.add(cloudMsgButton);
-            myP2pCustomization.buttons = buttons;
+            buttons.add(cloudMsgButton);*/
+            myP2pCustomization.buttons = null;
         }
         return myP2pCustomization;
     }
@@ -307,18 +307,18 @@ public class SessionHelper {
             ArrayList<BaseAction> actions = new ArrayList<>();
             actions.add(new GuessAction());
             actions.add(new FileAction());
-            actions.add(new TipAction());
+            // actions.add(new TipAction());
             teamCustomization.actions = actions;
 
             // 定制ActionBar右边的按钮，可以加多个
             ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
-            SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
+            /*SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
                     initPopuptWindow(context, view, sessionId, SessionTypeEnum.Team);
                 }
             };
-            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;
+            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;*/
 
             SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
                 @Override
@@ -331,8 +331,8 @@ public class SessionHelper {
                     }
                 }
             };
-            infoButton.iconId = R.drawable.nim_ic_message_actionbar_team;
-            buttons.add(cloudMsgButton);
+            infoButton.iconId = R.drawable.ic_group_add_white_24dp;
+            // buttons.add(cloudMsgButton);
             buttons.add(infoButton);
             teamCustomization.buttons = buttons;
 
@@ -429,7 +429,7 @@ public class SessionHelper {
         }, true);
     }
 
-    private static void initPopuptWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
+    /*private static void initPopuptWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
         if (popupMenu == null) {
             menuItemList = new ArrayList<>();
             popupMenu = new NIMPopupMenu(context, menuItemList, listener);
@@ -438,7 +438,7 @@ public class SessionHelper {
         menuItemList.addAll(getMoreMenuItems(context, sessionId, sessionTypeEnum));
         popupMenu.notifyData();
         popupMenu.show(view);
-    }
+    }*/
 
     private static List<PopupMenuItem> getMoreMenuItems(Context context, String sessionId, SessionTypeEnum sessionTypeEnum) {
         List<PopupMenuItem> moreMenuItems = new ArrayList<PopupMenuItem>();
