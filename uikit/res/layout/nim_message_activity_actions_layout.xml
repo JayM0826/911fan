@@ -7,6 +7,8 @@
     android:orientation="vertical"
     android:visibility="gone" >
 
+    <!--自定义消息控件所占区域-->
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="fill_parent"

@@ -8,11 +8,8 @@ import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.main.reminder.ReminderManager;
 import com.imfan.j.a91fan.session.SessionHelper;
-import com.imfan.j.a91fan.session.extension.GuessAttachment;
-import com.imfan.j.a91fan.session.extension.RTSAttachment;
 import com.imfan.j.a91fan.session.extension.SnapChatAttachment;
 import com.imfan.j.a91fan.session.extension.StickerAttachment;
-import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.recent.RecentContactsCallback;
 import com.netease.nim.uikit.recent.RecentContactsFragment;
@@ -146,12 +143,7 @@ public class  MessageFragment extends MainFragment {
             public String getDigestOfAttachment(MsgAttachment attachment) {
                 // 设置自定义消息的摘要消息，展示在最近联系人列表的消息缩略栏上
                 // 当然，你也可以自定义一些内建消息的缩略语，例如图片，语音，音视频会话等，自定义的缩略语会被优先使用。
-                if (attachment instanceof GuessAttachment) {
-                    GuessAttachment guess = (GuessAttachment) attachment;
-                    return guess.getValue().getDesc();
-                } else if (attachment instanceof RTSAttachment) {
-                    return "[白板]";
-                } else if (attachment instanceof StickerAttachment) {
+                if (attachment instanceof StickerAttachment) {
                     return "[贴图]";
                 } else if (attachment instanceof SnapChatAttachment) {
                     return "[阅后即焚]";

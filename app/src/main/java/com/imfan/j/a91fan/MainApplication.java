@@ -182,7 +182,7 @@ public class MainApplication extends Application {
         NimUIKit.init(this);
 
         // 设置地理位置提供者。如果需要发送地理位置消息，该参数必须提供。如果不需要，可以忽略。
-        // NimUIKit.setLocationProvider(new NimDemoLocationProvider());
+        // NimUIKit.setLocationProvider(new FanLocationProvider());
 
         // 会话窗口的定制初始化。
         SessionHelper.init();

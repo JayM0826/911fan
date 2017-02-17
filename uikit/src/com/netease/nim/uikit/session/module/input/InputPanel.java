@@ -58,7 +58,6 @@ import java.util.List;
 
 /**
  * 底部文本编辑，语音等模块
- * Created by hzxuwen on 2015/6/16.
  */
 public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallback {
 

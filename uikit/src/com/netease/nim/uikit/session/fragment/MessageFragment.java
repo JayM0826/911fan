@@ -32,9 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 聊天界面基类
+ * 聊天界面基类,大主角
  * <p/>
- * Created by huangjun on 2015/2/1.
  */
 public class MessageFragment extends TFragment implements ModuleProxy {
 
@@ -56,17 +55,17 @@ public class MessageFragment extends TFragment implements ModuleProxy {
             }
 
             messageListPanel.onIncomingMessage(messages);
-            sendMsgReceipt(); // 发送已读回执
+            // sendMsgReceipt(); // 发送已读回执
         }
     };
     private View rootView;
     private SessionCustomization customization;
-    private Observer<List<MessageReceipt>> messageReceiptObserver = new Observer<List<MessageReceipt>>() {
+    /*private Observer<List<MessageReceipt>> messageReceiptObserver = new Observer<List<MessageReceipt>>() {
         @Override
         public void onEvent(List<MessageReceipt> messageReceipts) {
             receiveReceipt();
         }
-    };
+    };*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -167,7 +166,7 @@ public class MessageFragment extends TFragment implements ModuleProxy {
     private void registerObservers(boolean register) {
         MsgServiceObserve service = NIMClient.getService(MsgServiceObserve.class);
         service.observeReceiveMessage(incomingMessageObserver, register);
-        service.observeMessageReceipt(messageReceiptObserver, register);
+        // service.observeMessageReceipt(messageReceiptObserver, register);
     }
 
     /**

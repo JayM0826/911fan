@@ -2,7 +2,6 @@ package com.imfan.j.a91fan.main.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -15,6 +14,7 @@ import android.widget.ListView;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
+import com.imfan.j.a91fan.session.SessionHelper;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.string.StringUtil;
@@ -41,7 +41,7 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
     static public boolean hasData;
 
     // 第一个搜索用户，第二个不搜索用户
-    IContactDataProvider dataProvider1 = new ContactDataProvider(ItemTypes.USER, ItemTypes.FRIEND, ItemTypes.TEAM, ItemTypes.MSG);
+    IContactDataProvider dataProvider = new ContactDataProvider(ItemTypes.USER, ItemTypes.FRIEND, ItemTypes.TEAM, ItemTypes.MSG);
     private ListView lvContacts;
     private SearchView searchView;
     private ContactDataAdapter adapter;
@@ -100,16 +100,6 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
 
             @Override
             public boolean onQueryTextChange(String query) {
-                /*if (StringUtil.isEmpty(query)) {
-                    lvContacts.setVisibility(View.GONE);
-                } else {
-                    lvContacts.setAdapter(adapter2);
-                    choice =false;
-                    lvContacts.setVisibility(View.VISIBLE);
-                    LogUtil.i("onQueryTextSubmit", "开始提交搜索");
-                    // 执行核心操作，对query语句进行搜索
-                    adapter2.query(query);
-                }*/
                 lvContacts.setVisibility(View.GONE);
                 return true;
             }
@@ -142,7 +132,7 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
        /* DataProvider可以分为多个类型例如UserDataProvider，TeamDataProvider, MsgDataProvider
         至少三种类型，而IContactDataProvider是这多个类型的汇总类*/
 
-        adapter = new ContactDataAdapter(SearchActivity.this, searchGroupStrategy, dataProvider1);
+        adapter = new ContactDataAdapter(SearchActivity.this, searchGroupStrategy, dataProvider);
         adapter.addViewHolder(ItemTypes.LABEL, LabelHolder.class);
         // 增加了USER的ViewHolder
         adapter.addViewHolder(ItemTypes.USER, ContactHolder.class);
@@ -191,24 +181,24 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
                 finish();
                 break;
             case ItemTypes.TEAM: {
-                // SessionHelper.startTeamSession(this, ((ContactItem) item).getContact().getContactId());
+                SessionHelper.startTeamSession(this, ((ContactItem) item).getContact().getContactId());
                 break;
             }
 
             case ItemTypes.FRIEND: {
-                // SessionHelper.startP2PSession(this, ((ContactItem) item).getContact().getContactId());
+                SessionHelper.startP2PSession(this, ((ContactItem) item).getContact().getContactId());
                 break;
             }
 
             case ItemTypes.MSG: {
                 MsgIndexRecord msgIndexRecord = ((MsgItem) item).getRecord();
                 if (msgIndexRecord.getCount() > 1) {
-                   //  GlobalSearchDetailActivity2.start(this, msgIndexRecord);
+                   SearchMsgDetailActivity.start(this, msgIndexRecord);
                 } else {
-                    if (msgIndexRecord.getSessionType() == SessionTypeEnum.P2P) {
-                      //  SessionHelper.startP2PSession(this, msgIndexRecord.getSessionId(), msgIndexRecord.getMessage());
-                    } else if (msgIndexRecord.getSessionType() == SessionTypeEnum.Team) {
-                       //  SessionHelper.startTeamSession(this, msgIndexRecord.getSessionId(), msgIndexRecord.getMessage());
+                    if (msgIndexRecord.getSessionType() == SessionTypeEnum.P2P) {// 单聊中的信息
+                      SessionHelper.startP2PSession(this, msgIndexRecord.getSessionId(), msgIndexRecord.getMessage());
+                    } else if (msgIndexRecord.getSessionType() == SessionTypeEnum.Team) {// 群聊中的信息
+                        SessionHelper.startTeamSession(this, msgIndexRecord.getSessionId(), msgIndexRecord.getMessage());
                     }
                 }
                 break;

@@ -55,18 +55,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
 
     private boolean isResume = false;
 
-    /**
-     * 命令消息接收观察者
-     */
-    /*Observer<CustomNotification> commandObserver = new Observer<CustomNotification>() {
-        @Override
-        public void onEvent(CustomNotification message) {
-            if (!sessionId.equals(message.getSessionId()) || message.getSessionType() != SessionTypeEnum.P2P) {
-                return;
-            }
-            // showCommandMessage(message);
-        }
-    };*/
+
     private UserInfoObservable.UserInfoObserver uinfoObserver;
 
     public static void start(Context context, String contactId, SessionCustomization customization, IMMessage anchor) {
@@ -168,6 +157,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
         }
     }*/
 
+    // 这里才是主角
     @Override
     protected MessageFragment fragment() {
         Bundle arguments = getIntent().getExtras();

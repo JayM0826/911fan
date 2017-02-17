@@ -1,9 +1,5 @@
 package com.imfan.j.a91fan.session.viewholder;
 
-/**
- * Created by jay on 17-1-15.
- */
-
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ImageSpan;
@@ -15,7 +11,7 @@ import com.netease.nim.uikit.session.viewholder.MsgViewHolderBase;
 import java.util.Map;
 
 /**
- *
+ * Created by huangjun on 2015/11/25.
  * Tip类型消息ViewHolder
  */
 public class MsgViewHolderTip extends MsgViewHolderBase {

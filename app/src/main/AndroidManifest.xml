@@ -134,8 +134,10 @@
         <activity
             android:name=".contact.activity.UserProfileEditItemActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".contact.activity.UserProfileActivity"
-            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".contact.activity.UserProfileActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".main.activity.SearchMsgDetailActivity" />
     </application>
 
 </manifest>

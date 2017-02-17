@@ -7,6 +7,8 @@ import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
  * Created by jay on 17-1-15.
  */
 
+// 这是一个基类，是所有自定义的附件的基类，然而一切不过都是信息类，都是子类
+
 public abstract class CustomAttachment implements MsgAttachment {
 
     protected int type;

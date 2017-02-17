@@ -4,50 +4,36 @@ package com.imfan.j.a91fan.session;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
-import com.imfan.j.a91fan.session.action.AVChatAction;
-import com.imfan.j.a91fan.session.action.FileAction;
-import com.imfan.j.a91fan.session.action.GuessAction;
-import com.imfan.j.a91fan.session.action.SnapChatAction;
-import com.imfan.j.a91fan.session.action.TipAction;
 import com.imfan.j.a91fan.session.extension.CustomAttachParser;
 import com.imfan.j.a91fan.session.extension.CustomAttachment;
-import com.imfan.j.a91fan.session.extension.GuessAttachment;
-import com.imfan.j.a91fan.session.extension.RTSAttachment;
+
 import com.imfan.j.a91fan.session.extension.SnapChatAttachment;
 import com.imfan.j.a91fan.session.extension.StickerAttachment;
-import com.imfan.j.a91fan.session.viewholder.MsgViewHolderAVChat;
 import com.imfan.j.a91fan.session.viewholder.MsgViewHolderDefCustom;
 import com.imfan.j.a91fan.session.viewholder.MsgViewHolderFile;
-import com.imfan.j.a91fan.session.viewholder.MsgViewHolderGuess;
-import com.imfan.j.a91fan.session.viewholder.MsgViewHolderRTS;
 import com.imfan.j.a91fan.session.viewholder.MsgViewHolderSnapChat;
 import com.imfan.j.a91fan.session.viewholder.MsgViewHolderSticker;
 import com.imfan.j.a91fan.session.viewholder.MsgViewHolderTip;
 import com.imfan.j.a91fan.util.Cache;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.TeamDataCache;
-import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialogHelper;
-import com.netease.nim.uikit.common.ui.popupmenu.NIMPopupMenu;
 import com.netease.nim.uikit.common.ui.popupmenu.PopupMenuItem;
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.SessionEventListener;
 import com.netease.nim.uikit.session.actions.BaseAction;
 import com.netease.nim.uikit.session.helper.MessageHelper;
-import com.netease.nim.uikit.session.helper.MessageListPanelHelper;
 import com.netease.nim.uikit.session.module.MsgForwardFilter;
 import com.netease.nim.uikit.session.module.MsgRevokeFilter;
 import com.netease.nim.uikit.team.model.TeamExtras;
 import com.netease.nim.uikit.team.model.TeamRequestCode;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
@@ -66,7 +52,6 @@ import java.util.List;
  /*UIKit自定义消息界面用法展示类*/
 
 
-
 public class SessionHelper {
 
     private static final int ACTION_HISTORY_QUERY = 0;
@@ -77,36 +62,7 @@ public class SessionHelper {
     private static SessionCustomization teamCustomization;
     private static SessionCustomization myP2pCustomization;
 
-    /*private static NIMPopupMenu popupMenu;
-    private static List<PopupMenuItem> menuItemList;
-    private static NIMPopupMenu.MenuItemClickListener listener = new NIMPopupMenu.MenuItemClickListener() {
-        @Override
-        public void onItemClick(final PopupMenuItem item) {
-            switch (item.getTag()) {
-                case ACTION_HISTORY_QUERY:
-                    // MessageHistoryActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum()); // 漫游消息查询
-                    break;
-                case ACTION_SEARCH_MESSAGE:
-                    // SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
-                    break;
-                case ACTION_CLEAR_MESSAGE:
-                    EasyAlertDialogHelper.createOkCancelDiolag(item.getContext(), null, "确定要清空吗？", true, new EasyAlertDialogHelper.OnDialogActionListener() {
-                        @Override
-                        public void doCancelAction() {
 
-                        }
-
-                        @Override
-                        public void doOkAction() {
-                            NIMClient.getService(MsgService.class).clearChattingHistory(item.getSessionId(), item.getSessionTypeEnum());
-                            MessageListPanelHelper.getInstance().notifyClearMessages(item.getSessionId());
-                        }
-                    }).show();
-                    break;
-            }
-        }
-    };
-*/
     public static void init() {
         // 注册自定义消息附件解析器
         NIMClient.getService(MsgService.class).registerCustomAttachmentParser(new CustomAttachParser());
@@ -175,52 +131,33 @@ public class SessionHelper {
                 }
             };
 
-            // 背景
-//            p2pCustomization.backgroundColor = Color.BLUE;
-//            p2pCustomization.backgroundUri = "file:///android_asset/xx/bk.jpg";
-//            p2pCustomization.backgroundUri = "file:///sdcard/Pictures/bk.png";
-//            p2pCustomization.backgroundUri = "android.resource://com.netease.nim.demo/drawable/bk"
 
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                actions.add(new AVChatAction(AVChatType.AUDIO));
-                actions.add(new AVChatAction(AVChatType.VIDEO));
-            }
-            actions.add(new SnapChatAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            // actions.add(new TipAction());
+            /*actions.add(new SnapChatAction());
+            actions.add(new FileAction());*/
             p2pCustomization.actions = actions;
             p2pCustomization.withSticker = true;
 
             // 定制ActionBar右边的按钮，可以加多个
-            /*ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
-            SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
-                @Override
-                public void onClick(Context context, View view, String sessionId) {
-                    initPopuptWindow(context, view, sessionId, SessionTypeEnum.P2P);
-                }
-            };
-            cloudMsgButton.iconId = R.drawable.ic_access_time_white_24dp;
-
+            ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
             SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
-                    // MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
+                    UserProfileActivity.start(context, sessionId); //打开User信息界面
                 }
             };
 
-            infoButton.iconId = R.drawable.ic_person_add_white_24dp;
-
-            buttons.add(cloudMsgButton);
-            buttons.add(infoButton);*/
-            p2pCustomization.buttons = null;
+            infoButton.iconId = R.drawable.ic_person_white_24dp;
+            buttons.add(infoButton);
+            p2pCustomization.buttons = buttons;
         }
 
         return p2pCustomization;
     }
 
+
+    // 自己与自己的电脑对话
     private static SessionCustomization getMyP2pCustomization() {
         if (myP2pCustomization == null) {
             myP2pCustomization = new SessionCustomization() {
@@ -250,36 +187,21 @@ public class SessionHelper {
                 }
             };
 
-            // 背景
-//            p2pCustomization.backgroundColor = Color.BLUE;
-//            p2pCustomization.backgroundUri = "file:///android_asset/xx/bk.jpg";
-//            p2pCustomization.backgroundUri = "file:///sdcard/Pictures/bk.png";
-//            p2pCustomization.backgroundUri = "android.resource://com.netease.nim.demo/drawable/bk"
+
 
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
-            actions.add(new SnapChatAction());
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
+            /*actions.add(new SnapChatAction());
+            actions.add(new FileAction());*/
             myP2pCustomization.actions = actions;
             myP2pCustomization.withSticker = true;
-            // 定制ActionBar右边的按钮，可以加多个
-           /* ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
-            SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
-                @Override
-                public void onClick(Context context, View view, String sessionId) {
-                    initPopuptWindow(context, view, sessionId, SessionTypeEnum.P2P);
-                }
-            };
-
-            cloudMsgButton.iconId = R.drawable.ic_access_time_white_24dp;
-
-            buttons.add(cloudMsgButton);*/
-            myP2pCustomization.buttons = null;
+            myP2pCustomization.buttons = null; // 这是右上角actionbar的按钮
         }
         return myP2pCustomization;
     }
 
+
+    // 定制Team的界面以及功能
     private static SessionCustomization getTeamCustomization() {
         if (teamCustomization == null) {
             teamCustomization = new SessionCustomization() {
@@ -305,21 +227,10 @@ public class SessionHelper {
 
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
-            actions.add(new GuessAction());
-            actions.add(new FileAction());
-            // actions.add(new TipAction());
             teamCustomization.actions = actions;
 
             // 定制ActionBar右边的按钮，可以加多个
             ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
-            /*SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
-                @Override
-                public void onClick(Context context, View view, String sessionId) {
-                    initPopuptWindow(context, view, sessionId, SessionTypeEnum.Team);
-                }
-            };
-            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;*/
-
             SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
                 @Override
                 public void onClick(Context context, View view, String sessionId) {
@@ -332,10 +243,8 @@ public class SessionHelper {
                 }
             };
             infoButton.iconId = R.drawable.ic_group_add_white_24dp;
-            // buttons.add(cloudMsgButton);
             buttons.add(infoButton);
             teamCustomization.buttons = buttons;
-
             teamCustomization.withSticker = true;
         }
 
@@ -344,12 +253,9 @@ public class SessionHelper {
 
     private static void registerViewHolders() {
         NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
-        NimUIKit.registerMsgItemViewHolder(AVChatAttachment.class, MsgViewHolderAVChat.class);
-        NimUIKit.registerMsgItemViewHolder(GuessAttachment.class, MsgViewHolderGuess.class);
         NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
         NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
         NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
-        NimUIKit.registerMsgItemViewHolder(RTSAttachment.class, MsgViewHolderRTS.class);
         NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
     }
 
@@ -384,8 +290,7 @@ public class SessionHelper {
                     // 接收到的消息，附件没有下载成功，不允许转发
                     return true;
                 } else if (message.getMsgType() == MsgTypeEnum.custom && message.getAttachment() != null
-                        && (message.getAttachment() instanceof SnapChatAttachment
-                        || message.getAttachment() instanceof RTSAttachment)) {
+                        && (message.getAttachment() instanceof SnapChatAttachment)) {
                     // 白板消息和阅后即焚消息 不允许转发
                     return true;
                 }
@@ -394,8 +299,9 @@ public class SessionHelper {
         });
     }
 
-/**
-     * 消息撤回过滤器*/
+    /**
+     * 消息撤回过滤器
+     */
 
 
     private static void registerMsgRevokeFilter() {
@@ -403,8 +309,7 @@ public class SessionHelper {
             @Override
             public boolean shouldIgnore(IMMessage message) {
                 if (message.getAttachment() != null
-                        && (message.getAttachment() instanceof AVChatAttachment
-                        || message.getAttachment() instanceof RTSAttachment)) {
+                        && (message.getAttachment() instanceof AVChatAttachment)) {
                     // 视频通话消息和白板消息 不允许撤回
                     return true;
                 } else if (Cache.getAccount().equals(message.getSessionId())) {
@@ -429,25 +334,6 @@ public class SessionHelper {
         }, true);
     }
 
-    /*private static void initPopuptWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
-        if (popupMenu == null) {
-            menuItemList = new ArrayList<>();
-            popupMenu = new NIMPopupMenu(context, menuItemList, listener);
-        }
-        menuItemList.clear();
-        menuItemList.addAll(getMoreMenuItems(context, sessionId, sessionTypeEnum));
-        popupMenu.notifyData();
-        popupMenu.show(view);
-    }*/
 
-    private static List<PopupMenuItem> getMoreMenuItems(Context context, String sessionId, SessionTypeEnum sessionTypeEnum) {
-        List<PopupMenuItem> moreMenuItems = new ArrayList<PopupMenuItem>();
-        moreMenuItems.add(new PopupMenuItem(context, ACTION_HISTORY_QUERY, sessionId,
-                sessionTypeEnum, Cache.getContext().getString(R.string.message_history_query)));
-        moreMenuItems.add(new PopupMenuItem(context, ACTION_SEARCH_MESSAGE, sessionId,
-                sessionTypeEnum, Cache.getContext().getString(R.string.message_search_title)));
-        moreMenuItems.add(new PopupMenuItem(context, ACTION_CLEAR_MESSAGE, sessionId,
-                sessionTypeEnum, Cache.getContext().getString(R.string.message_clear)));
-        return moreMenuItems;
-    }
+
 }
