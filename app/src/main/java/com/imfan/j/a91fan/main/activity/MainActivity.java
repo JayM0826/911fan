@@ -22,6 +22,7 @@ import com.imfan.j.a91fan.util.Extras;
 import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.LoginSyncDataStatusObserver;
 import com.netease.nim.uikit.NimUIKit;
+import com.netease.nim.uikit.cache.FriendDataCache;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.util.log.LogUtil;
@@ -61,6 +62,7 @@ public class MainActivity extends UI {
         if (extras != null) {
             intent.putExtras(extras);
         }
+        FriendDataCache.getInstance().buildCache(); // 再次更新一下好友数据
         context.startActivity(intent);  // 启动MainActivity
 
     }

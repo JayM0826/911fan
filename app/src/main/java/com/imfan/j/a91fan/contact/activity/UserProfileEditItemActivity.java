@@ -165,6 +165,8 @@ public class UserProfileEditItemActivity extends AppCompatActivity implements Vi
 
     private void findEditText() {
         editText = (ClearableEditTextWithIcon)findViewById(R.id.edittext);
+
+        // 这里是设置字数限制或者其他限制
         if (key == UserConstant.KEY_NICKNAME) {
             editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(10)});
         } else if (key == UserConstant.KEY_PHONE) {
@@ -174,6 +176,8 @@ public class UserProfileEditItemActivity extends AppCompatActivity implements Vi
         } else if (key == UserConstant.KEY_ALIAS) {
             editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
         }
+
+
         if (key == UserConstant.KEY_ALIAS) {
             Friend friend = FriendDataCache.getInstance().getFriendByAccount(data);
             if (friend != null && !TextUtils.isEmpty(friend.getAlias())) {
@@ -273,18 +277,19 @@ public class UserProfileEditItemActivity extends AppCompatActivity implements Vi
     }
 
     private void update(Serializable content) {
+        // 先设置一个回调变量，回调，就是请对方做事，对方做好了就通知你做好了
         RequestCallbackWrapper callback = new RequestCallbackWrapper() {
             @Override
             public void onResult(int code, Object result, Throwable exception) {
                 DialogMaker.dismissProgressDialog();
                 if (code == ResponseCode.RES_SUCCESS) {
-                    onUpdateCompleted();
+                    onUpdateCompleted(); // 设置成功
                 } else if (code == ResponseCode.RES_ETIMEOUT) {
                     CustomToast.show(UserProfileEditItemActivity.this, R.string.user_info_update_failed);
                 }
             }
         };
-        if (key == UserConstant.KEY_ALIAS) {
+        if (key == UserConstant.KEY_ALIAS) { // 设置备注，这是只有好友才可能出现的设置，其余的是对自己可用的
             DialogMaker.showProgressDialog(this, null, true);
             Map<FriendFieldEnum, Object> map = new HashMap<>();
             map.put(FriendFieldEnum.ALIAS, content);
@@ -326,7 +331,7 @@ public class UserProfileEditItemActivity extends AppCompatActivity implements Vi
                     update(birthText.getText().toString());
                 } else if (key == UserConstant.KEY_GENDER) {
                     update(Integer.valueOf(gender));
-                } else {
+                } else  {
                     update(editText.getText().toString().trim());
                 }
                 break;

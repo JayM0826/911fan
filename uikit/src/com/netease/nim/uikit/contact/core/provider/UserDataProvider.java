@@ -48,6 +48,7 @@ public final class UserDataProvider {
             }
             return users;
         } else {
+            // 可能这里是建群是用的
             return NimUIKit.getContactProvider().getUserInfoOfMyFriends();
         }
     }

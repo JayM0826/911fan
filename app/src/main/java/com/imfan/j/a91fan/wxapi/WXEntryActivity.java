@@ -228,8 +228,8 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
 
                     unionid = response.getString("unionid");
                     Preferences.setWxUnionid(unionid);
-                    NimUIKit.setAccount(unionid.toLowerCase());
 
+                    Cache.setAccount(unionid.toLowerCase());
 
 
                     LoginNetease.getInstance().registerNetease(WXEntryActivity.this);

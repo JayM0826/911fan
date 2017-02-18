@@ -1,5 +1,7 @@
 package com.imfan.j.a91fan.main.fragment;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -19,7 +21,7 @@ import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
  * Created by jay on 17-2-6.
  */
 
-public class MyProfileFragment extends MainFragment implements View.OnClickListener {
+public class MyProfileFragment extends MainFragment implements View.OnClickListener , View.OnLongClickListener{
 
 
 
@@ -60,6 +62,7 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
 
     private void initEvents(){
         headLayout.setOnClickListener(this);
+        headLayout.setOnLongClickListener(this);
         blog.setOnClickListener(this);
         article.setOnClickListener(this);
         draft.setOnClickListener(this);
@@ -68,6 +71,7 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
         fans.setOnClickListener(this);
         following.setOnClickListener(this);
         user_logout.setOnClickListener(this);
+
     }
 
     private void findViews(){
@@ -154,6 +158,16 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
         } else {
             updateUI();
         }
+    }
+
+
+    @Override
+    public boolean onLongClick(View v) {
+        /*得到剪贴板管理器 */
+        ClipboardManager cmb = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(Preferences.getUserAccount().toLowerCase());
+        CustomToast.show(getContext(), "您的ID已经复制成功");
+        return true;
     }
 
     private void updateUI() {

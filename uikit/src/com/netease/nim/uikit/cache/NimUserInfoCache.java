@@ -164,13 +164,6 @@ public class NimUserInfoCache {
                 unknownAccounts.add(account);
             }
         }
-
-        // fetch unknown userInfo，根本不会发生，再次仅作测试校验，可以删去
-        if (!unknownAccounts.isEmpty()) {
-            DataCacheManager.Log(unknownAccounts, "lack friend userInfo", UIKitLogTag.USER_CACHE);
-            getUserInfoFromRemote(unknownAccounts, null);
-        }
-
         return users;
     }
 

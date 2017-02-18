@@ -26,16 +26,16 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * 好友关系缓存
  * 注意：获取通讯录列表即是根据Friend列表帐号，去取对应的UserInfo
+ * 其实就是建立两个小数据库，一个专门存所有的账号，一个将好友与账号匹配的map
  * <p/>
- * Created by huangjun on 2015/9/14.
  */
 public class FriendDataCache {
 
     /**
      * 属性
      */
-    private Set<String> friendAccountSet = new CopyOnWriteArraySet<>();
-    private Map<String, Friend> friendMap = new ConcurrentHashMap<>();
+    private Set<String> friendAccountSet = new CopyOnWriteArraySet<>(); // 专门存账号
+    private Map<String, Friend> friendMap = new ConcurrentHashMap<>();  // 账号与好友匹配的map
     private List<FriendDataChangedObserver> friendObservers = new ArrayList<>();
     /**
      * 监听好友关系变化
@@ -43,22 +43,23 @@ public class FriendDataCache {
     private Observer<FriendChangedNotify> friendChangedNotifyObserver = new Observer<FriendChangedNotify>() {
         @Override
         public void onEvent(FriendChangedNotify friendChangedNotify) {
+
             List<Friend> addedOrUpdatedFriends = friendChangedNotify.getAddedOrUpdatedFriends();
             List<String> myFriendAccounts = new ArrayList<>(addedOrUpdatedFriends.size());
             List<String> friendAccounts = new ArrayList<>(addedOrUpdatedFriends.size());
             List<String> deletedFriendAccounts = friendChangedNotify.getDeletedFriends();
 
-            // 如果在黑名单中，那么不加到好友列表中
+            // 如果在黑名单中，那么不加到好友列表中，// 一有变化，马上更新缓存，力求总是最新的数据库
             String account;
             for (Friend f : addedOrUpdatedFriends) {
                 account = f.getAccount();
-                friendMap.put(account, f);
+
                 friendAccounts.add(account);
 
                 if (NIMClient.getService(FriendService.class).isInBlackList(account)) {
                     continue;
                 }
-
+                friendMap.put(account, f);
                 myFriendAccounts.add(account);
             }
 
@@ -66,6 +67,8 @@ public class FriendDataCache {
             if (!myFriendAccounts.isEmpty()) {
                 // update cache
                 friendAccountSet.addAll(myFriendAccounts);
+
+
 
                 // log
                 DataCacheManager.Log(myFriendAccounts, "on add friends", UIKitLogTag.FRIEND_CACHE);
@@ -221,6 +224,7 @@ public class FriendDataCache {
      * 缓存监听SDK
      */
     public void registerObservers(boolean register) {
+        // 两个监听器，其一是好友变化，其二是黑名单的变化
         NIMClient.getService(FriendServiceObserve.class).observeFriendChangedNotify(friendChangedNotifyObserver, register);
         NIMClient.getService(FriendServiceObserve.class).observeBlackListChangedNotify(blackListChangedNotifyObserver, register);
     }

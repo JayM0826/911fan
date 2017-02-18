@@ -2,6 +2,7 @@ package com.imfan.j.a91fan.util;
 
 import android.content.Context;
 
+import com.netease.nim.uikit.NimUIKit;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 
 /**
@@ -26,7 +27,7 @@ public class Cache {
 
     public static void setAccount(String account) {
         Cache.account = account;
-        // NimUIKit.setAccount(account);
+        NimUIKit.setAccount(account);
     }
 
     public static StatusBarNotificationConfig getNotificationConfig() {

@@ -132,6 +132,8 @@ public class ContactSelectActivity extends UI implements View.OnClickListener, a
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 好友选择器
         setContentView(R.layout.nim_contacts_select);
 
         ToolBarOptions options = new ToolBarOptions();
@@ -163,7 +165,7 @@ public class ContactSelectActivity extends UI implements View.OnClickListener, a
         } else if (option.type == ContactSelectType.TEAM) {
             option.showContactSelectArea = false;
             dataProvider = new ContactDataProvider(ItemTypes.TEAM);
-        } else {
+        } else { // 在好友列表中选择建队时的成员
             dataProvider = new ContactDataProvider(ItemTypes.FRIEND);
         }
 
@@ -497,7 +499,7 @@ public class ContactSelectActivity extends UI implements View.OnClickListener, a
         /**
          * 联系人选择器中数据源类型：好友（默认）、群、群成员（需要设置teamId）
          */
-        public ContactSelectType type = ContactSelectType.BUDDY;
+            public ContactSelectType type = ContactSelectType.BUDDY;
 
         /**
          * 联系人选择器数据源类型为群成员时，需要设置群号

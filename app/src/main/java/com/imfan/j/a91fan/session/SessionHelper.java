@@ -12,18 +12,13 @@ import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
 import com.imfan.j.a91fan.session.extension.CustomAttachParser;
 import com.imfan.j.a91fan.session.extension.CustomAttachment;
-
-import com.imfan.j.a91fan.session.extension.SnapChatAttachment;
 import com.imfan.j.a91fan.session.extension.StickerAttachment;
 import com.imfan.j.a91fan.session.viewholder.MsgViewHolderDefCustom;
-import com.imfan.j.a91fan.session.viewholder.MsgViewHolderFile;
-import com.imfan.j.a91fan.session.viewholder.MsgViewHolderSnapChat;
 import com.imfan.j.a91fan.session.viewholder.MsgViewHolderSticker;
 import com.imfan.j.a91fan.session.viewholder.MsgViewHolderTip;
 import com.imfan.j.a91fan.util.Cache;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.cache.TeamDataCache;
-import com.netease.nim.uikit.common.ui.popupmenu.PopupMenuItem;
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.SessionEventListener;
 import com.netease.nim.uikit.session.actions.BaseAction;
@@ -37,26 +32,19 @@ import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.attachment.FileAttachment;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 import com.netease.nimlib.sdk.msg.constant.AttachStatusEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
-import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.team.model.Team;
 
 import java.util.ArrayList;
-import java.util.List;
 
  /*UIKit自定义消息界面用法展示类*/
 
 
 public class SessionHelper {
-
-    private static final int ACTION_HISTORY_QUERY = 0;
-    private static final int ACTION_SEARCH_MESSAGE = 1;
-    private static final int ACTION_CLEAR_MESSAGE = 2;
 
     private static SessionCustomization p2pCustomization;
     private static SessionCustomization teamCustomization;
@@ -252,10 +240,8 @@ public class SessionHelper {
     }
 
     private static void registerViewHolders() {
-        NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
         NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
         NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
-        NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
         NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
     }
 
@@ -288,10 +274,6 @@ public class SessionHelper {
                         && (message.getAttachStatus() == AttachStatusEnum.transferring
                         || message.getAttachStatus() == AttachStatusEnum.fail)) {
                     // 接收到的消息，附件没有下载成功，不允许转发
-                    return true;
-                } else if (message.getMsgType() == MsgTypeEnum.custom && message.getAttachment() != null
-                        && (message.getAttachment() instanceof SnapChatAttachment)) {
-                    // 白板消息和阅后即焚消息 不允许转发
                     return true;
                 }
                 return false;

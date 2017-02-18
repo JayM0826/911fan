@@ -25,6 +25,7 @@
                 android:layout_marginLeft="15dp" />
 
             <LinearLayout
+                android:id="@+id/long_click_copy"
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:layout_marginLeft="20dip"

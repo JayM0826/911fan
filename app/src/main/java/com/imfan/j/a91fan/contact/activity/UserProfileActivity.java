@@ -1,6 +1,7 @@
 package com.imfan.j.a91fan.contact.activity;
 
 import android.annotation.TargetApi;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Extras;
+import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.cache.FriendDataCache;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
@@ -61,9 +64,9 @@ public class UserProfileActivity extends AppCompatActivity {
     private final boolean FLAG_ADD_FRIEND_DIRECTLY = true; // 是否直接加为好友开关，false为需要好友申请
     private final String KEY_BLACK_LIST = "black_list";
     private final String KEY_MSG_NOTICE = "msg_notice";
+    LinearLayout linearLayout;
     private boolean destroyed = false;
     private String account;
-
     // 基本信息
     private HeadImageView headImageView;
     private TextView nameText;
@@ -79,7 +82,6 @@ public class UserProfileActivity extends AppCompatActivity {
     private RelativeLayout signatureLayout;
     private RelativeLayout aliasLayout;
     private TextView nickText;
-
     // 开关
     private ViewGroup toggleLayout;
     private Button addFriendBtn;
@@ -276,6 +278,16 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+        linearLayout = findView(R.id.long_click_copy);
+        linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                cmb.setText(account);
+                CustomToast.show(UserProfileActivity.this, "您的ID已经复制成功");
+                return true;
+            }
+        });
         headImageView = findView(R.id.user_head_image);
         nameText = findView(R.id.user_name);
         genderImage = findView(R.id.gender_img);

@@ -8,7 +8,6 @@ import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.main.reminder.ReminderManager;
 import com.imfan.j.a91fan.session.SessionHelper;
-import com.imfan.j.a91fan.session.extension.SnapChatAttachment;
 import com.imfan.j.a91fan.session.extension.StickerAttachment;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.recent.RecentContactsCallback;
@@ -145,8 +144,6 @@ public class  MessageFragment extends MainFragment {
                 // 当然，你也可以自定义一些内建消息的缩略语，例如图片，语音，音视频会话等，自定义的缩略语会被优先使用。
                 if (attachment instanceof StickerAttachment) {
                     return "[贴图]";
-                } else if (attachment instanceof SnapChatAttachment) {
-                    return "[阅后即焚]";
                 }
                 return null;
             }
