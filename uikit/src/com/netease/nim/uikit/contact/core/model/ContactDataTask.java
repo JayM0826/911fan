@@ -36,11 +36,15 @@ public class ContactDataTask {
     }
 
     private static void add(AbsContactDataList datas, List<AbsContactItem> items, ContactItemFilter filter) {
+        if (items == null){
+            return;
+        }
         for (AbsContactItem item : items) {
             if (filter == null || !filter.filter(item)) {
                 datas.add(item);
             }
         }
+
     }
 
     public final void setHost(Host host) {
@@ -74,7 +78,7 @@ public class ContactDataTask {
 
                 List<AbsContactItem> items = ContactDataProvider.getData();
 
-                if (items.size() == 0 || items == null) {
+                if (items == null || items.isEmpty()) {
                     CustomToast.show(context, "冷冷清清,什么也没搜到");
                 }
                     add(datas, items, filter);

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.cache.SimpleCallback;
 import com.netease.nim.uikit.cache.TeamDataCache;
 import com.netease.nim.uikit.common.activity.UI;
@@ -118,15 +119,12 @@ public class AdvancedTeamJoinActivity extends UI implements View.OnClickListener
                 public void onFailed(int code) {
                     if (code == 808) {
                         applyJoinButton.setEnabled(false);
-                        Toast.makeText(AdvancedTeamJoinActivity.this, R.string.team_apply_to_join_send_success,
-                                Toast.LENGTH_SHORT).show();
+                        CustomToast.show(AdvancedTeamJoinActivity.this, R.string.team_apply_to_join_send_success);
                     } else if (code == 809) {
                         applyJoinButton.setEnabled(false);
-                        Toast.makeText(AdvancedTeamJoinActivity.this, R.string.has_exist_in_team,
-                                Toast.LENGTH_SHORT).show();
+                        CustomToast.show(AdvancedTeamJoinActivity.this, R.string.has_exist_in_team);
                     } else {
-                        Toast.makeText(AdvancedTeamJoinActivity.this, "failed, error code =" + code,
-                                Toast.LENGTH_SHORT).show();
+                        CustomToast.show(AdvancedTeamJoinActivity.this, "failed, error code =" + code);
                     }
                 }
 

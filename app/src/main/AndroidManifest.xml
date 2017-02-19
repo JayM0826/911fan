@@ -138,7 +138,10 @@
             android:name=".contact.activity.UserProfileActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".main.activity.SearchMsgDetailActivity" />
-        <activity android:name=".team.AdvancedTeamJoinActivity"></activity>
+        <activity android:name=".team.AdvancedTeamJoinActivity" />
+        <activity android:name=".main.activity.TeamListActivity" />
+        <activity android:name=".main.activity.BlackListActivity"></activity>
+        <activity android:name=".main.activity.SystemMessageActivity"></activity>
     </application>
 
 </manifest>

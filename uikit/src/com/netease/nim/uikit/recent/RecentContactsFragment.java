@@ -771,6 +771,8 @@ public class RecentContactsFragment extends TFragment {
     private List<RecentContact> items;
     private Map<String, RecentContact> cached; // 暂缓刷上列表的数据（未读数红点拖拽动画运行时用）
     private RecentContactAdapter adapter;
+
+    // 观察信息的组件
     Observer<IMMessage> statusObserver = new Observer<IMMessage>() {
         @Override
         public void onEvent(IMMessage message) {
@@ -782,6 +784,8 @@ public class RecentContactsFragment extends TFragment {
             }
         }
     };
+
+    // 观察者模式，观察team数据的变化
     TeamDataCache.TeamDataChangedObserver teamDataChangedObserver = new TeamDataCache.TeamDataChangedObserver() {
 
         @Override
@@ -794,6 +798,8 @@ public class RecentContactsFragment extends TFragment {
 
         }
     };
+
+    // 观察者模式，Team 成员数据的变化
     TeamDataCache.TeamMemberDataChangedObserver teamMemberDataChangedObserver = new TeamDataCache.TeamMemberDataChangedObserver() {
         @Override
         public void onUpdateTeamMember(List<TeamMember> members) {
@@ -805,8 +811,12 @@ public class RecentContactsFragment extends TFragment {
 
         }
     };
+
+
     private boolean msgLoaded = false;
     private RecentContactsCallback callback;
+
+    // 观察者，对删除数据的观察
     Observer<RecentContact> deleteObserver = new Observer<RecentContact>() {
         @Override
         public void onEvent(RecentContact recentContact) {
@@ -825,6 +835,8 @@ public class RecentContactsFragment extends TFragment {
             }
         }
     };
+
+    // 观察者模式，对好友数据的变化
     FriendDataCache.FriendDataChangedObserver friendDataChangedObserver = new FriendDataCache.FriendDataChangedObserver() {
         @Override
         public void onAddedOrUpdatedFriends(List<String> accounts) {
@@ -846,7 +858,12 @@ public class RecentContactsFragment extends TFragment {
             refreshMessages(false);
         }
     };
+
+
     private UserInfoObservable.UserInfoObserver userInfoObserver;
+
+
+    // 监听器，对最近联系人的会话的点击
     private SimpleClickListener<RecentContactAdapter> touchListener = new SimpleClickListener<RecentContactAdapter>() {
         @Override
         public void onItemClick(RecentContactAdapter adapter, View view, int position) {
@@ -871,6 +888,8 @@ public class RecentContactsFragment extends TFragment {
 
         }
     };
+
+
     private List<RecentContact> loadedRecents;
     // 暂存消息，当RecentContact 监听回来时使用，结束后清掉
     private Map<String, Set<IMMessage>> cacheMessages = new HashMap<>();
@@ -889,6 +908,8 @@ public class RecentContactsFragment extends TFragment {
             onRecentContactChanged(recentContacts);
         }
     };
+
+
     DropCover.IDropCompletedListener dropCompletedListener = new DropCover.IDropCompletedListener() {
         @Override
         public void onCompleted(Object id, boolean explosive) {
@@ -914,6 +935,8 @@ public class RecentContactsFragment extends TFragment {
             }
         }
     };
+
+
     //监听在线消息中是否有@我
     private Observer<List<IMMessage>> messageReceiverObserver = new Observer<List<IMMessage>>() {
         @Override

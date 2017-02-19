@@ -5,6 +5,8 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
+
+
     <!--这里是主角，内容区域，在里面放置会话-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

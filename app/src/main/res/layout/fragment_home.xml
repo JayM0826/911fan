@@ -72,6 +72,17 @@
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"
+            jay:icon="@drawable/contacts"
+            jay:text="通讯录"
+            jay:text_size="12sp" />
+
+        <com.imfan.j.a91fan.uiabout.ChangeColorIconWithText
+            android:id="@+id/id_indicator_five"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            jay:color="#ff45c01a"
             jay:icon="@drawable/user_male"
             jay:text="@string/tab_me"
             jay:text_size="12sp" />

@@ -3,6 +3,7 @@ package com.imfan.j.a91fan.main.model;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.fragment.BlogWallFragment;
 import com.imfan.j.a91fan.main.fragment.ChatRoomFragment;
+import com.imfan.j.a91fan.main.fragment.ContactListFragment;
 import com.imfan.j.a91fan.main.fragment.MainFragment;
 import com.imfan.j.a91fan.main.fragment.MessageFragment;
 import com.imfan.j.a91fan.main.fragment.MyProfileFragment;
@@ -17,7 +18,8 @@ public enum MainTab {
     CHAT_ROOM(0, ReminderId.INVALID, ChatRoomFragment.class,  R.layout.fragment_profile),
     MESSAGE(1, ReminderId.SESSION, MessageFragment.class,  R.layout.fragment_message),
     BLOG_WALL(2, ReminderId.SESSION, BlogWallFragment.class,  R.layout.fragment_profile),
-    PROFILE(3, ReminderId.SESSION, MyProfileFragment.class,  R.layout.fragment_profile);
+    CONTACT(3, ReminderId.CONTACT, ContactListFragment.class,  R.layout.contacts_list),
+    PROFILE(4, ReminderId.SESSION, MyProfileFragment.class,  R.layout.fragment_profile);
 
     public final int tabIndex;
 

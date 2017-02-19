@@ -10,9 +10,21 @@ import android.view.ViewGroup;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.adapter.MainPagerAdapter;
+import com.imfan.j.a91fan.main.helper.SystemMessageUnreadManager;
 import com.imfan.j.a91fan.main.model.MainTab;
+import com.imfan.j.a91fan.main.reminder.ReminderItem;
+import com.imfan.j.a91fan.main.reminder.ReminderManager;
 import com.imfan.j.a91fan.uiabout.ChangeColorIconWithText;
 import com.netease.nim.uikit.common.fragment.TFragment;
+import com.netease.nim.uikit.common.ui.drop.DropCover;
+import com.netease.nim.uikit.common.ui.drop.DropManager;
+import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.msg.MsgService;
+import com.netease.nimlib.sdk.msg.SystemMessageObserver;
+import com.netease.nimlib.sdk.msg.SystemMessageService;
+import com.netease.nimlib.sdk.msg.model.RecentContact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +48,14 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
     // 下面的导航按钮兼指示器
     private List<ChangeColorIconWithText> tabIndicators = new ArrayList<ChangeColorIconWithText>();
 
-    private ChangeColorIconWithText chatRoom, message, blogWall, myProfile;
+    private ChangeColorIconWithText chatRoom, message, blogWall, contact, myProfile;
+    private Observer<Integer> sysMsgUnreadCountChangedObserver = new Observer<Integer>() {
+        @Override
+        public void onEvent(Integer unreadCount) {
+            SystemMessageUnreadManager.getInstance().setSysMsgUnreadCount(unreadCount);
+            ReminderManager.getInstance().updateContactUnreadNum(unreadCount);
+        }
+    };
 
     public HomeFragment() {
         setContainerId(R.id.home_container); // 在MainActivity的唯一组件里占上位置
@@ -55,10 +74,9 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
         initData();
         setupPager();
         initEvent();
-        /*registerMsgUnreadInfoObserver(true);
+
         registerSystemMessageObservers(true);
         requestSystemMessageUnreadCount();
-        initUnreadCover();*/
     }
 
     /**
@@ -88,6 +106,10 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
                 tabIndicators.get(3).setIconAlpha(1.0f);
                 pager.setCurrentItem(3, false);
                 break;
+            case R.id.id_indicator_five:
+                tabIndicators.get(4).setIconAlpha(1.0f);
+                pager.setCurrentItem(4, false);
+                break;
         }
     }
 
@@ -102,7 +124,6 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
         }
     }
 
-
     /*
     初始化事件
      */
@@ -111,6 +132,7 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
         message.setOnClickListener(this);
         blogWall.setOnClickListener(this);
         myProfile.setOnClickListener(this);
+        contact.setOnClickListener(this);
         pager.setOnPageChangeListener(this);
     }
 
@@ -137,14 +159,17 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
 
         pager = findView(R.id.id_viewpager);
 
-        // 四个导航键
+        // 五个导航键
         chatRoom = findView(R.id.id_indicator_one);
         message = findView(R.id.id_indicator_two);
         blogWall = findView(R.id.id_indicator_three);
-        myProfile = findView(R.id.id_indicator_four);
+        contact = findView(R.id.id_indicator_four);
+        myProfile = findView(R.id.id_indicator_five);
+
         tabIndicators.add(chatRoom);
         tabIndicators.add(message);
         tabIndicators.add(blogWall);
+        tabIndicators.add(contact);
         tabIndicators.add(myProfile);
 
         chatRoom.setIconAlpha(1.0f);
@@ -169,8 +194,6 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
 
 
     }
-
-
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -197,4 +220,25 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
     public void onClick(View v) {
         clickTab(v);
     }
+
+    /**
+     * 注册/注销系统消息未读数变化
+     *
+     * @param register
+     */
+    private void registerSystemMessageObservers(boolean register) {
+        NIMClient.getService(SystemMessageObserver.class).observeUnreadCountChange(sysMsgUnreadCountChangedObserver,
+                register);
+    }
+
+    /**
+     * 查询系统消息未读数
+     */
+    private void requestSystemMessageUnreadCount() {
+        int unread = NIMClient.getService(SystemMessageService.class).querySystemMessageUnreadCountBlock();
+        SystemMessageUnreadManager.getInstance().setSysMsgUnreadCount(unread);
+        ReminderManager.getInstance().updateContactUnreadNum(unread);
+    }
+
+
 }
