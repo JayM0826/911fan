@@ -138,6 +138,7 @@
             android:name=".contact.activity.UserProfileActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".main.activity.SearchMsgDetailActivity" />
+        <activity android:name=".team.AdvancedTeamJoinActivity"></activity>
     </application>
 
 </manifest>

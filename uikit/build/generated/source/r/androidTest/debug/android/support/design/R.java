@@ -666,19 +666,19 @@ public final class R {
 		public static final int design_fab_background = 0x7f020055;
 		public static final int design_ic_visibility = 0x7f020056;
 		public static final int design_snackbar_background = 0x7f020057;
-		public static final int navigation_empty_icon = 0x7f020067;
-		public static final int notification_action_background = 0x7f02010b;
-		public static final int notification_bg = 0x7f02010c;
-		public static final int notification_bg_low = 0x7f02010d;
-		public static final int notification_bg_low_normal = 0x7f02010e;
-		public static final int notification_bg_low_pressed = 0x7f02010f;
-		public static final int notification_bg_normal = 0x7f020110;
-		public static final int notification_bg_normal_pressed = 0x7f020111;
-		public static final int notification_icon_background = 0x7f020112;
-		public static final int notification_template_icon_bg = 0x7f020121;
-		public static final int notification_template_icon_low_bg = 0x7f020122;
-		public static final int notification_tile_bg = 0x7f020113;
-		public static final int notify_panel_notification_icon_bg = 0x7f020114;
+		public static final int navigation_empty_icon = 0x7f02006c;
+		public static final int notification_action_background = 0x7f02010d;
+		public static final int notification_bg = 0x7f02010e;
+		public static final int notification_bg_low = 0x7f02010f;
+		public static final int notification_bg_low_normal = 0x7f020110;
+		public static final int notification_bg_low_pressed = 0x7f020111;
+		public static final int notification_bg_normal = 0x7f020112;
+		public static final int notification_bg_normal_pressed = 0x7f020113;
+		public static final int notification_icon_background = 0x7f020114;
+		public static final int notification_template_icon_bg = 0x7f020123;
+		public static final int notification_template_icon_low_bg = 0x7f020124;
+		public static final int notification_tile_bg = 0x7f020115;
+		public static final int notify_panel_notification_icon_bg = 0x7f020116;
 	}
 	public static final class id {
 		public static final int action0 = 0x7f0d01b1;

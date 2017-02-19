@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,6 +40,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 
 import static com.imfan.j.a91fan.MainApplication.api;
@@ -76,6 +78,7 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
     private String headimgurl;
     private JSONArray privilege; //用户特权信息，json数组，如微信沃卡用户为（chinaunicom,暂不保存
     private String unionid;
+private int i = -1;
 
     // 这两个start函数是启动这个activity的函数
     public static void start(Context context) {
@@ -89,7 +92,6 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
         intent.putExtra("KICK_OUT", kickOut);  // kickout 账号在其他设备登陆
         context.startActivity(intent); // 起动微信登陆界面
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +114,47 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
             @Override
             public void onClick(View v) {
                 // 发起微信登陆
+                final SweetAlertDialog pDialog = new SweetAlertDialog(WXEntryActivity.this, SweetAlertDialog.PROGRESS_TYPE)
+                        .setTitleText("Loading");
+                pDialog.show();
+                pDialog.setCancelable(false);
+
+
+                new CountDownTimer(200 * 7, 200) {
+                    public void onTick(long millisUntilFinished) {
+
+                        // you can change the progress bar color by ProgressHelper every 800 millis
+                        i++;
+                        switch (i){
+                            case 0:
+                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.blue_btn_bg_color));
+                                break;
+                            case 1:
+                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_deep_teal_50));
+                                break;
+                            case 2:
+                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.success_stroke_color));
+                                break;
+                            case 3:
+                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_deep_teal_20));
+                                break;
+                            case 4:
+                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_blue_grey_80));
+                                break;
+                            case 5:
+                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.warning_stroke_color));
+                                break;
+                            case 6:
+                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.success_stroke_color));
+                                break;
+                        }
+                    }
+
+                    public void onFinish() {
+                        i = -1;
+                        pDialog.dismiss();
+                    }
+                }.start();
                 sendAuthRequest();
             }
         });
@@ -185,10 +228,6 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
         });
     }
 
-
-
-
-
     private void getUserInfo() {
 
    /* 第三步获取微信用户个人信息（UnionID机制）
@@ -232,14 +271,9 @@ public class WXEntryActivity extends UI implements IWXAPIEventHandler {
                     Cache.setAccount(unionid.toLowerCase());
 
 
+
                     LoginNetease.getInstance().registerNetease(WXEntryActivity.this);
-                    /*Runnable runnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            LoginNetease.login(WXEntryActivity.this);
-                        }
-                    };
-                    new Handler().postDelayed(runnable, 800);*/
+
 
 
 

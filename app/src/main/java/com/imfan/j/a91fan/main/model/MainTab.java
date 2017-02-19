@@ -15,7 +15,7 @@ import com.netease.nim.uikit.common.fragment.TFragment;
 
 public enum MainTab {
     CHAT_ROOM(0, ReminderId.INVALID, ChatRoomFragment.class,  R.layout.fragment_profile),
-    MESSAGE(1, ReminderId.SESSION, MessageFragment.class,  R.layout.chat_room_net_status),
+    MESSAGE(1, ReminderId.SESSION, MessageFragment.class,  R.layout.fragment_message),
     BLOG_WALL(2, ReminderId.SESSION, BlogWallFragment.class,  R.layout.fragment_profile),
     PROFILE(3, ReminderId.SESSION, MyProfileFragment.class,  R.layout.fragment_profile);
 

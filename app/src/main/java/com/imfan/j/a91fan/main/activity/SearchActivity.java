@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
 import com.imfan.j.a91fan.session.SessionHelper;
+import com.imfan.j.a91fan.team.AdvancedTeamJoinActivity;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.string.StringUtil;
@@ -41,7 +42,7 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
     static public boolean hasData;
 
     // 第一个搜索用户，第二个不搜索用户
-    IContactDataProvider dataProvider = new ContactDataProvider(ItemTypes.USER, ItemTypes.FRIEND, ItemTypes.TEAM, ItemTypes.MSG);
+    IContactDataProvider dataProvider = new ContactDataProvider(ItemTypes.USER,ItemTypes.TEAM_UNJOIN, ItemTypes.FRIEND, ItemTypes.TEAM, ItemTypes.MSG);
     private ListView lvContacts;
     private SearchView searchView;
     private ContactDataAdapter adapter;
@@ -139,6 +140,7 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
         adapter.addViewHolder(ItemTypes.FRIEND, ContactHolder.class);
         adapter.addViewHolder(ItemTypes.TEAM, ContactHolder.class);
         adapter.addViewHolder(ItemTypes.MSG, MsgHolder.class);
+        adapter.addViewHolder(ItemTypes.TEAM_UNJOIN, ContactHolder.class);
 
 
 
@@ -175,6 +177,12 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
         AbsContactItem item = (AbsContactItem) adapter.getItem(position);
 
         switch (item.getItemType()) {
+
+            case ItemTypes.TEAM_UNJOIN:
+                AdvancedTeamJoinActivity.start(SearchActivity.this, ((ContactItem) item).getContact().getContactId());
+
+                break;
+
             case ItemTypes.USER:
                 // 打开搜索出来的用户的详细资料的Activity
                 UserProfileActivity.start(this, ((ContactItem) item).getContact().getContactId());
@@ -214,13 +222,16 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
         public static final String GROUP_TEAM = "TEAM";
         public static final String GROUP_MSG = "MSG";
         public static final String GROUP_USER = "USER";
+        public static final String GROUP_UNJOIN = "NEW_GROUP";
 
         SearchGroupStrategy() {
             add(ContactGroupStrategy.GROUP_NULL, 0, "");
             add(GROUP_USER, 1, "用户");
-            add(GROUP_TEAM, 2, "群组");
-            add(GROUP_FRIEND, 3, "好友");
-            add(GROUP_MSG, 4, "聊天记录");
+            add(GROUP_TEAM, 3, "已加入群组");
+            add(GROUP_FRIEND, 4, "好友");
+            add(GROUP_MSG, 5, "聊天记录");
+            add(GROUP_UNJOIN, 2, "未加入群组");
+
         }
 
         @Override
@@ -234,6 +245,8 @@ public class SearchActivity extends UI implements AdapterView.OnItemClickListene
                     return GROUP_TEAM;
                 case ItemTypes.MSG:
                     return GROUP_MSG;
+                case ItemTypes.TEAM_UNJOIN:
+                    return GROUP_UNJOIN;
                 default:
                     return null;
             }

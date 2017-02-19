@@ -5,13 +5,17 @@ import android.support.v7.widget.RecyclerView;
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.common.ui.recyclerview.adapter.BaseMultiItemQuickAdapter;
 import com.netease.nim.uikit.common.ui.recyclerview.holder.BaseViewHolder;
+import com.netease.nim.uikit.contact.core.item.AbsContactItem;
+import com.netease.nim.uikit.contact.core.viewholder.AbsContactViewHolder;
 import com.netease.nim.uikit.recent.RecentContactsCallback;
 import com.netease.nim.uikit.recent.holder.CommonRecentViewHolder;
 import com.netease.nim.uikit.recent.holder.TeamRecentViewHolder;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangjun on 2016/12/11.
@@ -19,18 +23,31 @@ import java.util.List;
 
 public class RecentContactAdapter extends BaseMultiItemQuickAdapter<RecentContact, BaseViewHolder> {
 
+    // private final Map<Integer, Class<? extends AbsContactViewHolder<? extends AbsContactItem>>> viewHolderMap;
+
+
+    // 回调函数
     private RecentContactsCallback callback;
 
     public RecentContactAdapter(RecyclerView recyclerView, List<RecentContact> data) {
         super(recyclerView, data);
         addItemType(ViewType.VIEW_TYPE_COMMON, R.layout.nim_recent_contact_list_item, CommonRecentViewHolder.class);
         addItemType(ViewType.VIEW_TYPE_TEAM, R.layout.nim_recent_contact_list_item, TeamRecentViewHolder.class);
+        // 新添加的
+        // this.viewHolderMap = new HashMap<>(2);
+    }
+
+    // 新添加的
+    public void addViewHolder(int itemDataType, Class<? extends AbsContactViewHolder<? extends AbsContactItem>> viewHolder) {
+       //  this.viewHolderMap.put(itemDataType, viewHolder);
     }
 
     @Override
     protected int getViewType(RecentContact item) {
         return item.getSessionType() == SessionTypeEnum.Team ? ViewType.VIEW_TYPE_TEAM : ViewType.VIEW_TYPE_COMMON;
     }
+
+
 
     @Override
     protected String getItemKey(RecentContact item) {
@@ -51,5 +68,7 @@ public class RecentContactAdapter extends BaseMultiItemQuickAdapter<RecentContac
     interface ViewType {
         int VIEW_TYPE_COMMON = 1;
         int VIEW_TYPE_TEAM = 2;
+        // 新添加的
+        int VIEW_TYPE_LABEL = 3;
     }
 }

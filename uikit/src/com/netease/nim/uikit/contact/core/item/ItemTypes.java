@@ -28,6 +28,8 @@ public interface ItemTypes {
 
     int MSG = 5; // 消息
 
+    int TEAM_UNJOIN = 6;
+
     /**
      * 子类型
      */

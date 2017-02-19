@@ -76,7 +76,6 @@ public class ContactDataTask {
 
                 if (items.size() == 0 || items == null) {
                     CustomToast.show(context, "冷冷清清,什么也没搜到");
-                    return;
                 }
                     add(datas, items, filter);
                     ContactDataProvider.clearData();

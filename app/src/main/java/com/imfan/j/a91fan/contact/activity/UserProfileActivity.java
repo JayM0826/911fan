@@ -58,6 +58,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class UserProfileActivity extends AppCompatActivity {
 
     private static final String TAG = UserProfileActivity.class.getSimpleName();
@@ -566,18 +568,31 @@ public class UserProfileActivity extends AppCompatActivity {
             CustomToast.show(UserProfileActivity.this, R.string.network_is_not_available);
             return;
         }
-        EasyAlertDialog dialog = EasyAlertDialogHelper.createOkCancelDiolag(this, getString(R.string.remove_friend),
-                getString(R.string.remove_friend_tip), true,
-                new EasyAlertDialogHelper.OnDialogActionListener() {
 
+        SweetAlertDialog sweetAlertDialog =  new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("删除好友前请三思?")
+                .setContentText("真的要删除好友吗，好友这么好！")
+                .setConfirmText("是的，TMD删了！")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
-                    public void doCancelAction() {
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance, keep widget user state, reset them if you need
+                        sDialog.setTitleText("刀下留了人啊")
+                                .setContentText("看来这个好友算是解除警报了:)")
+                                .setConfirmText("暂且饶了TA")
+                                .showCancelButton(false)
+                                .setCancelClickListener(null)
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
 
                     }
-
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
-                    public void doOkAction() {
-                        DialogMaker.showProgressDialog(UserProfileActivity.this, "", true);
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance
+
                         NIMClient.getService(FriendService.class).deleteFriend(account).setCallback(new RequestCallback<Void>() {
                             @Override
                             public void onSuccess(Void param) {
@@ -601,10 +616,18 @@ public class UserProfileActivity extends AppCompatActivity {
                                 DialogMaker.dismissProgressDialog();
                             }
                         });
+
+                        sDialog.setTitleText("小菜一碟")
+                                .setContentText("终于不用恶心我了！")
+                                .setConfirmText("终于清理了，不占内存啊！")
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                     }
                 });
+
+
         if (!isFinishing() && !isDestroyedCompatible()) {
-            dialog.show();
+            sweetAlertDialog.show();
         }
     }
     public boolean isDestroyedCompatible() {
