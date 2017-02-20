@@ -50,6 +50,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
+
 import static com.imfan.j.a91fan.util.Constant.WX_APP_ID;
 
 
@@ -123,11 +125,14 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 极光初始化
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         regToWx(); // 向微信注册
         Cache.setContext(this);  // 这里是实例化Cahce
 
         // 注册小米推送appID 、appKey 以及在云信管理后台添加的小米推送证书名称，该逻辑放在 NIMClient init 之前
-        // NIMPushClient.registerMiPush(this, "DEMO_MI_PUSH", "2882303761517502883", "5671750254883");
+        NIMPushClient.registerMiPush(this, "mipush", "2882303761517549789", "5151754944789");
         // 注册自定义小米推送消息处理，这个是可选项
         //NIMPushClient.registerMixPushMessageHandler(new DemoMixPushMessageHandler());
 
