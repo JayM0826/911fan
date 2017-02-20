@@ -455,7 +455,7 @@
     <string name="withdrawn_msg">撤 回</string>
     <string name="without_content">暂无</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -470,7 +470,7 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_black_333333</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/color_blue_0888ff</item>
@@ -542,17 +542,17 @@
     </style>
     <style name="easy_dialog_style" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
-        
+        <!-- 边框 -->
         <item name="android:windowIsFloating">true</item>
-        
+        <!-- 是否浮现在activity之上 -->
         <item name="android:windowIsTranslucent">true</item>
-        
+        <!-- 半透明 -->
         <item name="android:windowNoTitle">true</item>
-        
+        <!-- 无标题 -->
         <item name="android:windowBackground">@color/transparent</item>
-        
+        <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item>
-        
+        <!-- 后面的activity变暗 -->
     </style>
     <style name="edit_text_style">
         <item name="android:textCursorDrawable">@color/black</item>
