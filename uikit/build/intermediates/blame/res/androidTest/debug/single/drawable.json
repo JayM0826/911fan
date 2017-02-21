@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_vector_test.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_vector_test.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/red_button_background.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/res/drawable/red_button_background.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_vector_test.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_vector_test.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_seekbar_track_material.xml",
@@ -24,28 +24,28 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_contact_list_item_selecter.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_btn_default_mtrl_shape.xml",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_btn_default_mtrl_shape.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_ic_ab_back_material.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ic_ab_back_material.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_btn_default_mtrl_shape.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_btn_default_mtrl_shape.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/toast_cafe.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/toast_cafe.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_audio_animation_list_right.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_audio_animation_list_right.xml"
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_ratingbar_small_material.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ratingbar_small_material.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_audio_animation_list_left.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_audio_animation_list_left.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_ratingbar_small_material.xml",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ratingbar_small_material.xml"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_audio_animation_list_right.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_audio_animation_list_right.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
@@ -68,6 +68,10 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ratingbar_material.xml"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/touch_bg.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/touch_bg.xml"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/blue_button_background.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/res/drawable/blue_button_background.xml"
     },
@@ -76,12 +80,12 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_btn_radio_material.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_actionbar_black_bg.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_actionbar_black_bg.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_ic_search_api_material.xml",
@@ -92,12 +96,12 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/indicator_bg_top.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/sample_footer_loading.png",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/sample_footer_loading.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_g_image_preview_white_btn_selecter.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_g_image_preview_white_btn_selecter.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/sample_footer_loading.png",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/sample_footer_loading.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_cab_background_top_material.xml",
@@ -216,12 +220,12 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_bg_edittext_rectangle_focused.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_actionbar_nest_dark_logo.xml",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_actionbar_nest_dark_logo.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_message_button_bottom_add_selector.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_message_button_bottom_add_selector.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_actionbar_nest_dark_logo.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_actionbar_nest_dark_logo.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_red_round_button_selector.xml",
@@ -280,6 +284,10 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_portrait_mask_square.xml"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_edit_text_material.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_edit_text_material.xml"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_message_button_bottom_text_selector.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_message_button_bottom_text_selector.xml"
     },
@@ -304,24 +312,24 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/notification_icon_background.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_easy_edit_text_dialog_bg.xml",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_easy_edit_text_dialog_bg.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_seekbar_thumb_material.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_seekbar_thumb_material.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_message_item_right_selector.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_message_item_right_selector.xml"
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_easy_edit_text_dialog_bg.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_easy_edit_text_dialog_bg.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_ratingbar_indicator_material.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ratingbar_indicator_material.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_actionbar_black_bg.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_actionbar_black_bg.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_ratingbar_indicator_material.xml",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_ratingbar_indicator_material.xml"
+        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_message_item_right_selector.xml",
+        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_message_item_right_selector.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_seekbar_track_material.xml",
@@ -442,6 +450,10 @@
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/success_circle.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/cn.pedant.sweetalert/library/1.3/res/drawable/success_circle.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/abc_btn_colored_material.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable/abc_btn_colored_material.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/notification_icon_background.xml",
@@ -658,6 +670,10 @@
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_progress_small_white.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/drawable/nim_progress_small_white.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/design_bottom_navigation_item_background.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/design/25.0.0/res/drawable/design_bottom_navigation_item_background.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable/nim_popup_menu_item_black_selector.xml",

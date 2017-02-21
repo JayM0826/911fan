@@ -748,6 +748,10 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/nim_emoji_del.png"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/drawable-hdpi-v4/ic_secretary.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/ic_secretary.png"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/drawable-hdpi-v4/explosion_five.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/explosion_five.png"
     },

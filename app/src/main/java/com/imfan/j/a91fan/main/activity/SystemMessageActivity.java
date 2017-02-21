@@ -73,10 +73,13 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
     };
 
     public static void start(Context context) {
+        MainActivity.isRed = false;
         start(context, null, true);
     }
 
     public static void start(Context context, Intent extras, boolean clearTop) {
+        MainActivity.isRed = false;
+
         Intent intent = new Intent();
         intent.setClass(context, SystemMessageActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -118,7 +121,7 @@ public class SystemMessageActivity extends UI implements TAdapterDelegate,
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.system_notification_message_activity);
-
+        invalidateOptionsMenu();
         ToolBarOptions options = new ToolBarOptions();
         options.titleId = R.string.verify_reminder;
         setToolBar(R.id.toolbar, options);

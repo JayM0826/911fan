@@ -280,6 +280,10 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_picker_preview_disable.png"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_secretary.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/ic_secretary.png"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_picker_image_selected.png",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/drawable-hdpi/nim_picker_image_selected.png"
     },

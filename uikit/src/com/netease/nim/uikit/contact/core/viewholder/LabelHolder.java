@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.contact.core.item.LabelItem;
 import com.netease.nim.uikit.contact.core.model.ContactDataAdapter;
-
+// 这应该是存放每个标签的，是A开头B开头C开头的那种
 public class LabelHolder extends AbsContactViewHolder<LabelItem> {
 
 	private TextView name;

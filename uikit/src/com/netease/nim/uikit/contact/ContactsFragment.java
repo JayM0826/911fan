@@ -28,6 +28,7 @@ import com.netease.nim.uikit.contact.core.model.ContactDataAdapter;
 import com.netease.nim.uikit.contact.core.model.ContactGroupStrategy;
 import com.netease.nim.uikit.contact.core.provider.ContactDataProvider;
 import com.netease.nim.uikit.contact.core.query.IContactDataProvider;
+import com.netease.nim.uikit.contact.core.viewholder.AbsContactViewHolder;
 import com.netease.nim.uikit.contact.core.viewholder.ContactHolder;
 import com.netease.nim.uikit.contact.core.viewholder.LabelHolder;
 import com.netease.nim.uikit.uinfo.UserInfoHelper;
@@ -60,47 +61,16 @@ public class ContactsFragment extends TFragment {
     private ContactsCustomization customization;
 
     private ReloadFrequencyControl reloadControl = new ReloadFrequencyControl();
-    FriendDataCache.FriendDataChangedObserver friendDataChangedObserver = new FriendDataCache.FriendDataChangedObserver() {
-        @Override
-        public void onAddedOrUpdatedFriends(List<String> accounts) {
-            reloadWhenDataChanged(accounts, "onAddedOrUpdatedFriends", true);
-        }
-
-        @Override
-        public void onDeletedFriends(List<String> accounts) {
-            reloadWhenDataChanged(accounts, "onDeletedFriends", true);
-        }
-
-        @Override
-        public void onAddUserToBlackList(List<String> accounts) {
-            reloadWhenDataChanged(accounts, "onAddUserToBlackList", true);
-        }
-
-        @Override
-        public void onRemoveUserFromBlackList(List<String> accounts) {
-            reloadWhenDataChanged(accounts, "onRemoveUserFromBlackList", true);
-        }
-    };
-    private UserInfoObservable.UserInfoObserver userInfoObserver = new UserInfoObservable.UserInfoObserver() {
-        @Override
-        public void onUserInfoChanged(List<String> accounts) {
-            reloadWhenDataChanged(accounts, "onUserInfoChanged", true, false); // 非好友资料变更，不用刷新界面
-        }
-    };
-    private Observer<Void> loginSyncCompletedObserver = new Observer<Void>() {
-        @Override
-        public void onEvent(Void aVoid) {
-            getHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    reloadWhenDataChanged(null, "onLoginSyncCompleted", false);
-                }
-            }, 50);
-        }
-    };
 
     public void setContactsCustomization(ContactsCustomization customization) {
         this.customization = customization;
+    }
+
+    private static final class ContactsGroupStrategy extends ContactGroupStrategy {
+        public ContactsGroupStrategy() {
+            add(ContactGroupStrategy.GROUP_NULL, -1, "");
+            addABC(0);
+        }
     }
 
     /**
@@ -162,8 +132,10 @@ public class ContactsFragment extends TFragment {
                 onReloadCompleted();
             }
         };
-
+        // 这是标签，每个字母上面的标签
         adapter.addViewHolder(ItemTypes.LABEL, LabelHolder.class);
+
+        // 添加了定制的功能区
         if (customization != null) {
             adapter.addViewHolder(ItemTypes.FUNC, customization.onGetFuncViewHolderClass());
         }
@@ -176,6 +148,8 @@ public class ContactsFragment extends TFragment {
 
         // count
         View countLayout = View.inflate(getView().getContext(), R.layout.nim_contacts_count_item, null);
+
+        // 一共有多少名好友
         countLayout.setClickable(false);
         countText = (TextView) countLayout.findViewById(R.id.contactCountText);
 
@@ -191,18 +165,54 @@ public class ContactsFragment extends TFragment {
     }
 
     private void buildLitterIdx(View view) {
-        LetterIndexView livIndex = (LetterIndexView) view.findViewById(R.id.liv_index);
+        LetterIndexView livIndex = (LetterIndexView) view.findViewById(R.id.liv_index); // 字母表
+
         livIndex.setNormalColor(getResources().getColor(R.color.contacts_letters_color));
-        ImageView imgBackLetter = (ImageView) view.findViewById(R.id.img_hit_letter);
+
+        ImageView imgBackLetter = (ImageView) view.findViewById(R.id.img_hit_letter); // 滑动字母表后显示的字母
         TextView litterHit = (TextView) view.findViewById(R.id.tv_hit_letter);
         litterIdx = adapter.createLivIndex(listView, livIndex, litterHit, imgBackLetter);
 
         litterIdx.show();
     }
 
-    /**
-     * *********************************** 通讯录加载控制 *******************************
-     */
+    private final class ContactItemClickListener implements OnItemClickListener, OnItemLongClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+            AbsContactItem item = (AbsContactItem) adapter.getItem(position);
+            if (item == null) {
+                return;
+            }
+
+            int type = item.getItemType();
+
+            if (type == ItemTypes.FUNC && customization != null) {
+                customization.onFuncItemClick(item);
+                return;
+            }
+
+            if (type == ItemTypes.FRIEND && item instanceof ContactItem && NimUIKit.getContactEventListener() != null) {
+                NimUIKit.getContactEventListener().onItemClick(getActivity(), (((ContactItem) item).getContact()).getContactId());
+            }
+        }
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                       int position, long id) {
+            AbsContactItem item = (AbsContactItem) adapter.getItem(position);
+            if (item == null) {
+                return false;
+            }
+
+            if (item instanceof ContactItem && NimUIKit.getContactEventListener() != null) {
+                NimUIKit.getContactEventListener().onItemLongClick(getActivity(), (((ContactItem) item).getContact()).getContactId());
+            }
+
+            return true;
+        }
+    }
 
     public void scrollToTop() {
         if (listView != null) {
@@ -216,6 +226,10 @@ public class ContactsFragment extends TFragment {
             }
         }
     }
+
+    /**
+     * *********************************** 通讯录加载控制 *******************************
+     */
 
     /**
      * 加载通讯录数据并刷新
@@ -263,6 +277,47 @@ public class ContactsFragment extends TFragment {
     }
 
     /**
+     * 通讯录加载频率控制
+     */
+    class ReloadFrequencyControl {
+        boolean isReloading = false;
+        boolean needReload = false;
+        boolean reloadParam = false;
+
+        boolean canDoReload(boolean param) {
+            if (isReloading) {
+                // 正在加载，那么计划加载完后重载
+                needReload = true;
+                if (param) {
+                    // 如果加载过程中又有多次reload请求，多次参数只要有true，那么下次加载就是reload(true);
+                    reloadParam = true;
+                }
+                LogUtil.i(UIKitLogTag.CONTACT, "pending reload task");
+
+                return false;
+            } else {
+                // 如果当前空闲，那么立即开始加载
+                isReloading = true;
+                return true;
+            }
+        }
+
+        boolean continueDoReloadWhenCompleted() {
+            return needReload;
+        }
+
+        void resetStatus() {
+            isReloading = false;
+            needReload = false;
+            reloadParam = false;
+        }
+
+        boolean getReloadParam() {
+            return reloadParam;
+        }
+    }
+
+    /**
      * *********************************** 用户资料、好友关系变更、登录数据同步完成观察者 *******************************
      */
 
@@ -277,6 +332,47 @@ public class ContactsFragment extends TFragment {
 
         LoginSyncDataStatusObserver.getInstance().observeSyncDataCompletedEvent(loginSyncCompletedObserver);
     }
+
+    FriendDataCache.FriendDataChangedObserver friendDataChangedObserver = new FriendDataCache.FriendDataChangedObserver() {
+        @Override
+        public void onAddedOrUpdatedFriends(List<String> accounts) {
+            reloadWhenDataChanged(accounts, "onAddedOrUpdatedFriends", true);
+        }
+
+        @Override
+        public void onDeletedFriends(List<String> accounts) {
+            reloadWhenDataChanged(accounts, "onDeletedFriends", true);
+        }
+
+        @Override
+        public void onAddUserToBlackList(List<String> accounts) {
+            reloadWhenDataChanged(accounts, "onAddUserToBlackList", true);
+        }
+
+        @Override
+        public void onRemoveUserFromBlackList(List<String> accounts) {
+            reloadWhenDataChanged(accounts, "onRemoveUserFromBlackList", true);
+        }
+    };
+
+    private UserInfoObservable.UserInfoObserver userInfoObserver = new UserInfoObservable.UserInfoObserver() {
+        @Override
+        public void onUserInfoChanged(List<String> accounts) {
+            reloadWhenDataChanged(accounts, "onUserInfoChanged", true, false); // 非好友资料变更，不用刷新界面
+        }
+    };
+
+    private Observer<Void> loginSyncCompletedObserver = new Observer<Void>() {
+        @Override
+        public void onEvent(Void aVoid) {
+            getHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    reloadWhenDataChanged(null, "onLoginSyncCompleted", false);
+                }
+            }, 50);
+        }
+    };
 
     private void reloadWhenDataChanged(List<String> accounts, String reason, boolean reload) {
         reloadWhenDataChanged(accounts, reason, reload, true);
@@ -319,91 +415,5 @@ public class ContactsFragment extends TFragment {
 
         // reload
         reload(reload);
-    }
-
-    private static final class ContactsGroupStrategy extends ContactGroupStrategy {
-        public ContactsGroupStrategy() {
-            add(ContactGroupStrategy.GROUP_NULL, -1, "");
-            addABC(0);
-        }
-    }
-
-    private final class ContactItemClickListener implements OnItemClickListener, OnItemLongClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
-            AbsContactItem item = (AbsContactItem) adapter.getItem(position);
-            if (item == null) {
-                return;
-            }
-
-            int type = item.getItemType();
-
-            if (type == ItemTypes.FUNC && customization != null) {
-                customization.onFuncItemClick(item);
-                return;
-            }
-
-            if (type == ItemTypes.FRIEND && item instanceof ContactItem && NimUIKit.getContactEventListener() != null) {
-                NimUIKit.getContactEventListener().onItemClick(getActivity(), (((ContactItem) item).getContact()).getContactId());
-            }
-        }
-
-        @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                       int position, long id) {
-            AbsContactItem item = (AbsContactItem) adapter.getItem(position);
-            if (item == null) {
-                return false;
-            }
-
-            if (item instanceof ContactItem && NimUIKit.getContactEventListener() != null) {
-                NimUIKit.getContactEventListener().onItemLongClick(getActivity(), (((ContactItem) item).getContact()).getContactId());
-            }
-
-            return true;
-        }
-    }
-
-    /**
-     * 通讯录加载频率控制
-     */
-    class ReloadFrequencyControl {
-        boolean isReloading = false;
-        boolean needReload = false;
-        boolean reloadParam = false;
-
-        boolean canDoReload(boolean param) {
-            if (isReloading) {
-                // 正在加载，那么计划加载完后重载
-                needReload = true;
-                if (param) {
-                    // 如果加载过程中又有多次reload请求，多次参数只要有true，那么下次加载就是reload(true);
-                    reloadParam = true;
-                }
-                LogUtil.i(UIKitLogTag.CONTACT, "pending reload task");
-
-                return false;
-            } else {
-                // 如果当前空闲，那么立即开始加载
-                isReloading = true;
-                return true;
-            }
-        }
-
-        boolean continueDoReloadWhenCompleted() {
-            return needReload;
-        }
-
-        void resetStatus() {
-            isReloading = false;
-            needReload = false;
-            reloadParam = false;
-        }
-
-        boolean getReloadParam() {
-            return reloadParam;
-        }
     }
 }

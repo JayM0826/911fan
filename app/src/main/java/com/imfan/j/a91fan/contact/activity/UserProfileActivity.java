@@ -63,7 +63,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class UserProfileActivity extends AppCompatActivity {
 
     private static final String TAG = UserProfileActivity.class.getSimpleName();
-    private final boolean FLAG_ADD_FRIEND_DIRECTLY = true; // 是否直接加为好友开关，false为需要好友申请
     private final String KEY_BLACK_LIST = "black_list";
     private final String KEY_MSG_NOTICE = "msg_notice";
     LinearLayout linearLayout;
@@ -71,8 +70,6 @@ public class UserProfileActivity extends AppCompatActivity {
     private String account;
     // 基本信息
     private HeadImageView headImageView;
-    private TextView nameText;
-    private ImageView genderImage;
     private TextView accountText;
     private TextView birthdayText;
     private TextView mobileText;
@@ -82,12 +79,9 @@ public class UserProfileActivity extends AppCompatActivity {
     private RelativeLayout phoneLayout;
     private RelativeLayout emailLayout;
     private RelativeLayout signatureLayout;
-    private RelativeLayout aliasLayout;
     private TextView nickText;
     // 开关
     private ViewGroup toggleLayout;
-    private Button addFriendBtn;
-    private Button removeFriendBtn;
     private Button chatBtn;
     FriendDataCache.FriendDataChangedObserver friendDataChangedObserver = new FriendDataCache.FriendDataChangedObserver() {
         @Override
@@ -217,15 +211,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (v == addFriendBtn) {
-                if (FLAG_ADD_FRIEND_DIRECTLY) {
-                    doAddFriend(null, true);  // 直接加为好友
-                } else {
-                    onAddFriendByVerify(); // 发起好友验证请求
-                }
-            } else if (v == removeFriendBtn) { // 删除好友
-                onRemoveFriend();
-            } else if (v == chatBtn) { // 去聊天
+            if (v == chatBtn) { // 去聊天
                 onChat();
             }
         }
@@ -291,13 +277,9 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
         headImageView = findView(R.id.user_head_image);
-        nameText = findView(R.id.user_name);
-        genderImage = findView(R.id.gender_img);
         accountText = findView(R.id.user_account);
         toggleLayout = findView(R.id.toggle_layout);
-        addFriendBtn = findView(R.id.add_buddy);
         chatBtn = findView(R.id.begin_chat);
-        removeFriendBtn = findView(R.id.remove_buddy);
         birthdayLayout = findView(R.id.birthday);
         nickText = findView(R.id.user_nick);
         birthdayText = (TextView) birthdayLayout.findViewById(R.id.value);
@@ -307,22 +289,11 @@ public class UserProfileActivity extends AppCompatActivity {
         emailText = (TextView) emailLayout.findViewById(R.id.value);
         signatureLayout = findView(R.id.signature);
         signatureText = (TextView) signatureLayout.findViewById(R.id.value);
-        aliasLayout = findView(R.id.alias1);
         ((TextView) birthdayLayout.findViewById(R.id.attribute)).setText(R.string.birthday);
         ((TextView) phoneLayout.findViewById(R.id.attribute)).setText(R.string.phone);
         ((TextView) emailLayout.findViewById(R.id.attribute)).setText(R.string.email);
         ((TextView) signatureLayout.findViewById(R.id.attribute)).setText(R.string.signature);
-        ((TextView) aliasLayout.findViewById(R.id.attribute)).setText(R.string.alias);
-
-        addFriendBtn.setOnClickListener(onClickListener);
         chatBtn.setOnClickListener(onClickListener);
-        removeFriendBtn.setOnClickListener(onClickListener);
-        aliasLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserProfileEditItemActivity.startActivity(UserProfileActivity.this, UserConstant.KEY_ALIAS, account);
-            }
-        });
     }
 
     private void initActionbar() {
@@ -360,25 +331,12 @@ public class UserProfileActivity extends AppCompatActivity {
         accountText.setText("帐号：" + account);
         headImageView.loadBuddyAvatar(account);
 
-        if (Cache.getAccount().equals(account)) {
-            nameText.setText(NimUserInfoCache.getInstance().getUserName(account));
-        }
-
         final NimUserInfo userInfo = NimUserInfoCache.getInstance().getUserInfo(account);
         if (userInfo == null) {
             LogUtil.e(TAG, "userInfo is null when updateUserInfoView");
             return;
         }
 
-        if (userInfo.getGenderEnum() == GenderEnum.MALE) {
-            genderImage.setVisibility(View.VISIBLE);
-            genderImage.setBackgroundResource(R.drawable.user_male);
-        } else if (userInfo.getGenderEnum() == GenderEnum.FEMALE) {
-            genderImage.setVisibility(View.VISIBLE);
-            genderImage.setBackgroundResource(R.drawable.user_female);
-        } else {
-            genderImage.setVisibility(View.GONE);
-        }
 
         if (!TextUtils.isEmpty(userInfo.getBirthday())) {
             birthdayLayout.setVisibility(View.VISIBLE);
@@ -407,20 +365,14 @@ public class UserProfileActivity extends AppCompatActivity {
         } else {
             signatureLayout.setVisibility(View.GONE);
         }
+        nickText.setText("昵称：" + NimUserInfoCache.getInstance().getUserName(account));
+
 
     }
 
     private void updateUserOperatorView() {
         chatBtn.setVisibility(View.VISIBLE);
-        if (NIMClient.getService(FriendService.class).isMyFriend(account)) {
-            removeFriendBtn.setVisibility(View.VISIBLE);
-            addFriendBtn.setVisibility(View.GONE);
-            updateAlias(true);
-        } else {
-            addFriendBtn.setVisibility(View.VISIBLE);
-            removeFriendBtn.setVisibility(View.GONE);
-            updateAlias(false);
-        }
+
     }
 
     private void updateToggleView() {
@@ -461,26 +413,7 @@ public class UserProfileActivity extends AppCompatActivity {
         return switchButton;
     }
 
-    private void updateAlias(boolean isFriend) {
-        if (isFriend) {
-            aliasLayout.setVisibility(View.VISIBLE);
-            aliasLayout.findViewById(R.id.arrow_right).setVisibility(View.VISIBLE);
-            Friend friend = FriendDataCache.getInstance().getFriendByAccount(account);
-            if (friend != null && !TextUtils.isEmpty(friend.getAlias())) {
-                nickText.setVisibility(View.VISIBLE);
-                nameText.setText(friend.getAlias());
-                nickText.setText("昵称：" + NimUserInfoCache.getInstance().getUserName(account));
-            } else {
-                nickText.setVisibility(View.GONE);
-                nameText.setText(NimUserInfoCache.getInstance().getUserName(account));
-            }
-        } else {
-            aliasLayout.setVisibility(View.GONE);
-            aliasLayout.findViewById(R.id.arrow_right).setVisibility(View.GONE);
-            nickText.setVisibility(View.GONE);
-            nameText.setText(NimUserInfoCache.getInstance().getUserName(account));
-        }
-    }
+
 
     private void updateStateMap(boolean checkState, String key) {
         if (toggleStateMap.containsKey(key)) {
@@ -489,147 +422,8 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 通过验证方式添加好友
-     */
-    private void onAddFriendByVerify() {
-        final EasyEditDialog requestDialog = new EasyEditDialog(this);
-        requestDialog.setEditTextMaxLength(32);
-        requestDialog.setTitle(getString(R.string.add_friend_verify_tip));
-        requestDialog.addNegativeButtonListener(R.string.cancel, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestDialog.dismiss();
-            }
-        });
-        requestDialog.addPositiveButtonListener(R.string.send, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestDialog.dismiss();
-                String msg = requestDialog.getEditMessage();
-                doAddFriend(msg, false);
-            }
-        });
-        requestDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-
-            }
-        });
-        requestDialog.show();
-    }
-
-    private void doAddFriend(String msg, boolean addDirectly) {
-        if (!NetworkUtil.isNetAvailable(this)) {
-            CustomToast.show(UserProfileActivity.this, R.string.network_is_not_available);
-            return;
-        }
-        if (!TextUtils.isEmpty(account) && account.equals(Cache.getAccount())) {
-            CustomToast.show(UserProfileActivity.this, "不能加自己为好友");
-            return;
-        }
-        final VerifyType verifyType = addDirectly ? VerifyType.DIRECT_ADD : VerifyType.VERIFY_REQUEST;
-        DialogMaker.showProgressDialog(this, "", true);
-        NIMClient.getService(FriendService.class).addFriend(new AddFriendData(account, verifyType, msg))
-                .setCallback(new RequestCallback<Void>() {
-                    @Override
-                    public void onSuccess(Void param) {
-                        DialogMaker.dismissProgressDialog();
-                        updateUserOperatorView();
-                        if (VerifyType.DIRECT_ADD == verifyType) {
-                            CustomToast.show(UserProfileActivity.this, "添加好友成功");
-                        } else {
-                            CustomToast.show(UserProfileActivity.this, "添加好友请求发送成功");
-                        }
-                    }
-
-                    @Override
-                    public void onFailed(int code) {
-                        DialogMaker.dismissProgressDialog();
-                        if (code == 408) {
-                            CustomToast.show(UserProfileActivity.this, R.string.network_is_not_available);
-                        } else {
-                            CustomToast.show(UserProfileActivity.this, "on failed:" + code);
-                        }
-                    }
-
-                    @Override
-                    public void onException(Throwable exception) {
-                        DialogMaker.dismissProgressDialog();
-                    }
-                });
-
-        Log.i(TAG, "onAddFriendByVerify");
-    }
-
-    private void onRemoveFriend() {
-        Log.i(TAG, "onRemoveFriend");
-        if (!NetworkUtil.isNetAvailable(this)) {
-            CustomToast.show(UserProfileActivity.this, R.string.network_is_not_available);
-            return;
-        }
-
-        SweetAlertDialog sweetAlertDialog =  new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("删除好友前请三思?")
-                .setContentText("真的要删除好友吗，好友这么好！")
-                .setConfirmText("是的，TMD删了！")
-                .showCancelButton(true)
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        // reuse previous dialog instance, keep widget user state, reset them if you need
-                        sDialog.setTitleText("刀下留了人啊")
-                                .setContentText("看来这个好友算是解除警报了:)")
-                                .setConfirmText("暂且饶了TA")
-                                .showCancelButton(false)
-                                .setCancelClickListener(null)
-                                .setConfirmClickListener(null)
-                                .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-
-                    }
-                })
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        // reuse previous dialog instance
-
-                        NIMClient.getService(FriendService.class).deleteFriend(account).setCallback(new RequestCallback<Void>() {
-                            @Override
-                            public void onSuccess(Void param) {
-                                DialogMaker.dismissProgressDialog();
-                                CustomToast.show(UserProfileActivity.this, R.string.remove_friend_success);
-                                finish();
-                            }
-
-                            @Override
-                            public void onFailed(int code) {
-                                DialogMaker.dismissProgressDialog();
-                                if (code == 408) {
-                                    CustomToast.show(UserProfileActivity.this, R.string.network_is_not_available);
-                                } else {
-                                    CustomToast.show(UserProfileActivity.this, "on failed:" + code);
-                                }
-                            }
-
-                            @Override
-                            public void onException(Throwable exception) {
-                                DialogMaker.dismissProgressDialog();
-                            }
-                        });
-
-                        sDialog.setTitleText("小菜一碟")
-                                .setContentText("终于不用恶心我了！")
-                                .setConfirmText("终于清理了，不占内存啊！")
-                                .setConfirmClickListener(null)
-                                .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                    }
-                });
 
 
-        if (!isFinishing() && !isDestroyedCompatible()) {
-            sweetAlertDialog.show();
-        }
-    }
     public boolean isDestroyedCompatible() {
         if (Build.VERSION.SDK_INT >= 17) {
             return isDestroyedCompatible17();
@@ -676,7 +470,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void onChat() {
         Log.i(TAG, "onChat");
         // 先不去聊天
-        CustomToast.show(this, "我想聊天，为什么不让人家聊！");
+        // CustomToast.show(this, "我想聊天，为什么不让人家聊！");
         SessionHelper.startP2PSession(this, account);
     }
 }

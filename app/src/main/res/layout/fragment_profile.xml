@@ -9,7 +9,7 @@
         android:id="@id/head_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10.0dp"
+        android:layout_marginTop="0dp"
         android:background="@color/color_green_89fbff"
         android:paddingBottom="10.0dp"
         android:paddingTop="10.0dp">
@@ -88,7 +88,7 @@
         android:id="@+id/blog"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20.0dp"
+        android:layout_marginTop="10.0dp"
         android:background="@color/color_yellow_fcf3cd"
         android:orientation="horizontal">
 
@@ -304,7 +304,7 @@
         android:id="@+id/user_logout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40.0dp"
+        android:layout_marginTop="20.0dp"
         android:background="#ffff0000"
         android:drawableLeft="@drawable/user_logout"
         android:gravity="center_vertical"

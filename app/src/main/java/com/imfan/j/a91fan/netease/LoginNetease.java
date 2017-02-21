@@ -1,17 +1,11 @@
 package com.imfan.j.a91fan.netease;
 
 import android.content.Context;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.serializer.ClassSerializer;
-import com.imfan.j.a91fan.config.UserPreferences;
 import com.imfan.j.a91fan.main.activity.MainActivity;
-import com.imfan.j.a91fan.netease.CheckSumBuilder;
-import com.imfan.j.a91fan.netease.NeteaseClient;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
-import com.imfan.j.a91fan.wxapi.WXEntryActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.netease.nim.uikit.NimUIKit;

@@ -1,6 +1,5 @@
 package com.imfan.j.a91fan;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,11 +9,9 @@ import android.graphics.Color;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
-import android.util.Log;
 
 
-import com.imfan.j.a91fan.config.UserPreferences;
-import com.imfan.j.a91fan.contact.helper.ContactHelper;
+import com.imfan.j.a91fan.netease.UserPreferences;
 import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.util.Cache;
 
@@ -26,13 +23,10 @@ import com.netease.nim.uikit.custom.DefalutUserInfoProvider;
 import com.netease.nim.uikit.session.viewholder.MsgViewHolderThumbBase;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.NimStrings;
-import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.LoginInfo;
-import com.netease.nimlib.sdk.avchat.AVChatManager;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
-import com.netease.nimlib.sdk.avchat.model.AVChatData;
 import com.netease.nimlib.sdk.mixpush.NIMPushClient;
 import com.netease.nimlib.sdk.msg.MessageNotifierCustomization;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -40,14 +34,11 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.team.constant.TeamFieldEnum;
 import com.netease.nimlib.sdk.team.model.IMMessageFilter;
 import com.netease.nimlib.sdk.team.model.UpdateTeamAttachment;
-import com.netease.nimlib.sdk.uinfo.UserServiceObserve;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import com.imfan.j.a91fan.util.crash.AppCrashHandler;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
@@ -193,7 +184,7 @@ public class MainApplication extends Application {
         SessionHelper.init();
 
         // 通讯录列表定制初始化
-         ContactHelper.init();
+         // ContactHelper.init();
 
         // 添加自定义推送文案以及选项，请开发者在各端（Android、IOS、PC、Web）消息发送时保持一致，以免出现通知不一致的情况
         // NimUIKit.CustomPushContentProvider(new DemoPushContentProvider());

@@ -368,6 +368,10 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_big_media_narrow_custom.xml"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/func_contacts_item.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/layout/func_contacts_item.xml"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/nim_team_info_divider_item.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/layout/nim_team_info_divider_item.xml"
     },
@@ -574,6 +578,10 @@
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/nim_picker_album_activity.xml",
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/layout/nim_picker_album_activity.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/notification_action_tombstone.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_action_tombstone.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/notification_template_media_custom.xml",
@@ -872,6 +880,10 @@
         "source": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/bundles/debug/res/layout/nim_message_item_name_layout.xml"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/notification_action.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_action.xml"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/abc_screen_toolbar.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/abc_screen_toolbar.xml"
     },
@@ -914,6 +926,10 @@
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/nim_popup_menu_list_black_item.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/layout/nim_popup_menu_list_black_item.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/notification_template_icon_group.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_icon_group.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/abc_action_menu_item_layout.xml",

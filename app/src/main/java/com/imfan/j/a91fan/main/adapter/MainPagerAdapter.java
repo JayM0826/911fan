@@ -111,28 +111,5 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         return fragments[position];
     }
 
-   /* @Override
-    public void onCurrentTabClicked(int position) {
 
-        TabFragment fragment = getFragmentByPosition(position);
-
-        // INSTANCE
-        if (fragment == null) {
-            return;
-        }
-
-        fragment.onCurrentTabClicked();
-    }
-
-    @Override
-    public void onCurrentTabDoubleTap(int position) {
-        TabFragment fragment = getFragmentByPosition(position);
-
-        // INSTANCE
-        if (fragment == null) {
-            return;
-        }
-
-        fragment.onCurrentTabDoubleTap();
-    }*/
 }

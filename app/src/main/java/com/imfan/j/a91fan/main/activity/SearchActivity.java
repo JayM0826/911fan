@@ -2,8 +2,8 @@ package com.imfan.j.a91fan.main.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -35,14 +35,14 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.search.model.MsgIndexRecord;
 
 /**
- * 目前只用来搜索用户
+ * 目前只用来搜索用户`
  */
 public class SearchActivity extends UI implements AdapterView.OnItemClickListener {
 
     static public boolean hasData;
 
     // 第一个搜索用户，第二个不搜索用户
-    IContactDataProvider dataProvider = new ContactDataProvider(ItemTypes.USER,ItemTypes.TEAM_UNJOIN, ItemTypes.FRIEND, ItemTypes.TEAM, ItemTypes.MSG);
+    IContactDataProvider dataProvider = new ContactDataProvider(ItemTypes.USER,ItemTypes.TEAM_UNJOIN, ItemTypes.TEAM, ItemTypes.MSG);
     private ListView lvContacts;
     private SearchView searchView;
     private ContactDataAdapter adapter;

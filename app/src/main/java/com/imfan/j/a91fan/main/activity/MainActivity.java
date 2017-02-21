@@ -8,10 +8,10 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.config.UserPreferences;
+import com.imfan.j.a91fan.netease.UserPreferences;
+import com.imfan.j.a91fan.main.helper.SystemMessageUnreadManager;
 import com.imfan.j.a91fan.netease.LoginNetease;
 import com.imfan.j.a91fan.netease.LogoutManager;
 import com.imfan.j.a91fan.main.fragment.HomeFragment;
@@ -27,13 +27,14 @@ import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.contact_selector.activity.ContactSelectActivity;
-import com.netease.nim.uikit.team.helper.TeamHelper;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.StatusCode;
 import com.netease.nimlib.sdk.mixpush.MixPushService;
+import com.netease.nimlib.sdk.msg.SystemMessageObserver;
+import com.netease.nimlib.sdk.msg.SystemMessageService;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ import java.util.ArrayList;
 import static com.netease.nimlib.sdk.StatusCode.LOGINED;
 
 public class MainActivity extends UI {
+
+    static public boolean isRed = false;
 
     private static final String EXTRA_APP_QUIT = "APP_QUIT";
     private static final int REQUEST_CODE_NORMAL = 1;
@@ -71,7 +74,8 @@ public class MainActivity extends UI {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        registerSystemMessageObservers(true);
+        requestSystemMessageUnreadCount();
         NimUIKit.setAccount(Preferences.getUserAccount().toLowerCase());
         StatusCode status = NIMClient.getStatus(); // 获取在线状态
         if (status == LOGINED)
@@ -161,6 +165,11 @@ public class MainActivity extends UI {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_menu, menu);
+        if (isRed){
+            menu.getItem(1).setIcon(R.drawable.actionbar_notify_red);
+        }else{
+            menu.getItem(1).setIcon(R.drawable.actionbar_notify);
+        }
         super.onCreateOptionsMenu(menu);
         return true;
     }
@@ -174,9 +183,12 @@ public class MainActivity extends UI {
                 break;
             case R.id.notify_btn:
                 LogUtil.i(TAG, "打开推送通知");
-                ContactSelectActivity.Option advancedOption = TeamHelper.getCreateContactSelectOption(null, 50);
+               /* ContactSelectActivity.Option advancedOption = TeamHelper.getCreateContactSelectOption(null, 50);
                 NimUIKit.startContactSelect(MainActivity.this, advancedOption, REQUEST_CODE_ADVANCED);
+                break;*/
+                SystemMessageActivity.start(this);
                 break;
+
             default:
                 break;
         }
@@ -244,6 +256,42 @@ public class MainActivity extends UI {
 
     }
 
+    private Observer<Integer> sysMsgUnreadCountChangedObserver = new Observer<Integer>() {
+        @Override
+        public void onEvent(Integer unreadCount) {
+            SystemMessageUnreadManager.getInstance().setSysMsgUnreadCount(unreadCount);
+            if (unreadCount > 0){
+                isRed = true;
+                invalidateOptionsMenu();//重新调用
+            }
+            // ReminderManager.getInstance().updateContactUnreadNum(unreadCount);
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    /**
+     * 注册/注销系统消息未读数变化
+     *
+     * @param register
+     */
+    private void registerSystemMessageObservers(boolean register) {
+        NIMClient.getService(SystemMessageObserver.class).observeUnreadCountChange(sysMsgUnreadCountChangedObserver,
+                register);
+    }
+
+    /**
+     * 查询系统消息未读数
+     */
+    private void requestSystemMessageUnreadCount() {
+        int unread = NIMClient.getService(SystemMessageService.class).querySystemMessageUnreadCountBlock();
+        SystemMessageUnreadManager.getInstance().setSysMsgUnreadCount(unread);
+        // ReminderManager.getInstance().updateContactUnreadNum(unread);
+    }
 
 
 }

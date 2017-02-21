@@ -11,24 +11,19 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.config.UserPreferences;
 import com.imfan.j.a91fan.netease.LoginNetease;
-import com.imfan.j.a91fan.main.activity.MainActivity;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.sys.NetworkUtil;
 import com.netease.nim.uikit.permission.MPermission;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionDenied;
 import com.netease.nim.uikit.permission.annotation.OnMPermissionGranted;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;

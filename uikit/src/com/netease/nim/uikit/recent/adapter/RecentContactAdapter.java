@@ -33,6 +33,7 @@ public class RecentContactAdapter extends BaseMultiItemQuickAdapter<RecentContac
         super(recyclerView, data);
         addItemType(ViewType.VIEW_TYPE_COMMON, R.layout.nim_recent_contact_list_item, CommonRecentViewHolder.class);
         addItemType(ViewType.VIEW_TYPE_TEAM, R.layout.nim_recent_contact_list_item, TeamRecentViewHolder.class);
+        // addItemType(ViewType.VIEW_TYPE_FUNC, R.layout.func_contacts_item, FuncViewHolder.class);
         // 新添加的
         // this.viewHolderMap = new HashMap<>(2);
     }
@@ -69,6 +70,6 @@ public class RecentContactAdapter extends BaseMultiItemQuickAdapter<RecentContac
         int VIEW_TYPE_COMMON = 1;
         int VIEW_TYPE_TEAM = 2;
         // 新添加的
-        int VIEW_TYPE_LABEL = 3;
+        int VIEW_TYPE_FUNC = 3;
     }
 }

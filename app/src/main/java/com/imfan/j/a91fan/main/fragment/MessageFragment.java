@@ -1,28 +1,14 @@
 package com.imfan.j.a91fan.main.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.main.helper.SystemMessageUnreadManager;
 import com.imfan.j.a91fan.main.model.MainTab;
-import com.imfan.j.a91fan.main.reminder.ReminderId;
-import com.imfan.j.a91fan.main.reminder.ReminderItem;
-import com.imfan.j.a91fan.main.reminder.ReminderManager;
 import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.session.extension.StickerAttachment;
-import com.imfan.j.a91fan.util.Cache;
 import com.netease.nim.uikit.common.activity.UI;
-import com.netease.nim.uikit.contact.ContactsCustomization;
-import com.netease.nim.uikit.contact.ContactsFragment;
-import com.netease.nim.uikit.contact.core.item.AbsContactItem;
-import com.netease.nim.uikit.contact.core.item.ItemTypes;
-import com.netease.nim.uikit.contact.core.model.ContactDataAdapter;
-import com.netease.nim.uikit.contact.core.viewholder.AbsContactViewHolder;
 import com.netease.nim.uikit.recent.RecentContactsCallback;
 import com.netease.nim.uikit.recent.RecentContactsFragment;
 import com.netease.nimlib.sdk.NIMClient;
@@ -134,7 +120,7 @@ public class  MessageFragment extends MainFragment {
 
             @Override
             public void onUnreadCountChange(int unreadCount) {
-                ReminderManager.getInstance().updateSessionUnreadNum(unreadCount);
+                // ReminderManager.getInstance().updateSessionUnreadNum(unreadCount);
             }
 
             @Override
