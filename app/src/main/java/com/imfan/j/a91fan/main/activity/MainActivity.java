@@ -183,9 +183,6 @@ public class MainActivity extends UI {
                 break;
             case R.id.notify_btn:
                 LogUtil.i(TAG, "打开推送通知");
-               /* ContactSelectActivity.Option advancedOption = TeamHelper.getCreateContactSelectOption(null, 50);
-                NimUIKit.startContactSelect(MainActivity.this, advancedOption, REQUEST_CODE_ADVANCED);
-                break;*/
                 SystemMessageActivity.start(this);
                 break;
 

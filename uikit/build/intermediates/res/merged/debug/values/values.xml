@@ -75,8 +75,10 @@
     <color name="abc_search_url_text_normal">#7fa87f</color>
     <color name="abc_search_url_text_pressed">@android:color/black</color>
     <color name="abc_search_url_text_selected">@android:color/black</color>
+    <color name="accent">#E91E63</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
+    <color name="accent_pressed">#C2185B</color>
     <color name="action_bar_black_title_1f1f1f">#1f1f1f</color>
     <color name="action_bar_black_title_color">#252525</color>
     <color name="background_floating_material_dark">@color/material_grey_800</color>
@@ -162,6 +164,7 @@
     <color name="left_ball_color">#7f01020a</color>
     <color name="light">#FFEEEEEE</color>
     <color name="main_bg_color">#FFFFFF</color>
+    <color name="material_blue_500">#5677fc</color>
     <color name="material_blue_grey_80">#ff37474f</color>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_90">#ff263238</color>
@@ -183,6 +186,8 @@
     <color name="notification_icon_bg_color">#ff9e9e9e</color>
     <color name="notification_material_background_media_default_color">#ff424242</color>
     <color name="press_mask">#33000000</color>
+    <color name="primary">#3f51b5</color>
+    <color name="primary_dark">#303f9f</color>
     <color name="primary_dark_material_dark">@android:color/black</color>
     <color name="primary_dark_material_light">@color/material_grey_600</color>
     <color name="primary_material_dark">@color/material_grey_900</color>
@@ -194,6 +199,7 @@
     <color name="red_btn_bg_color">#DD6B55</color>
     <color name="red_btn_bg_pressed_color">#CD5B55</color>
     <color name="right_ball_color">#7f01020b</color>
+    <color name="ripple">#F06292</color>
     <color name="ripple_material_dark">#33ffffff</color>
     <color name="ripple_material_light">#1f000000</color>
     <color name="secondary_text_default_material_dark">#b3ffffff</color>
@@ -409,7 +415,7 @@
         </attr></declare-styleable>
     <declare-styleable name="DesignTheme"><attr format="reference" name="bottomSheetDialogTheme"/><attr format="reference" name="bottomSheetStyle"/><attr format="color" name="textColorError"/></declare-styleable>
     <declare-styleable name="DrawerArrowToggle"><attr format="color" name="color"/><attr format="boolean" name="spinBars"/><attr format="dimension" name="drawableSize"/><attr format="dimension" name="gapBetweenBars"/><attr format="dimension" name="arrowHeadLength"/><attr format="dimension" name="arrowShaftLength"/><attr format="dimension" name="barLength"/><attr format="dimension" name="thickness"/></declare-styleable>
-    <declare-styleable name="FloatingActionButton"><attr name="backgroundTint"/><attr name="backgroundTintMode"/><attr format="color" name="rippleColor"/><attr name="fabSize">
+    <declare-styleable name="FloatingActionButton"><attr format="color" name="fab_colorPressed"/><attr format="color" name="fab_colorNormal"/><attr format="color" name="fab_colorRipple"/><attr format="color" name="fab_colorDisabled"/><attr format="boolean" name="fab_shadow"/><attr format="enum" name="fab_type"><enum name="normal" value="0"/><enum name="mini" value="1"/></attr><attr name="backgroundTint"/><attr name="backgroundTintMode"/><attr format="color" name="rippleColor"/><attr name="fabSize">
             
             <enum name="auto" value="-1"/>
             
@@ -688,6 +694,11 @@
     <dimen name="dp_40">40dp</dimen>
     <dimen name="dp_60">60dp</dimen>
     <dimen name="dp_72">72dp</dimen>
+    <dimen name="fab_elevation_lollipop">8dp</dimen>
+    <dimen name="fab_scroll_threshold">4dp</dimen>
+    <dimen name="fab_shadow_size">12dp</dimen>
+    <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="fab_size_normal">56dp</dimen>
     <dimen name="first_load_button_bottom">10dip</dimen>
     <dimen name="head_image_margin_top">0dip</dimen>
     <dimen name="header_footer_left_right_padding">24dp</dimen>
@@ -862,6 +873,7 @@
     <string name="create_team_failed">创建失败</string>
     <string name="create_team_success">创建成功</string>
     <string name="crop">裁剪</string>
+    <string name="define_FloatingActionButton"/>
     <string name="delete_has_blank">删 除</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_default_title">Here\'s a message!</string>
@@ -898,6 +910,15 @@
     <string name="is_send_image">是否发送该原始图片？</string>
     <string name="is_send_multi_image">是否发送这些原始图片？</string>
     <string name="is_send_video">是否发送该视频？</string>
+    <string name="library_FloatingActionButton_author">Oleksandr Melnykov</string>
+    <string name="library_FloatingActionButton_authorWebsite">https://github.com/makovkastar/FloatingActionButton</string>
+    <string name="library_FloatingActionButton_isOpenSource">true</string>
+    <string name="library_FloatingActionButton_libraryDescription">Android Google+ like floating action button which reacts on the list view scrolling events. Becomes visible when the list view is scrolled up and invisible when scrolled down.</string>
+    <string name="library_FloatingActionButton_libraryName">FloatingActionButton</string>
+    <string name="library_FloatingActionButton_libraryVersion">1.0.0</string>
+    <string name="library_FloatingActionButton_libraryWebsite">https://github.com/makovkastar/FloatingActionButton</string>
+    <string name="library_FloatingActionButton_licenseId">mit</string>
+    <string name="library_FloatingActionButton_repositoryLink">https://github.com/makovkastar/FloatingActionButton</string>
     <string name="load_end">没有更多数据</string>
     <string name="load_failed">加载失败，请点我重试</string>
     <string name="loading">正在加载中...</string>

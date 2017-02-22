@@ -92,7 +92,7 @@ public class TeamCreateHelper {
      */
     public static void createAdvancedTeam(final Context context, List<String> memberAccounts) {
 
-        String teamName = "高级群";
+        String teamName = "Fans部落";
 
         DialogMaker.showProgressDialog(context, context.getString(com.netease.nim.uikit.R.string.empty), true);
         // 创建群
@@ -100,7 +100,7 @@ public class TeamCreateHelper {
         HashMap<TeamFieldEnum, Serializable> fields = new HashMap<>();
         fields.put(TeamFieldEnum.Name, teamName);
         NIMClient.getService(TeamService.class).createTeam(fields, type, "",
-                memberAccounts).setCallback(
+                null).setCallback(
                 new RequestCallback<Team>() {
                     @Override
                     public void onSuccess(Team t) {

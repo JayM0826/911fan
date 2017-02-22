@@ -64,4 +64,10 @@
     <color name="color_black_ff999999">#ff999999</color>
     <color name="color_gray_bfc2c5">#bfc2c5</color>
 
+
+    <color name="primary">#3f51b5</color>
+    <color name="primary_pressed">#303f9f</color>
+    <color name="ripple">#F06292</color>
+    <color name="accent">#E91E63</color>
+    <color name="accent_pressed">#C2185B</color>
 </resources>

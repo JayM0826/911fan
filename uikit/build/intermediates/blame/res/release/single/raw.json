@@ -1,9 +1,5 @@
 [
     {
-        "merged": "/home/jay/AndroidStudioProjects/911fan/uikit/build/intermediates/res/merged/release/raw/audio_end_tip.wav",
-        "source": "/home/jay/AndroidStudioProjects/911fan/uikit/res/raw/audio_end_tip.wav"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/raw/audio_end_tip.wav",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/raw/audio_end_tip.wav"
     }

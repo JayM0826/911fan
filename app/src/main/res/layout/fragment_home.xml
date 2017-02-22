@@ -76,5 +76,7 @@
             jay:icon="@drawable/user_male"
             jay:text="@string/tab_me"
             jay:text_size="12sp" />
+
     </LinearLayout>
+
 </LinearLayout>
