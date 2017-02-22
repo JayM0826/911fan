@@ -16,16 +16,16 @@
         android:cacheColorHint="@android:color/transparent"
         />
     <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_white_24dp"
-        fab:fab_type="normal"
+        android:src="@drawable/ic_add_float_but"
+        fab:fab_type="mini"
         fab:fab_shadow="true"
         fab:fab_colorNormal="@color/primary"
-        fab:fab_colorPressed="@color/accent_pressed"
+        fab:fab_colorPressed="@color/primary_pressed"
         fab:fab_colorRipple="@color/ripple" />
 
 

@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/layout/nim_advanced_team_announce_list_item.xml",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/layout/nim_advanced_team_announce_list_item.xml"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/layout/nim_emoji_item.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/layout/nim_emoji_item.xml"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/layout/nim_advanced_team_announce_list_item.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/layout/nim_advanced_team_announce_list_item.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/layout/design_bottom_navigation_item.xml",

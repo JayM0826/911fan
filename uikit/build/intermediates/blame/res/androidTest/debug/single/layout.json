@@ -60,16 +60,16 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/layout/nim_zbra_loading_progress_bar.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/custom_toast.xml",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/layout/custom_toast.xml"
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/nim_preview_image_from_local_activity.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/layout/nim_preview_image_from_local_activity.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/notification_template_big_media.xml",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/layout/notification_template_big_media.xml"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/nim_preview_image_from_local_activity.xml",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/layout/nim_preview_image_from_local_activity.xml"
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/custom_toast.xml",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/layout/custom_toast.xml"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/layout/image_layout_multi_touch.xml",

@@ -1597,14 +1597,7 @@
                     "endOffset": 9412
                 },
                 "from": {
-                    "file": "/home/jay/AndroidStudioProjects/91fan/uikit/res/values/colors.xml",
-                    "position": {
-                        "startLine": 68,
-                        "startColumn": 4,
-                        "startOffset": 2981,
-                        "endColumn": 49,
-                        "endOffset": 3026
-                    }
+                    "file": "/home/jay/AndroidStudioProjects/91fan/uikit/res/values/colors.xml"
                 }
             },
             {
@@ -7964,7 +7957,14 @@
                     "endOffset": 75197
                 },
                 "from": {
-                    "file": "/home/jay/AndroidStudioProjects/91fan/uikit/res/values/strings.xml"
+                    "file": "/home/jay/AndroidStudioProjects/91fan/uikit/res/values/strings.xml",
+                    "position": {
+                        "startLine": 121,
+                        "startColumn": 4,
+                        "startOffset": 5805,
+                        "endColumn": 41,
+                        "endOffset": 5842
+                    }
                 }
             },
             {

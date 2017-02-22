@@ -608,6 +608,10 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/explosion_four.png"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_add_float_but.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/ic_add_float_but.png"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_team_owner_icon.png",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/nim_team_owner_icon.png"
     },

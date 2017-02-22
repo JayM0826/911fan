@@ -336,6 +336,10 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_message_input_voice_pressed.png"
     },
     {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/ic_add_float_but.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/ic_add_float_but.png"
+    },
+    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_dialog_toast_bg.png",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_dialog_toast_bg.png"
     },

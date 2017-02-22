@@ -200,7 +200,7 @@ public class UserProfileSettingActivity extends AppCompatActivity implements Vie
                 option.cropOutputImageHeight = 720;
 
                 // 开始选择头像
-                PickImageHelper.pickImage(UserProfileSettingActivity.this, PICK_AVATAR_REQUEST, option);
+                PickImageHelper.pickImage(UserProfileSettingActivity.this, PICK_AVATAR_REQUEST, option, 0, null);
                 break;
             case R.id.nick_layout:
                 UserProfileEditItemActivity.startActivity(UserProfileSettingActivity.this, UserConstant.KEY_NICKNAME,

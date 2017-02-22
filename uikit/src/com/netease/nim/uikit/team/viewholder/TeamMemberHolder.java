@@ -64,6 +64,8 @@ public class TeamMemberHolder extends TViewHolder {
                 // add team member
                 headImageView.setBackgroundResource(R.drawable.nim_team_member_add_selector);
                 nameTextView.setText(context.getString(R.string.add));
+                headImageView.setVisibility(View.GONE);
+                nameTextView.setText("");
                 headImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

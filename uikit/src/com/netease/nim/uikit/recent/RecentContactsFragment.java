@@ -357,9 +357,9 @@ public class RecentContactsFragment extends TFragment {
             @Override
             public void onClick(View v) {
                 createAdvancedTeam(getContext());
-                // TeamCreateHelper.createAdvancedTeam(getContext(), null);
             }
         });
+        fab_add.show();
         fab_add.attachToRecyclerView(recyclerView, new ScrollDirectionListener() {
             @Override
             public void onScrollDown() {
@@ -377,10 +377,6 @@ public class RecentContactsFragment extends TFragment {
     void createAdvancedTeam(final Context context) {
 
         String teamName = "Fans部落";
-//        final SweetAlertDialog pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE)
-//                .setTitleText("创建中");
-//        pDialog.show();
-//        pDialog.setCancelable(false);
         // 创建群
         TeamTypeEnum type = TeamTypeEnum.Advanced;
         HashMap<TeamFieldEnum, Serializable> fields = new HashMap<>();
@@ -600,6 +596,12 @@ public class RecentContactsFragment extends TFragment {
 
     private boolean isTagSet(RecentContact recent, long tag) {
         return (recent.getTag() & tag) == tag;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fab_add.show();
     }
 
     private void requestMessages(boolean delay) {

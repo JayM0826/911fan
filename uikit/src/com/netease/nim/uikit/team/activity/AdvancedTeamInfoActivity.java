@@ -304,6 +304,8 @@ public class AdvancedTeamInfoActivity extends UI implements
             }
         });
 
+
+
         teamHeadImage = (HeadImageView) findViewById(R.id.team_head_image);
         teamNameText = (TextView) findViewById(R.id.team_name);
         teamIdText = (TextView) findViewById(R.id.team_id);
@@ -397,7 +399,7 @@ public class AdvancedTeamInfoActivity extends UI implements
         option.cropOutputImageWidth = 720;
         option.cropOutputImageHeight = 720;
 
-        PickImageHelper.pickImage(AdvancedTeamInfoActivity.this, requestCode, option);
+        PickImageHelper.pickImage(AdvancedTeamInfoActivity.this, requestCode, option, 1, teamId);
     }
 
     /**

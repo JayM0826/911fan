@@ -1,6 +1,5 @@
 package com.imfan.j.a91fan.main.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +9,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.netease.UserPreferences;
+import com.imfan.j.a91fan.main.fragment.HomeFragment;
 import com.imfan.j.a91fan.main.helper.SystemMessageUnreadManager;
 import com.imfan.j.a91fan.netease.LoginNetease;
 import com.imfan.j.a91fan.netease.LogoutManager;
-import com.imfan.j.a91fan.main.fragment.HomeFragment;
+import com.imfan.j.a91fan.netease.UserPreferences;
 import com.imfan.j.a91fan.session.SessionHelper;
-import com.imfan.j.a91fan.team.TeamCreateHelper;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Extras;
 import com.imfan.j.a91fan.util.Preferences;
@@ -26,7 +24,6 @@ import com.netease.nim.uikit.cache.FriendDataCache;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.util.log.LogUtil;
-import com.netease.nim.uikit.contact_selector.activity.ContactSelectActivity;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.Observer;
@@ -37,8 +34,6 @@ import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 import com.netease.nimlib.sdk.msg.SystemMessageService;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
-import java.util.ArrayList;
-
 import static com.netease.nimlib.sdk.StatusCode.LOGINED;
 
 public class MainActivity extends UI {
@@ -46,8 +41,6 @@ public class MainActivity extends UI {
     static public boolean isRed = false;
 
     private static final String EXTRA_APP_QUIT = "APP_QUIT";
-    private static final int REQUEST_CODE_NORMAL = 1;
-    private static final int REQUEST_CODE_ADVANCED = 2;
 
     private final String TAG = getClass().getSimpleName();
     private HomeFragment homeFragment;
@@ -234,24 +227,7 @@ public class MainActivity extends UI {
         finish();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_CODE_NORMAL) {
-                final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
-                if (selected != null && !selected.isEmpty()) {
-                    TeamCreateHelper.createNormalTeam(MainActivity.this, selected, false, null);
-                } else {
-                    CustomToast.show(MainActivity.this, "请选择至少一个联系人！");
-                }
-            } else if (requestCode == REQUEST_CODE_ADVANCED) {
-                final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
-                TeamCreateHelper.createAdvancedTeam(MainActivity.this, selected);
-            }
-        }
 
-    }
 
     private Observer<Integer> sysMsgUnreadCountChangedObserver = new Observer<Integer>() {
         @Override

@@ -1,6 +1,7 @@
 package com.netease.nim.uikit.common.media.picker;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Context;
 
 import com.netease.nim.uikit.R;
@@ -20,14 +21,26 @@ public class PickImageHelper {
     /**
      * 打开图片选择器
      */
-    public static void pickImage(final Context context, final int requestCode, final PickImageOption option) {
+    public static void pickImage(final Context context, final int requestCode, final PickImageOption option, int id, final String teamid) {
         if (context == null) {
             return;
         }
 
 
+
         CustomAlertDialog dialog = new CustomAlertDialog(context);
         dialog.setTitle(option.titleResId);
+
+
+        if (id == 1){
+            dialog.addItem("复制群号", new CustomAlertDialog.onSeparateItemClickListener(){
+                @Override
+                public void onClick() {
+                    ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    clipboardManager.setText(teamid);
+                }
+            });
+        }
 
         dialog.addItem(context.getString(R.string.input_panel_take), new CustomAlertDialog.onSeparateItemClickListener() {
             @Override
