@@ -10,6 +10,8 @@ import com.imfan.j.a91fan.main.model.MainTab;
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.fragment.TabFragment;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by jay on 17-2-8.
  */
@@ -27,7 +29,11 @@ public abstract class MainFragment extends TFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_tab_fragment_container, container, false);
+
+        View view = inflater.inflate(R.layout.main_tab_fragment_container, container, false);
+
+        return view;
+
     }
 
     @Override
@@ -55,7 +61,8 @@ public abstract class MainFragment extends TFragment {
         ViewGroup root = (ViewGroup) getView();
         if (root != null) {
             root.removeAllViewsInLayout();
-            View.inflate(root.getContext(), tabData.layoutId, root);
+            ButterKnife.bind(this, View.inflate(root.getContext(), tabData.layoutId, root));
+
         }
         return root != null;
     }

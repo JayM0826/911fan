@@ -11,6 +11,8 @@ import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
 
+import com.blankj.utilcode.utils.AppUtils;
+import com.blankj.utilcode.utils.Utils;
 import com.imfan.j.a91fan.netease.UserPreferences;
 import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.util.Cache;
@@ -19,6 +21,7 @@ import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.util.SystemUtil;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.netease.nim.uikit.common.util.sys.ClipboardUtil;
 import com.netease.nim.uikit.custom.DefalutUserInfoProvider;
 import com.netease.nim.uikit.session.viewholder.MsgViewHolderThumbBase;
 import com.netease.nimlib.sdk.NIMClient;
@@ -45,6 +48,20 @@ import cn.jpush.android.api.JPushInterface;
 
 import static com.imfan.j.a91fan.util.Constant.WX_APP_ID;
 
+
+/*Copyright 2016 Blankj
+
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.*/
 
 /**
  * Created by J on 2017/1/4 0004.
@@ -116,6 +133,9 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Utils常用代码初始化
+        Utils.init(this);
         // 极光初始化
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
@@ -131,6 +151,8 @@ public class MainApplication extends Application {
         NIMClient.init(this, getLoginInfo(), getOptions());  // null是默认配置
         AppCrashHandler.getInstance(this);
         // ExtraOptions.provide();
+
+
 
         if (inMainProcess()) {
             initUIKit();

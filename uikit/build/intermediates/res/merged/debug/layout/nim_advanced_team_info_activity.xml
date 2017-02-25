@@ -112,10 +112,13 @@
                     android:background="@drawable/nim_arrow_right" />
             </RelativeLayout>
 
+
+            <!--我的群名片-->
             <include
                 android:id="@+id/team_mime_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
 
+            <!--群成员-->
             <include
                 android:id="@+id/team_memeber_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
@@ -140,41 +143,43 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
-
+                <!--群名称-->
                 <include
                     android:id="@+id/team_name_layout"
                     layout="@layout/nim_advanced_team_info_divider_item" />
-
+                <!--群介绍-->
                 <include
                     android:id="@+id/team_introduce_layout"
                     layout="@layout/nim_advanced_team_info_divider_item" />
-
+                <!--群公告-->
                 <include
                     android:id="@+id/team_announcement_layout"
                     layout="@layout/nim_advanced_team_info_divider_item" />
-
+                <!--扩展示例-->
                 <include
                     android:id="@+id/team_extension_layout"
                     layout="@layout/nim_advanced_team_info_divider_item" />
-
+                <!--消息提醒-->
                 <include
                     android:id="@+id/team_notification_config_layout"
                     layout="@layout/nim_advanced_team_info_divider_item" />
             </LinearLayout>
 
 
+
+            <!--身份验证-->
             <include
                 android:id="@+id/team_authentication_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
-
+            <!--邀请他人权限-->
             <include
                 android:id="@+id/team_invite_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
-
+            <!--群资料修改权限-->
             <include
                 android:id="@+id/team_info_update_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />
-
+            <!--被邀请人身份验证-->
             <include
                 android:id="@+id/team_invitee_authen_layout"
                 layout="@layout/nim_advanced_team_info_divider_item" />

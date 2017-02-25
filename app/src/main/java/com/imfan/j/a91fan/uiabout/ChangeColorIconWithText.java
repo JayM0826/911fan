@@ -19,6 +19,7 @@ import android.view.View;
 import com.imfan.j.a91fan.R;
 
 /**
+ * 自定义view
  * Created by jay on 17-2-4.
  */
 

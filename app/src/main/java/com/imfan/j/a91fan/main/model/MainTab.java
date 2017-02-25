@@ -12,7 +12,7 @@ import com.imfan.j.a91fan.main.fragment.MyProfileFragment;
  */
 
 public enum MainTab {
-    CHAT_ROOM(0,  ChatRoomFragment.class,  R.layout.fragment_profile),
+    CHAT_ROOM(0,  ChatRoomFragment.class,  R.layout.fragment_charroom),
     MESSAGE(1,  MessageFragment.class,  R.layout.fragment_message),
     BLOG_WALL(2,  BlogWallFragment.class,  R.layout.fragment_profile),
     PROFILE(3,  MyProfileFragment.class,  R.layout.fragment_profile);

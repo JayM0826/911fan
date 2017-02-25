@@ -1,18 +1,28 @@
 package com.imfan.j.a91fan.main.fragment;
 
+/*Copyright 2017, Yalantis
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.*/
+
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
-import com.netease.nim.uikit.common.fragment.TFragment;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.StatusCode;
-import com.netease.nimlib.sdk.auth.AuthServiceObserver;
-import com.netease.nimlib.sdk.auth.ClientType;
-import com.netease.nimlib.sdk.auth.OnlineClient;
+import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.util.CustomToast;
 
-import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by jay on 17-2-6.
@@ -22,8 +32,14 @@ import java.util.List;
 public class ChatRoomFragment extends MainFragment {
 
 
-    private View multiportBar, notifyBar;
+   /* @Bind(R.id.rv_chatroom_list)
+    RecyclerView username;*/
 
+    @BindView(R.id.tv_test) TextView textView;
+    @OnClick(R.id.tv_test)
+    void submit(){
+        CustomToast.show(getContext(), "这尼玛真坑啊");
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -33,70 +49,9 @@ public class ChatRoomFragment extends MainFragment {
 
     @Override
     protected void onInit() {
-
+        textView.setText("这真他妈坑爹啊");
+        ButterKnife.bind(getActivity());
     }
 
-    /*private void registerObservers(boolean register) {
-        NIMClient.getService(AuthServiceObserver.class).observeOtherClients(clientsObserver, register);
-        NIMClient.getService(AuthServiceObserver.class).observeOnlineStatus(userStatusObserver, register);
-    }*/
-
-    /**
-     * 用户状态变化
-     *//*
-    Observer<StatusCode> userStatusObserver = new Observer<StatusCode>() {
-
-        @Override
-        public void onEvent(StatusCode code) {
-            if (code.wontAutoLogin()) {
-                kickOut(code);
-            } else {
-                if (code == StatusCode.NET_BROKEN) {
-                    notifyBar.setVisibility(View.VISIBLE);
-                    notifyBarText.setText(R.string.net_broken);
-                } else if (code == StatusCode.UNLOGIN) {
-                    notifyBar.setVisibility(View.VISIBLE);
-                    notifyBarText.setText(R.string.nim_status_unlogin);
-                } else if (code == StatusCode.CONNECTING) {
-                    notifyBar.setVisibility(View.VISIBLE);
-                    notifyBarText.setText(R.string.nim_status_connecting);
-                } else if (code == StatusCode.LOGINING) {
-                    notifyBar.setVisibility(View.VISIBLE);
-                    notifyBarText.setText(R.string.nim_status_logining);
-                } else {
-                    notifyBar.setVisibility(View.GONE);
-                }
-            }
-        }
-    };
-
-    Observer<List<OnlineClient>> clientsObserver = new Observer<List<OnlineClient>>() {
-        @Override
-        public void onEvent(List<OnlineClient> onlineClients) {
-            SessionListFragment.this.onlineClients = onlineClients;
-            if (onlineClients == null || onlineClients.size() == 0) {
-                multiportBar.setVisibility(View.GONE);
-            } else {
-                multiportBar.setVisibility(View.VISIBLE);
-                TextView status = (TextView) multiportBar.findViewById(R.id.multiport_desc_label);
-                OnlineClient client = onlineClients.get(0);
-                switch (client.getClientType()) {
-                    case ClientType.Windows:
-                        status.setText(getString(R.string.multiport_logging) + getString(R.string.computer_version));
-                        break;
-                    case ClientType.Web:
-                        status.setText(getString(R.string.multiport_logging) + getString(R.string.web_version));
-                        break;
-                    case ClientType.iOS:
-                    case ClientType.Android:
-                        status.setText(getString(R.string.multiport_logging) + getString(R.string.mobile_version));
-                        break;
-                    default:
-                        multiportBar.setVisibility(View.GONE);
-                        break;
-                }
-            }
-        }
-    };*/
 
 }
