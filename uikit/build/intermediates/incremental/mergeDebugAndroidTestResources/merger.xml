@@ -1935,8 +1935,8 @@
         <item name="android:textCursorDrawable">@color/black</item>
     </style><string name="sdcard_not_exist_error">请插入SD卡</string><string name="message_search_no_result">无结果</string><string name="cancel">取消</string><color name="contacts_letters_color">#80807c</color><item name="pullToRefresh_scrollview_id" type="id"/><string name="picker_image_exceed_max_image_select">最多选择%d张图片！</string><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/material_deep_teal_20</item>
+        <item name="colorPrimaryDark">@color/material_deep_teal_20</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#000000</item>

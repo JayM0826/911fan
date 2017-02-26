@@ -1,8 +1,8 @@
 package com.imfan.j.a91fan.main.model;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.main.fragment.ChatRoomListFragment;
 import com.imfan.j.a91fan.main.fragment.BlogWallFragment;
-import com.imfan.j.a91fan.main.fragment.ChatRoomFragment;
 import com.imfan.j.a91fan.main.fragment.MainFragment;
 import com.imfan.j.a91fan.main.fragment.MessageFragment;
 import com.imfan.j.a91fan.main.fragment.MyProfileFragment;
@@ -12,7 +12,7 @@ import com.imfan.j.a91fan.main.fragment.MyProfileFragment;
  */
 
 public enum MainTab {
-    CHAT_ROOM(0,  ChatRoomFragment.class,  R.layout.fragment_charroom),
+    CHAT_ROOM(0,  ChatRoomListFragment.class,  R.layout.fragment_list_chatroom),
     MESSAGE(1,  MessageFragment.class,  R.layout.fragment_message),
     BLOG_WALL(2,  BlogWallFragment.class,  R.layout.fragment_profile),
     PROFILE(3,  MyProfileFragment.class,  R.layout.fragment_profile);

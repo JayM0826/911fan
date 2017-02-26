@@ -9,6 +9,7 @@ import com.imfan.j.a91fan.main.model.MainTab;
 import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.session.extension.StickerAttachment;
 import com.netease.nim.uikit.common.activity.UI;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.recent.RecentContactsCallback;
 import com.netease.nim.uikit.recent.RecentContactsFragment;
 import com.netease.nimlib.sdk.NIMClient;
@@ -115,7 +116,7 @@ public class  MessageFragment extends MainFragment {
             @Override
             public void onRecentContactsLoaded() {
                 // 最近联系人列表加载完毕
-                // CustomToast.show(getContext(), "联系人加载完毕");
+                LogUtil.i("Load 联系人", "联系人加载完毕");
             }
 
             @Override
@@ -126,6 +127,7 @@ public class  MessageFragment extends MainFragment {
             @Override
             public void onItemClick(RecentContact recent) {
                 // 回调函数，以供打开会话窗口时传入定制化参数，或者做其他动作
+                // 只有两种聊天方式，P2P和team
                 switch (recent.getSessionType()) {
                     case P2P:
                         SessionHelper.startP2PSession(getActivity(), recent.getContactId());

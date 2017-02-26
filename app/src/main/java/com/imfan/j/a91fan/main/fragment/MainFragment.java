@@ -61,7 +61,7 @@ public abstract class MainFragment extends TFragment {
         ViewGroup root = (ViewGroup) getView();
         if (root != null) {
             root.removeAllViewsInLayout();
-            ButterKnife.bind(this, View.inflate(root.getContext(), tabData.layoutId, root));
+            View.inflate(root.getContext(), tabData.layoutId, root);
 
         }
         return root != null;

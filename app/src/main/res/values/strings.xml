@@ -215,4 +215,13 @@
     <string name="main_msg_unread_msg_count">[%d条]</string>
     <string name="out_time">超时</string>
     <string name="prepare_data">正在准备数据...</string>
+    <string name="room_id">房间号</string>
+    <string name="room_name">房间名字</string>
+    <string name="room_owner">房主的名字</string>
+    <string name="room_online_number">在线人数</string>
+    <string name="create_room">创建房间</string>
+
+    <string name="text_hint">请输入房间名</string>
+
+    <string name="standard_character_counter_pattern" translatable="false">%1$d / %2$d</string>
 </resources>

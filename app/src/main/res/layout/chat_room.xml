@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <com.yalantis.phoenix.PullToRefreshView
+            android:id="@+id/pull_to_refresh_room"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_chatroom_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        </com.yalantis.phoenix.PullToRefreshView>
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab_create_chatroom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add_float_but"
+            fab:fab_type="normal"
+            fab:fab_shadow="true"
+            fab:fab_colorNormal="@color/color_green_00d3a9"
+            fab:fab_colorPressed="@color/green_4DC0A4"
+            fab:fab_colorRipple="@color/ripple" />
+
+
+</FrameLayout>

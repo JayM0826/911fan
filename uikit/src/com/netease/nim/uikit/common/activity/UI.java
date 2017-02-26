@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.common.fragment.TFragment;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.sys.ReflectionUtil;
@@ -102,6 +103,7 @@ public abstract class UI extends AppCompatActivity {
     public void setToolBar(int toolbarId, int titleId, int logoId) {
         toolbar = (Toolbar) findViewById(toolbarId);
         toolbar.setTitle(titleId);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.material_deep_teal_20));
         setSupportActionBar(toolbar);
     }
 

@@ -35,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.BindView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 
@@ -87,6 +88,8 @@ private int i = -1;
         intent.putExtra("KICK_OUT", kickOut);  // kickout 账号在其他设备登陆
         context.startActivity(intent); // 起动微信登陆界面
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

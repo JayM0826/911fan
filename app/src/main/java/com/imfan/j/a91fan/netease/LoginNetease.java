@@ -22,6 +22,10 @@ import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.imfan.j.a91fan.netease.NeteaseClient.addHeaders;
+import static com.imfan.j.a91fan.netease.NeteaseClient.checkSum;
+import static com.imfan.j.a91fan.netease.NeteaseClient.curTime;
+import static com.imfan.j.a91fan.netease.NeteaseClient.nonce;
 import static com.imfan.j.a91fan.util.Constant.NetEaseAPP_KEY;
 import static com.imfan.j.a91fan.util.Constant.NetEaseAPP_SECRET;
 
@@ -34,9 +38,7 @@ public class LoginNetease {
 
     private static final String TAG = Class.class.getSimpleName();
     private static LoginNetease loginNetease;
-    static private String nonce = "123456"; // 当做随机数使用
-    static private String curTime = null;
-    static private String checkSum = null;
+
 
     public static LoginNetease getInstance(){
         if (loginNetease == null){
@@ -45,14 +47,7 @@ public class LoginNetease {
         return loginNetease;
     }
 
-    private  static void addHeaders() {
-        NeteaseClient.client.removeAllHeaders();
-        NeteaseClient.client.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-        NeteaseClient.client.addHeader("AppKey", NetEaseAPP_KEY);
-        NeteaseClient.client.addHeader("Nonce", nonce);
-        NeteaseClient.client.addHeader("CurTime", curTime);
-        NeteaseClient.client.addHeader("CheckSum", checkSum);
-    }
+
 
     public  void registerNetease(final Context context){
         curTime = String.valueOf((new Date()).getTime() / 1000L);
@@ -64,7 +59,7 @@ public class LoginNetease {
         // params.add("token", "1"); 由网易自动生成
         addHeaders();
 
-        NeteaseClient.post("create.action", params, new JsonHttpResponseHandler() {
+        NeteaseClient.post("user/create.action", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onStart() {
@@ -130,20 +125,20 @@ public class LoginNetease {
 
     }
 
-   /* **
-       刷新网易的token
-    */
+
+
+    /* **
+        刷新网易的token
+     */
     public void refreshNeteaseToken(final Context context) {
         curTime = String.valueOf((new Date()).getTime() / 1000L);
         checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
-
-
         RequestParams params = new RequestParams();
         LogUtil.i("ACCID:", Preferences.getUserAccount());
         params.add("accid", Preferences.getUserAccount().toLowerCase());
         addHeaders();
 
-        NeteaseClient.post("refreshToken.action", params, new JsonHttpResponseHandler() {
+        NeteaseClient.post("user/refreshToken.action", params, new JsonHttpResponseHandler() {
 
             @Override
             public void onStart() {
