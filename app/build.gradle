@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.1"
         multiDexEnabled true
+        useLibrary 'org.apache.http.legacy'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //选择要添加的对应cpu类型的.so库。
@@ -39,7 +40,6 @@ android {
         javaMaxHeapSize "4g"
     }
 }
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -76,8 +76,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.hyphenate:hyphenate-sdk-lite:3.2.3'
 }
+

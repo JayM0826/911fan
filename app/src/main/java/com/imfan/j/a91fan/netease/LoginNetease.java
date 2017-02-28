@@ -1,7 +1,13 @@
 package com.imfan.j.a91fan.netease;
 
 import android.content.Context;
+import android.icu.text.IDNA;
+import android.util.Log;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.imfan.j.a91fan.main.activity.MainActivity;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.CustomToast;
@@ -10,6 +16,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.netease.nim.uikit.common.util.string.MD5;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
@@ -50,6 +57,10 @@ public class LoginNetease {
 
 
     public  void registerNetease(final Context context){
+
+
+
+
         curTime = String.valueOf((new Date()).getTime() / 1000L);
         checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
 
@@ -95,6 +106,13 @@ public class LoginNetease {
                         LogUtil.i("微信注册页账户:", accid);
                         LogUtil.i("微信注册页昵称:", name);
 
+                        /*// 这里是注册环信
+                        try{
+                            EMClient.getInstance().createAccount(Preferences.getUserAccount().toLowerCase(), Preferences.getWxNickname());//同步方法
+
+                        }catch (HyphenateException e){
+                            if (e.getErrorCode() == EMError.USER_ALREADY_EXISTS);
+                        }*/
                         login(context);
                         // 初始化消息提醒配置
 
@@ -162,6 +180,7 @@ public class LoginNetease {
                     String token = jsonObject.getString("token");
                     Preferences.setToken(token);
                     LogUtil.i("refreshNeteaseToken()", "新的Token:" + token);
+                    huanxinLoginAndRegister();
                     login(context);
 
                 } catch (JSONException e) {
@@ -185,20 +204,13 @@ public class LoginNetease {
 
     }
 
-    public   void login(final Context context) {
-
-        // 云信只提供消息通道，并不包含用户资料逻辑。
-        // 开发者需要在管理后台或通过服务器接口将用户帐号和token同步到云信服务器。
-        // 在这里直接使用同步到云信服务器的帐号和token登录。
-        LogUtil.i("账户Account:", Preferences.getUserAccount());
-        LogUtil.i("密码Password", Preferences.getNeteaseToken());
+    public void login(final Context context) {
 
         // 登录
         NimUIKit.doLogin(new LoginInfo(Preferences.getUserAccount().toLowerCase(), Preferences.getNeteaseToken()), new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {
                 LogUtil.i(TAG, "login success登录成功");
-                // CustomToast.show(context, "登录非常成功");
                 initNotificationConfig();
                 // 进入主界面
                 MainActivity.start(context, null);
@@ -234,6 +246,29 @@ public class LoginNetease {
         }
         // 更新配置
         NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
+    }
+
+    private void huanxinLoginAndRegister(){
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+
+                    EMClient.getInstance().createAccount(Preferences.getUserAccount().toLowerCase(), MD5.getStringMD5(Preferences.getUserAccount().toLowerCase()));//同步方法
+
+                } catch (HyphenateException e) {
+                    if (e.getErrorCode() == EMError.USER_ALREADY_EXIST)
+                        Log.d("TAG", "已经注册了");
+                    else {
+                        Log.d("TAG", "注册失败208错误" + e.getErrorCode() + "  " + e.getDescription());
+                    }
+                }
+
+            }
+        };
+
+        thread.start();
     }
 
 

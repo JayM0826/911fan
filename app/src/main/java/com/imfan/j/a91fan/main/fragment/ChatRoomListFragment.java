@@ -14,7 +14,7 @@ import com.netease.nim.uikit.common.util.log.LogUtil;
  */
 public class ChatRoomListFragment extends MainFragment {
     private ChatRoomFragment fragment;
-
+    private static final String API_NAME_CHAT_ROOM_LIST = "homeList";
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

@@ -1,10 +1,13 @@
 package com.imfan.j.a91fan.netease;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.imfan.j.a91fan.util.Cache;
 import com.netease.nim.uikit.LoginSyncDataStatusObserver;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.activity.CustomActivityManager;
 import com.netease.nim.uikit.common.ui.drop.DropManager;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.AuthService;
 
@@ -27,5 +30,25 @@ public class LogoutManager {
         // 消除所有的Activity
         CustomActivityManager.getCustomActivityManager().popAllActivity();
         NIMClient.getService(AuthService.class).logout();
+        EMClient.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                LogUtil.i("退出成功", "退出成功");
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                // TODO Auto-generated method stub
+                LogUtil.i("退出失败", "退出失败" + code + "  "  + message);
+
+            }
+        });
     }
 }

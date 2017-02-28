@@ -1,28 +1,28 @@
 package com.imfan.j.a91fan;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
-
-import com.blankj.utilcode.utils.AppUtils;
-import com.blankj.utilcode.utils.ProcessUtils;
 import com.blankj.utilcode.utils.Utils;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMOptions;
 import com.imfan.j.a91fan.netease.UserPreferences;
 import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.util.Cache;
-
 import com.imfan.j.a91fan.util.Preferences;
 import com.imfan.j.a91fan.util.SystemUtil;
+import com.imfan.j.a91fan.util.crash.AppCrashHandler;
 import com.netease.nim.uikit.NimUIKit;
 import com.netease.nim.uikit.common.util.log.LogUtil;
-import com.netease.nim.uikit.common.util.sys.ClipboardUtil;
 import com.netease.nim.uikit.custom.DefalutUserInfoProvider;
 import com.netease.nim.uikit.session.viewholder.MsgViewHolderThumbBase;
 import com.netease.nimlib.sdk.NIMClient;
@@ -41,8 +41,8 @@ import com.netease.nimlib.sdk.team.model.UpdateTeamAttachment;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-import com.imfan.j.a91fan.util.crash.AppCrashHandler;
-
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
@@ -134,6 +134,13 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        EMOptions options = new EMOptions();
+        // 默认添加好友时，是不需要验证的
+        options.setAcceptInvitationAlways(true);
+        EMClient.getInstance().init(this, options);
+        //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
+        EMClient.getInstance().setDebugMode(true);
 
         // Utils常用代码初始化
         Utils.init(this);
@@ -317,5 +324,24 @@ public class MainApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
+    }
+    private String getAppName(int pID) {
+        String processName = null;
+        ActivityManager am = (ActivityManager) this.getSystemService(ACTIVITY_SERVICE);
+        List l = am.getRunningAppProcesses();
+        Iterator i = l.iterator();
+        PackageManager pm = this.getPackageManager();
+        while (i.hasNext()) {
+            ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i.next());
+            try {
+                if (info.pid == pID) {
+                    processName = info.processName;
+                    return processName;
+                }
+            } catch (Exception e) {
+                // Log.d("Process", "Error>> :"+ e.toString());
+            }
+        }
+        return processName;
     }
 }

@@ -12,9 +12,6 @@ import android.widget.EditText;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.util.CustomToast;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 /**
  * Created by jay on 17-2-26.
  */

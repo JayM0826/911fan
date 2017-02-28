@@ -3,11 +3,19 @@ package com.imfan.j.a91fan.main.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
+import com.hyphenate.util.NetUtils;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.fragment.HomeFragment;
 import com.imfan.j.a91fan.main.helper.SystemMessageUnreadManager;
@@ -24,6 +32,7 @@ import com.netease.nim.uikit.cache.FriendDataCache;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.netease.nim.uikit.common.util.string.MD5;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.Observer;
@@ -38,6 +47,33 @@ import static com.netease.nimlib.sdk.StatusCode.LOGINED;
 
 public class MainActivity extends UI {
 
+/*Client ID：	YXA6SiOfAPz-EeaDnNF12_Y7Bg
+Client Secret：	YXA6ilSCh_mBhZipU7iT5NObQmr244I*/
+    /*client_id 和 client_secret 可以在环信管理后台的 APP 详情页面看到。
+
+Path: /{org_name}/{app_name}/token
+HTTP Method: POST
+URL Params: 无
+Request Headers: {“Content-Type”:”application/json”}
+Request Body: {“grant_type”: “client_credentials”,”client_id”: “{APP的client_id}”,”client_secret”: “{APP的client_secret}”}
+Response Body:
+Key	Value
+access_token	token 值
+expires_in	token 有效时间，以秒为单位，在有效期内不需要重复获取
+application	当前 APP 的 UUID 值
+可能的错误码：400（client_id 或 client_secret 错误）、5xx。详见：服务器端REST API常见错误码
+curl 示例：
+
+curl -X POST "https://a1.easemob.com/easemob-demo/chatdemoui/token" -d '{"grant_type":"client_credentials","client_id":"YXA6wDs-MARqEeSO0VcBzaqg11","client_secret":"YXA6JOMWlLap_YbI_ucz77j-4-mI0dd"}'
+Response 示例：
+
+{
+  "access_token":"YWMtWY779DgJEeS2h9OR7fw4QgAAAUmO4Qukwd9cfJSpkWHiOa7MCSk0MrkVIco",
+  "expires_in":5184000,
+  "application":"c03b3e30-046a-11e4-8ed1-5701cdaaa0e4"
+}
+*/
+    // https://a1.easemob.com/1122170227115459/91fan/users
     static public boolean isRed = false;
 
     private static final String EXTRA_APP_QUIT = "APP_QUIT";
@@ -67,17 +103,18 @@ public class MainActivity extends UI {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loginHuanxin();
+
+        //注册一个监听连接状态的listener
+        EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+        EMClient.getInstance().groupManager().loadAllGroups();
+        EMClient.getInstance().chatManager().loadAllConversations();
         registerSystemMessageObservers(true);
         requestSystemMessageUnreadCount();
         NimUIKit.setAccount(Preferences.getUserAccount().toLowerCase());
         StatusCode status = NIMClient.getStatus(); // 获取在线状态
-        if (status == LOGINED)
+        if (status != LOGINED)
         {
-            // CustomToast.show(this, getString(R.string.line_logined));
-            // Toast.makeText(this, R.string.line_logined, Toast.LENGTH_SHORT).show();
-            LogUtil.i(TAG, getString(R.string.line_logined));
-        }else{
-            LogUtil.i(TAG, "登录失败" + status.getValue());
             LoginNetease.getInstance().login(this);
         }
         onParseIntent();
@@ -102,6 +139,33 @@ public class MainActivity extends UI {
         showMainFragment();
 
 
+    }
+
+    private void loginHuanxin() {
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                EMClient.getInstance().login(Preferences.getUserAccount().toLowerCase(),MD5.getStringMD5(Preferences.getUserAccount().toLowerCase()), new EMCallBack() {//回调
+                    @Override
+                    public void onSuccess() {
+
+                        Log.d("main", "登录聊天服务器成功！");
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message) {
+                        Log.d("main", "登录聊天服务器失败！" + code  + "   " + message);
+                    }
+                });
+            }
+        };
+        thread.start();
     }
 
     @Override
@@ -237,7 +301,6 @@ public class MainActivity extends UI {
                 isRed = true;
                 invalidateOptionsMenu();//重新调用
             }
-            // ReminderManager.getInstance().updateContactUnreadNum(unreadCount);
         }
     };
 
@@ -263,8 +326,42 @@ public class MainActivity extends UI {
     private void requestSystemMessageUnreadCount() {
         int unread = NIMClient.getService(SystemMessageService.class).querySystemMessageUnreadCountBlock();
         SystemMessageUnreadManager.getInstance().setSysMsgUnreadCount(unread);
-        // ReminderManager.getInstance().updateContactUnreadNum(unread);
     }
+
+
+    //实现ConnectionListener接口
+    private class MyConnectionListener implements EMConnectionListener {
+        @Override
+        public void onConnected() {
+            LogUtil.i(getClass().getSimpleName(), "环信连接成功");
+        }
+        @Override
+        public void onDisconnected(final int error) {
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    if(error == EMError.USER_REMOVED){
+                        CustomToast.show(MainActivity.this, "帐号已经被移除");
+                        // 显示
+                    }else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                        // 显示
+                        LogUtil.e(getClass().getSimpleName(), "帐号在其他设备登录");
+                    } else {
+                        if (NetUtils.hasNetwork(MainActivity.this)){
+                            LogUtil.e(getClass().getSimpleName(), "环信连接不上服务器");
+                        }
+                        else{
+                            LogUtil.e(getClass().getSimpleName(), "当前网络不可用，请检查网络设置");
+                            //当前网络不可用，请检查网络设置
+                        }
+
+                    }
+                }
+            });
+        }
+    }
+
 
 
 }

@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.model.MainTab;
 import com.netease.nim.uikit.common.fragment.TFragment;
-import com.netease.nim.uikit.common.fragment.TabFragment;
 
-import butterknife.ButterKnife;
 
 /**
  * Created by jay on 17-2-8.

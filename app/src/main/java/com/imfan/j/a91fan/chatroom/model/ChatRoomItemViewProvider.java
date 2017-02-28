@@ -10,8 +10,6 @@ import android.widget.TextView;
 import com.imfan.j.a91fan.R;
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewProvider;
 
 /**
@@ -40,22 +38,26 @@ public class ChatRoomItemViewProvider
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_room_id)
+        // @BindView(R.id.tv_room_id)
         TextView tv_room_id;
 
-        @BindView(R.id.tv_room_name)
+        // @BindView(R.id.tv_room_name)
         TextView tv_room_name;
 
-        @BindView(R.id.tv_room_owner)
+        // @BindView(R.id.tv_room_owner)
         TextView tv_room_owner;
 
-        @BindView(R.id.tv_room_online_number)
+        // @BindView(R.id.tv_room_online_number)
         TextView tv_room_online_number;
 
 
         ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            tv_room_id = (TextView)itemView.findViewById(R.id.tv_room_id);
+            tv_room_name = (TextView)itemView.findViewById(R.id.tv_room_name);
+            tv_room_owner = (TextView)itemView.findViewById(R.id.tv_room_owner);
+            tv_room_online_number = (TextView)itemView.findViewById(R.id.tv_room_online_number);
+            // ButterKnife.bind(this, itemView);
         }
     }
 }

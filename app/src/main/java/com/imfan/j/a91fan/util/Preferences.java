@@ -15,7 +15,7 @@ import android.content.SharedPreferences;
 public class Preferences {
 
 
-
+    private static final String HUANXIN_PASS = "password"; // 网易的token;
     private static final String NETEASE_TOKEN = "token"; // 网易的token;
     // 自建数据库创造的字段
     private static final String FAN_ID = "fan_id"; // 粉丝号，第多少号粉丝
@@ -59,6 +59,8 @@ public class Preferences {
 
     public static void setToken(String token) {
         saveString(NETEASE_TOKEN, token);
+        // 环信的密码
+        saveString(HUANXIN_PASS, token);
     }
 
     public static String getWxLanguage() {
