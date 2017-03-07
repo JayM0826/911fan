@@ -2,18 +2,22 @@ package com.imfan.j.a91fan.main.fragment;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileSettingActivity;
+import com.imfan.j.a91fan.entity.DaoType;
 import com.imfan.j.a91fan.netease.LogoutManager;
 import com.imfan.j.a91fan.main.model.MainTab;
+import com.imfan.j.a91fan.textabout.GroupListActivity;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.common.ui.imageview.HeadImageView;
+import com.netease.nim.uikit.contact.core.model.IContact;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
@@ -102,12 +106,24 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
+        Bundle bundle;
         switch (v.getId()){
+
             case R.id.head_layout:
                 UserProfileSettingActivity.start(getContext(), Preferences.getUserAccount().toLowerCase());
                 break;
             case R.id.blog:
-                CustomToast.show(getContext(), "将要打开我的动态");
+                intent = new Intent(getContext(), GroupListActivity.class);
+                bundle = null;
+                bundle = new Bundle();
+                bundle.putSerializable("type", DaoType.BLOG);
+
+                intent.putExtras(bundle);
+                intent.putExtra("title", getResources().getString(R.string.user_blog));
+                // startActivity(intent);
+                CustomToast.show(getContext(), "此功能并未开发");
+                intent = null;
                 break;
             case R.id.following:
                 CustomToast.show(getContext(), "将要查看我关注的人");
@@ -116,10 +132,24 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
                 CustomToast.show(getContext(), "将要查看谁关注了我");
                 break;
             case R.id.article:
-                CustomToast.show(getContext(), "将要打开我写的文章");
+                intent = new Intent(getContext(), GroupListActivity.class);
+                intent.putExtra("title", getResources().getString(R.string.user_acticle));
+                bundle = null;
+                bundle = new Bundle();
+                bundle.putSerializable("type", DaoType.ARTICLE);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                intent = null;
                 break;
             case R.id.draft:
-                CustomToast.show(getContext(), "将要打开我的草稿");
+                intent = new Intent(getContext(), GroupListActivity.class);
+                intent.putExtra("title", getResources().getString(R.string.user_draft));
+                bundle = null;
+                bundle = new Bundle();
+                bundle.putSerializable("type", DaoType.DRAFT);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                intent = null;
                 break;
             case R.id.favorite:
                 CustomToast.show(getContext(), "将要打开我的收藏");

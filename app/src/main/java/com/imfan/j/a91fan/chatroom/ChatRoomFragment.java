@@ -14,10 +14,16 @@ import com.imfan.j.a91fan.chatroom.activity.CreateChatRoomActivity;
 import com.imfan.j.a91fan.chatroom.model.ChatRoomItem;
 import com.imfan.j.a91fan.chatroom.model.ChatRoomItemViewProvider;
 import com.imfan.j.a91fan.util.CustomToast;
+import com.imfan.j.a91fan.util.Preferences;
 import com.melnykov.fab.FloatingActionButton;
 import com.melnykov.fab.ScrollDirectionListener;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.yalantis.phoenix.PullToRefreshView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -31,20 +37,22 @@ public class ChatRoomFragment extends Fragment {
 
     private Items items;
 
-    // @BindView (R.id.rv_chatroom_list)
+    @BindView(R.id.rv_chatroom_list)
     RecyclerView mRecyclerView;
 
-    // @BindView(R.id.pull_to_refresh_room)
+    @BindView(R.id.pull_to_refresh_room)
     PullToRefreshView mRefreshRoom;
 
-    // @BindView(R.id.fab_create_chatroom)
+    @BindView(R.id.fab_create_chatroom)
     FloatingActionButton mFabCreateRoom;
 
-    // @OnClick(R.id.fab_create_chatroom)
-    public void createRoom(){
+    @OnClick(R.id.fab_create_chatroom)
+    void createRoom(){
         Intent intent = new Intent(getContext(), CreateChatRoomActivity.class);
         startActivity(intent);
     }
+
+
 
     
 
@@ -53,7 +61,7 @@ public class ChatRoomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtil.e("onCreateView", "出现顺序");
         View view = inflater.inflate(R.layout.chat_room, container, false);
-        // ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -65,10 +73,12 @@ public class ChatRoomFragment extends Fragment {
         initData();
     }
 
+    private static int count = 0;
     private void initData() {
 
-        for (int i = 0; i < 20; i++) {
-            items.add(new ChatRoomItem("Songs"));
+        for (int i = 0; i < 10; i++) {
+            ++count;
+            items.add(new ChatRoomItem(count, "在图书馆建立的房间", Preferences.getWxNickname(), count));
         }
 
         // 通知数据已经改变
@@ -78,7 +88,6 @@ public class ChatRoomFragment extends Fragment {
 
     private void findViews() {
 
-        mRecyclerView = (RecyclerView)getView().findViewById(R.id.rv_chatroom_list);
         items = new Items();
 
 
@@ -87,13 +96,6 @@ public class ChatRoomFragment extends Fragment {
         multiTypeAdapter = new MultiTypeAdapter(items);
         multiTypeAdapter.register(ChatRoomItem.class, new ChatRoomItemViewProvider());
 
-        mFabCreateRoom = (FloatingActionButton)getView().findViewById(R.id.fab_create_chatroom);
-        mFabCreateRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createRoom();
-            }
-        });
 
         mFabCreateRoom.show();
         mFabCreateRoom.attachToRecyclerView(mRecyclerView, new ScrollDirectionListener() {
@@ -110,7 +112,6 @@ public class ChatRoomFragment extends Fragment {
             }
         });
 
-        mRefreshRoom = (PullToRefreshView)getView().findViewById(R.id.pull_to_refresh_room);
         mRefreshRoom.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {

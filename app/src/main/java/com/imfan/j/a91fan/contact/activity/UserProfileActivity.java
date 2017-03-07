@@ -75,10 +75,16 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView mobileText;
     private TextView emailText;
     private TextView signatureText;
+    private TextView articleText;
+    private TextView blogText;
+
     private RelativeLayout birthdayLayout;
     private RelativeLayout phoneLayout;
     private RelativeLayout emailLayout;
     private RelativeLayout signatureLayout;
+    private RelativeLayout articleLayout;
+    private RelativeLayout blogLayout;
+
     private TextView nickText;
     // 开关
     private ViewGroup toggleLayout;
@@ -283,12 +289,18 @@ public class UserProfileActivity extends AppCompatActivity {
         birthdayLayout = findView(R.id.birthday);
         nickText = findView(R.id.user_nick);
         birthdayText = (TextView) birthdayLayout.findViewById(R.id.value);
+        articleLayout = findView(R.id.article);
+        articleText = (TextView)articleLayout.findViewById(R.id.value);
+        blogLayout = findView(R.id.blog);
+        blogText = (TextView)findViewById(R.id.value);
         phoneLayout = findView(R.id.phone);
         mobileText = (TextView) phoneLayout.findViewById(R.id.value);
         emailLayout = findView(R.id.email);
         emailText = (TextView) emailLayout.findViewById(R.id.value);
         signatureLayout = findView(R.id.signature);
         signatureText = (TextView) signatureLayout.findViewById(R.id.value);
+        ((TextView) blogLayout.findViewById(R.id.attribute)).setText(R.string.blog);
+        ((TextView) articleLayout.findViewById(R.id.attribute)).setText(R.string.article);
         ((TextView) birthdayLayout.findViewById(R.id.attribute)).setText(R.string.birthday);
         ((TextView) phoneLayout.findViewById(R.id.attribute)).setText(R.string.phone);
         ((TextView) emailLayout.findViewById(R.id.attribute)).setText(R.string.email);
@@ -366,7 +378,12 @@ public class UserProfileActivity extends AppCompatActivity {
             signatureLayout.setVisibility(View.GONE);
         }
         nickText.setText("昵称：" + NimUserInfoCache.getInstance().getUserName(account));
+        
+        blogLayout.setVisibility(View.VISIBLE);
+        blogText.setText("暂时没有动态");
 
+        articleLayout.setVisibility(View.VISIBLE);
+        articleText.setText("暂时没有文章");
 
     }
 
@@ -432,6 +449,12 @@ public class UserProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 如果是用户本人，则显示编辑按钮；否则，不显示
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -469,8 +492,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void onChat() {
         Log.i(TAG, "onChat");
-        // 先不去聊天
-        // CustomToast.show(this, "我想聊天，为什么不让人家聊！");
         SessionHelper.startP2PSession(this, account);
     }
 }

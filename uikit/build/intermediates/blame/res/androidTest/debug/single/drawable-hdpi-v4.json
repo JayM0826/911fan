@@ -140,12 +140,12 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_slide_toggle.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_icon_edit_delete.png",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_icon_edit_delete.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_messages_list_empty_bg.png",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_messages_list_empty_bg.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_icon_edit_delete.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_icon_edit_delete.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/explosion_one.png",
@@ -456,12 +456,12 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-hdpi-v4/abc_list_focused_holo.9.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_emoji_icon.png",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_emoji_icon.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_icon_reddot.png",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_icon_reddot.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_emoji_icon.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_emoji_icon.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_scrollbar_handle_holo_dark.9.png",
@@ -660,12 +660,12 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_g_download_progress_bar_bg.9.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_emoji_del.png",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_emoji_del.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/abc_list_selector_disabled_holo_dark.9.png",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-hdpi-v4/abc_list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_emoji_del.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_emoji_del.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_ic_failed.png",

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
@@ -15,6 +16,8 @@ import android.text.TextUtils;
 import com.blankj.utilcode.utils.Utils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
+import com.imfan.j.a91fan.entity.DaoMaster;
+import com.imfan.j.a91fan.entity.DaoSession;
 import com.imfan.j.a91fan.netease.UserPreferences;
 import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.util.Cache;
@@ -131,9 +134,17 @@ public class MainApplication extends Application {
         LogUtil.i(TAG, "注册成功");
     }
 
+    private DaoSession daoSession;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // 数据库操作
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "notes-db", null);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(db);
+        daoSession = daoMaster.newSession();
 
         EMOptions options = new EMOptions();
         // 默认添加好友时，是不需要验证的
@@ -343,5 +354,8 @@ public class MainApplication extends Application {
             }
         }
         return processName;
+    }
+    public DaoSession getDaoSession() {
+        return daoSession;
     }
 }

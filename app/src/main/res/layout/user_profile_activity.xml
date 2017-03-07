@@ -58,6 +58,14 @@
             android:layout_below="@+id/attribute"
             android:background="@color/color_split_line_d9d9d9" />
 
+        <include
+            android:id="@+id/blog"
+            layout="@layout/user_profile_item" />
+
+        <include
+            android:id="@+id/article"
+            layout="@layout/user_profile_item" />
+
 
         <include
             android:id="@+id/birthday"
@@ -74,6 +82,8 @@
         <include
             android:id="@+id/signature"
             layout="@layout/user_profile_item" />
+
+
 
 
         <LinearLayout

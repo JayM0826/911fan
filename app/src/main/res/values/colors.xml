@@ -81,4 +81,5 @@
     <color name="color_gray_bfc2c5">#bfc2c5</color>
     <drawable name="buffer_red">#ee4f4f</drawable>
     <drawable name="buffer_blue">#168eea</drawable>
+    <color name="yellow">#FFBB33</color>
 </resources>

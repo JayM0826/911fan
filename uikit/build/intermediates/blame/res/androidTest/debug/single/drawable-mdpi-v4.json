@@ -76,12 +76,12 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/abc_list_pressed_holo_light.9.png",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-mdpi-v4/abc_list_pressed_holo_light.9.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/abc_list_focused_holo.9.png",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-mdpi-v4/abc_list_focused_holo.9.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/abc_list_pressed_holo_light.9.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/drawable-mdpi-v4/abc_list_pressed_holo_light.9.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4/abc_list_selector_disabled_holo_light.9.png",

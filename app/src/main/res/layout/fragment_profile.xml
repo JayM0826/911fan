@@ -126,7 +126,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dp"
         android:background="@color/color_yellow_fcf3cd"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -154,7 +155,8 @@
         android:layout_width="fill_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
-        android:background="@color/grey_white" />
+        android:background="@color/grey_white"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/fans"
@@ -162,7 +164,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dp"
         android:background="@color/color_yellow_fcf3cd"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,7 +193,8 @@
         android:layout_width="fill_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
-        android:background="@color/grey_white" />
+        android:background="@color/grey_white"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/article"
@@ -270,7 +274,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dp"
         android:background="@color/color_yellow_fcf3cd"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -298,13 +303,14 @@
         android:layout_width="fill_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
-        android:background="@color/grey_white" />
+        android:background="@color/grey_white"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/user_logout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20.0dp"
+        android:layout_marginTop="200.0dp"
         android:background="#ffff0000"
         android:drawableLeft="@drawable/user_logout"
         android:gravity="center_vertical"

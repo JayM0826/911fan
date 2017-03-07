@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.imfan.j.a91fan.R;
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomInfo;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.drakeet.multitype.ItemViewProvider;
 
 /**
@@ -29,35 +31,32 @@ public class ChatRoomItemViewProvider
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull ChatRoomItem chatRoomInfo) {
 
-        holder.tv_room_id.setText("1");
-        holder.tv_room_name.setText("创建房间时写的名字");
-        holder.tv_room_owner.setText("本大人的房间");
-        holder.tv_room_online_number.setText("在线人数:100");
+        holder.tv_room_id.setText(chatRoomInfo.roomID + "");
+        holder.tv_room_name.setText(chatRoomInfo.roomName);
+        holder.tv_room_owner.setText(chatRoomInfo.owner);
+        holder.tv_room_online_number.setText("在线人数" + chatRoomInfo.roomMeberNumber + "");
 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        // @BindView(R.id.tv_room_id)
+        @BindView(R.id.tv_room_id)
         TextView tv_room_id;
 
-        // @BindView(R.id.tv_room_name)
+        @BindView(R.id.tv_room_name)
         TextView tv_room_name;
 
-        // @BindView(R.id.tv_room_owner)
+        @BindView(R.id.tv_room_owner)
         TextView tv_room_owner;
 
-        // @BindView(R.id.tv_room_online_number)
+        @BindView(R.id.tv_room_online_number)
         TextView tv_room_online_number;
 
 
         ViewHolder(View itemView) {
             super(itemView);
-            tv_room_id = (TextView)itemView.findViewById(R.id.tv_room_id);
-            tv_room_name = (TextView)itemView.findViewById(R.id.tv_room_name);
-            tv_room_owner = (TextView)itemView.findViewById(R.id.tv_room_owner);
-            tv_room_online_number = (TextView)itemView.findViewById(R.id.tv_room_online_number);
-            // ButterKnife.bind(this, itemView);
+
+            ButterKnife.bind(this, itemView);
         }
     }
 }

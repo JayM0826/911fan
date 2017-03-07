@@ -40,6 +40,7 @@ android {
         javaMaxHeapSize "4g"
     }
 }
+apply plugin: 'org.greenrobot.greendao'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -78,5 +79,10 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.hyphenate:hyphenate-sdk-lite:3.2.3'
+    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.hudomju:swipe-to-dismiss-undo:1.0'
 }
 

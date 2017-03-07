@@ -3,7 +3,6 @@ package com.imfan.j.a91fan.main.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -14,7 +13,6 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.NetUtils;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.main.fragment.HomeFragment;
@@ -47,33 +45,6 @@ import static com.netease.nimlib.sdk.StatusCode.LOGINED;
 
 public class MainActivity extends UI {
 
-/*Client ID：	YXA6SiOfAPz-EeaDnNF12_Y7Bg
-Client Secret：	YXA6ilSCh_mBhZipU7iT5NObQmr244I*/
-    /*client_id 和 client_secret 可以在环信管理后台的 APP 详情页面看到。
-
-Path: /{org_name}/{app_name}/token
-HTTP Method: POST
-URL Params: 无
-Request Headers: {“Content-Type”:”application/json”}
-Request Body: {“grant_type”: “client_credentials”,”client_id”: “{APP的client_id}”,”client_secret”: “{APP的client_secret}”}
-Response Body:
-Key	Value
-access_token	token 值
-expires_in	token 有效时间，以秒为单位，在有效期内不需要重复获取
-application	当前 APP 的 UUID 值
-可能的错误码：400（client_id 或 client_secret 错误）、5xx。详见：服务器端REST API常见错误码
-curl 示例：
-
-curl -X POST "https://a1.easemob.com/easemob-demo/chatdemoui/token" -d '{"grant_type":"client_credentials","client_id":"YXA6wDs-MARqEeSO0VcBzaqg11","client_secret":"YXA6JOMWlLap_YbI_ucz77j-4-mI0dd"}'
-Response 示例：
-
-{
-  "access_token":"YWMtWY779DgJEeS2h9OR7fw4QgAAAUmO4Qukwd9cfJSpkWHiOa7MCSk0MrkVIco",
-  "expires_in":5184000,
-  "application":"c03b3e30-046a-11e4-8ed1-5701cdaaa0e4"
-}
-*/
-    // https://a1.easemob.com/1122170227115459/91fan/users
     static public boolean isRed = false;
 
     private static final String EXTRA_APP_QUIT = "APP_QUIT";
@@ -138,8 +109,10 @@ Response 示例：
 
         showMainFragment();
 
-
     }
+
+
+
 
     private void loginHuanxin() {
         Thread thread = new Thread(){
@@ -167,6 +140,8 @@ Response 示例：
         };
         thread.start();
     }
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -327,6 +302,27 @@ Response 示例：
         int unread = NIMClient.getService(SystemMessageService.class).querySystemMessageUnreadCountBlock();
         SystemMessageUnreadManager.getInstance().setSysMsgUnreadCount(unread);
     }
+
+    /**
+     * 根据参数的传递选择适当的DAO进行返回
+     * @param type 需要DAO的类型
+     * @return 返回需要的DAO
+     */
+   /* public AbstractDao getDao(final DaoType type) {
+        switch (type){
+            case DRAFT:
+                return ((MainApplication)getApplication()).getDaoSession().getDraftDao();
+            case ARTICLE:
+                return ((MainApplication)getApplication()).getDaoSession().getArticleDao();
+            case BLOG:
+                return ((MainApplication)getApplication()).getDaoSession().getBlogDao();
+            case GROUP:
+                return ((MainApplication)getApplication()).getDaoSession().getGroupDao();
+            default:
+                return null;
+        }
+
+    }*/
 
 
     //实现ConnectionListener接口
