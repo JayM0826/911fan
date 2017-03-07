@@ -165,12 +165,14 @@ public class GroupListActivity extends AppCompatActivity {
             @Override
             public void onNext(List<Group> groupList) {
                 for (Group group : groupList){
-                    GroupItem groupItem = new GroupItem(group.getGroup_name(), groupList.size(), TimeUtil.getBeijingNowTime("yyyy-mm--dd"));
+                    GroupItem groupItem = new GroupItem(group.getGroup_name(), groupList.size(), getNowTimeString("yyyy-mm--dd"));
                     items.add(groupItem);
                 }
                 multiTypeAdapter.notifyDataSetChanged();
             }
         };
+
+
 
         Observable<List<Group>> observable = Observable.create(new Observable.OnSubscribe<List<Group>>() {
             @Override
