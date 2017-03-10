@@ -49,11 +49,12 @@ public class GroupItem {
     @NonNull public String groupName;
     @NonNull public int number; // 该group有几篇文章
     @NonNull public String createTime; // 创建时间
-
-    public GroupItem(String groupName, int number, String date){
+    @NonNull public Long id; // 在数据库中的id
+    public GroupItem(String groupName, int number, String date, Long id){
         // this.cover = imageView;
         this.number = number;
         this.groupName = groupName;
         this.createTime = date;
+        this.id = id;
     }
 }

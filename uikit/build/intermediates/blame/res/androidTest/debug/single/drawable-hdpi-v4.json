@@ -276,12 +276,12 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_audio_animation_list_right_1.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_message_audio_playing_left_blue_bg.9.png",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_message_audio_playing_left_blue_bg.9.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_cameras_hover.png",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_cameras_hover.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_message_audio_playing_left_blue_bg.9.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_message_audio_playing_left_blue_bg.9.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_message_left_white_bg.9.png",

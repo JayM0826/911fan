@@ -88,12 +88,12 @@
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/nim_message_activity_top_tip.9.png"
     },
     {
-        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/drawable-hdpi-v4/ic_secretary.png",
-        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/ic_secretary.png"
-    },
-    {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/drawable-hdpi-v4/nim_emoji_del.png",
         "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/nim_emoji_del.png"
+    },
+    {
+        "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/drawable-hdpi-v4/ic_secretary.png",
+        "source": "/home/jay/AndroidStudioProjects/91fan/uikit/res/drawable-hdpi/ic_secretary.png"
     },
     {
         "merged": "/home/jay/AndroidStudioProjects/91fan/uikit/build/intermediates/res/merged/release/drawable-hdpi-v4/nim_scrollbar_handle_holo_dark.9.png",

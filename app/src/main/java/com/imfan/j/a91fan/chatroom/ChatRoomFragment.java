@@ -33,6 +33,8 @@ import me.drakeet.multitype.MultiTypeAdapter;
 
 public class ChatRoomFragment extends Fragment {
 
+    final private int CREATE_CHATROOM = 100;
+
     MultiTypeAdapter multiTypeAdapter;
 
     private Items items;
@@ -49,7 +51,7 @@ public class ChatRoomFragment extends Fragment {
     @OnClick(R.id.fab_create_chatroom)
     void createRoom(){
         Intent intent = new Intent(getContext(), CreateChatRoomActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, CREATE_CHATROOM);
     }
 
 

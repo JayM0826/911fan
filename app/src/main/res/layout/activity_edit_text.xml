@@ -1,17 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_edit_text"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_new"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.imfan.j.a91fan.textabout.EditTextActivity">
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
 
-    <TextView
+    <EditText
+        android:id="@+id/et_new_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="请输入标题"
+        android:padding="@dimen/dp_16"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/text_size_18" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textColor="#3a000000"
+            android:text="--:--"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/tv_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#3a000000"
+            android:text="默认组"
+            android:textSize="@dimen/text_size_14" />
+    </RelativeLayout>
+
+    <com.sendtion.xrichtext.RichTextEditor
+        android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello"/>
-</RelativeLayout>
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16" />
+
+</LinearLayout>
+
+    <!-- <com.melnykov.fab.FloatingActionButton
+         android:id="@+id/fab_fix_text"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="bottom|right"
+         android:layout_margin="16dp"
+         android:src="@drawable/ic_mode_edit_black_24dp"
+         fab:fab_colorNormal="@color/color_green_00d3a9"
+         fab:fab_colorPressed="@color/green_4DC0A4"
+         fab:fab_colorRipple="@color/ripple"
+         fab:fab_shadow="true"
+         fab:fab_type="normal"
+         android:visibility="gone"/>-->
+

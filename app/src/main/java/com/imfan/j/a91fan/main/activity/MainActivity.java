@@ -123,7 +123,7 @@ public class MainActivity extends UI {
                     @Override
                     public void onSuccess() {
 
-                        Log.d("main", "登录聊天服务器成功！");
+                        Log.d("main", "登录环信聊天服务器成功！");
                     }
 
                     @Override

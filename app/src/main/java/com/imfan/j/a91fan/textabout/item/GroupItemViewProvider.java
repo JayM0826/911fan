@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.entity.DaoType;
 import com.imfan.j.a91fan.textabout.ArticleListActivity;
 import com.imfan.j.a91fan.util.Preferences;
 
@@ -22,12 +23,15 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import me.drakeet.multitype.ItemViewProvider;
+import rx.Observable;
 
 /**
  * Created by jay on 17-3-5.
  */
 public class GroupItemViewProvider
         extends ItemViewProvider<GroupItem, GroupItemViewProvider.ViewHolder> {
+
+
 
     @NonNull
     @Override
@@ -39,9 +43,11 @@ public class GroupItemViewProvider
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull GroupItem groupItem) {
+
+
         holder.tv_group_name.setText(groupItem.groupName);
         holder.tv_text_owner.setText(Preferences.getWxNickname());
-        holder.tv_text_number.setText(groupItem.number + "篇");
+        // 这里是有ID的，ID才是唯一的属性，groupname并不是，允许组别重名现象
         holder.tv_create_time.setText(groupItem.createTime);
     }
 
@@ -52,9 +58,6 @@ public class GroupItemViewProvider
 
         @BindView(R.id.tv_group_name)
         TextView tv_group_name;
-
-        @BindView(R.id.tv_text_number)
-        TextView tv_text_number;
 
         @BindView(R.id.tv_text_owner)
         TextView tv_text_owner;

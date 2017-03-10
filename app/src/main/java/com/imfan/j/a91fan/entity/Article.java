@@ -18,14 +18,14 @@ public class Article {
     @Id(autoincrement = true)
     private Long id;
 
+    @Property(nameInDb = "IMAGE_PATH")
+    private String image_path;
+
     @Property(nameInDb = "TITLE")
     private String title;
 
     @Property(nameInDb = "CONTENT")
     private String content;
-
-    @Property(nameInDb = "IMAGE_PATH")
-    private String image_path;
 
     @Property(nameInDb = "GROUP_ID")
     private Long groupID;
@@ -45,14 +45,14 @@ public class Article {
     private String updateTime;
 
 
-    @Generated(hash = 333681026)
-    public Article(Long id, String title, String content, String image_path,
+    @Generated(hash = 549299751)
+    public Article(Long id, String image_path, String title, String content,
             Long groupID, String groupName, String type, @NotNull String createTime,
             String updateTime) {
         this.id = id;
+        this.image_path = image_path;
         this.title = title;
         this.content = content;
-        this.image_path = image_path;
         this.groupID = groupID;
         this.groupName = groupName;
         this.type = type;
@@ -76,6 +76,16 @@ public class Article {
     }
 
 
+    public String getImage_path() {
+        return this.image_path;
+    }
+
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
+
+
     public String getTitle() {
         return this.title;
     }
@@ -93,16 +103,6 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-
-    public String getImage_path() {
-        return this.image_path;
-    }
-
-
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
     }
 
 
@@ -154,8 +154,5 @@ public class Article {
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
-
-
-
-
+    
 }

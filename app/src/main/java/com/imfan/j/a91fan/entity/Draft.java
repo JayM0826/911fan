@@ -37,7 +37,7 @@ public class Draft {
     private String groupName;
 
     @Property(nameInDb = "TYPE")
-    private int type;
+    private String type;
 
     @NotNull
     @Property(nameInDb = "CREATE_TIME")
@@ -48,9 +48,9 @@ public class Draft {
     private String updateTime;
 
 
-    @Generated(hash = 462830909)
+    @Generated(hash = 54030140)
     public Draft(Long id, String image_path, String title, String content,
-            Long groupID, String groupName, int type, @NotNull String createTime,
+            Long groupID, String groupName, String type, @NotNull String createTime,
             String updateTime) {
         this.id = id;
         this.image_path = image_path;
@@ -129,12 +129,12 @@ public class Draft {
     }
 
 
-    public int getType() {
+    public String getType() {
         return this.type;
     }
 
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -157,6 +157,9 @@ public class Draft {
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
+
+
+
 
 
 

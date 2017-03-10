@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +37,7 @@ public class TextItemViewProvider
         holder.tv_time.setText(textItem.updateTime);
         holder.tv_text_name.setText(textItem.name);
         holder.tv_text_owner.setText(Preferences.getWxNickname());
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -53,9 +55,10 @@ public class TextItemViewProvider
         @BindView(R.id.text_create_time)
         TextView tv_time;
 
-        ViewHolder(View itemView) {
+
+        ViewHolder(final View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

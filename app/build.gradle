@@ -71,6 +71,8 @@ dependencies {
     compile 'com.yalantis:phoenix:1.2.3'
     //RxJava的依赖包（我使用的最新版本）
     compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
     //RxAndroid的依赖包
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
@@ -78,11 +80,14 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.hyphenate:hyphenate-sdk-lite:3.2.3'
+    compile 'com.hyphenate:hyphenate-sdk-lite:3.3.0'
     compile 'org.greenrobot:greendao:3.2.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.hudomju:swipe-to-dismiss-undo:1.0'
+    compile 'com.github.sendtion:XRichText:1.1'
+    compile 'me.iwf.photopicker:PhotoPicker:0.9.5@aar'
     compile 'com.hudomju:swipe-to-dismiss-undo:1.0'
 }
 

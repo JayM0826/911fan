@@ -248,7 +248,16 @@
         <activity
             android:name=".textabout.CreateGroupActivitry"
             android:theme="@style/AppTheme" />
-        <activity android:name=".textabout.EditTextActivity"
+        <activity
+            android:name=".textabout.EditTextActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".textabout.PreviewActivity"
             android:theme="@style/AppTheme"></activity>
     </application>
 

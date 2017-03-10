@@ -12,9 +12,11 @@ public class TextItem {
     @NonNull public ImageView cover;
     @NonNull public String name;
     @NonNull public String updateTime; // 创建时间
+    @NonNull public Long id;
 
-    public TextItem(String name, String date){
+    public TextItem(Long id, String name, String date){
         // this.cover = imageView;
+        this.id = id;
         this.name = name;
         this.updateTime = date;
     }
