@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/nim_contact_list_item_selecter"
-    android:minHeight="55dip" >
+    android:minHeight="55dp">
 
     <ImageView
         android:id="@+id/img_head"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dip"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/tv_func_name"
         android:background="@drawable/nim_g_unread_badge"
         android:gravity="center"

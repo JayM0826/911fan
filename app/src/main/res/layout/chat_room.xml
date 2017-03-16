@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg">
 
     <com.yalantis.phoenix.PullToRefreshView
         android:id="@+id/pull_to_refresh_room"
@@ -27,7 +28,8 @@
         fab:fab_colorPressed="@color/green_4DC0A4"
         fab:fab_colorRipple="@color/ripple"
         fab:fab_shadow="true"
-        fab:fab_type="normal" />
+        fab:fab_type="normal"
+        android:visibility="gone"/>
 
 
 </FrameLayout>

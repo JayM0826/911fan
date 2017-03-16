@@ -12,8 +12,8 @@
         android:drawablePadding="5dp"
         android:gravity="center_vertical|left"
         android:includeFontPadding="false"
-        android:lineSpacingExtra="3dip"
+        android:lineSpacingExtra="3dp"
         android:maxWidth="@dimen/max_bubble_width"
         android:textColor="@color/color_black_333333"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 </merge>

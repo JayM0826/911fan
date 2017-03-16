@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/jay/AndroidStudioProjects/91fan/uikit/src/main/shaders"/></dataSet><dataSet config="release"><source path="/home/jay/AndroidStudioProjects/91fan/uikit/src/release/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\Users\J\Desktop\911fan\uikit\src\main\shaders"/></dataSet><dataSet config="release"><source path="C:\Users\J\Desktop\911fan\uikit\src\release\shaders"/></dataSet></merger>

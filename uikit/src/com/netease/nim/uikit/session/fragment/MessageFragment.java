@@ -60,12 +60,6 @@ public class MessageFragment extends TFragment implements ModuleProxy {
     };
     private View rootView;
     private SessionCustomization customization;
-    /*private Observer<List<MessageReceipt>> messageReceiptObserver = new Observer<List<MessageReceipt>>() {
-        @Override
-        public void onEvent(List<MessageReceipt> messageReceipts) {
-            receiveReceipt();
-        }
-    };*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

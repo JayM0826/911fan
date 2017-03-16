@@ -42,6 +42,7 @@
                 android:scrollbars="vertical"/>
         </LinearLayout>
 
+        <!--这里是按住话筒时的中央框框-->
         <FrameLayout
             android:id="@+id/layoutPlayAudio"
             android:layout_width="wrap_content"
@@ -50,6 +51,7 @@
             android:background="@drawable/nim_dialog_toast_bg"
             android:visibility="gone">
 
+            <!--计时器-->
             <Chronometer
                 android:id="@+id/timer"
                 android:layout_width="wrap_content"
@@ -59,6 +61,7 @@
                 android:textColor="@color/white"
                 android:textSize="45sp"/>
 
+            <!--下面的滑动取消发送-->
             <LinearLayout
                 android:id="@+id/timer_tip_container"
                 android:layout_width="188dp"

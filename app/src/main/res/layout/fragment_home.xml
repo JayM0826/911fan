@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            jay:titleTextAppearance="@style/Toolbar.TitleText"/>
+            jay:titleTextAppearance="@style/Toolbar.TitleText" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
@@ -35,7 +35,7 @@
         <com.imfan.j.a91fan.uiabout.ChangeColorIconWithText
             android:id="@+id/id_indicator_one"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"
@@ -46,7 +46,7 @@
         <com.imfan.j.a91fan.uiabout.ChangeColorIconWithText
             android:id="@+id/id_indicator_two"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"
@@ -57,7 +57,7 @@
         <com.imfan.j.a91fan.uiabout.ChangeColorIconWithText
             android:id="@+id/id_indicator_three"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"
@@ -69,7 +69,7 @@
         <com.imfan.j.a91fan.uiabout.ChangeColorIconWithText
             android:id="@+id/id_indicator_four"
             android:layout_width="0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:padding="5dp"
             jay:color="#ff45c01a"

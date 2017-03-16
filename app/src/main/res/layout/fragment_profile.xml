@@ -1,13 +1,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@id/head_layout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:background="@color/material_deep_teal_20"
@@ -23,13 +23,13 @@
             android:src="@mipmap/icon" />
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="55.0dp"
             android:layout_toRightOf="@id/user_head1"
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -53,13 +53,13 @@
             </LinearLayout>
 
             <View
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="1.0dp"
                 android:layout_marginTop="3.0dp"
                 android:background="@color/black" />
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -86,7 +86,7 @@
 
     <LinearLayout
         android:id="@+id/blog"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10.0dp"
         android:background="@color/color_yellow_fcf3cd"
@@ -94,7 +94,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:drawableLeft="@drawable/user_blog"
             android:gravity="center_vertical"
             android:paddingLeft="16.0dp"
@@ -106,7 +106,7 @@
         <TextView
             android:id="@+id/blog_number"
             android:layout_width="0.0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center_vertical"
             android:text="暂时没有动态"
@@ -115,14 +115,14 @@
     </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
         android:background="@color/grey_white" />
 
     <LinearLayout
         android:id="@+id/following"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dp"
         android:background="@color/color_yellow_fcf3cd"
@@ -131,7 +131,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:drawableLeft="@drawable/user_following"
             android:gravity="center_vertical"
             android:paddingLeft="16.0dp"
@@ -143,7 +143,7 @@
         <TextView
             android:id="@+id/following_number"
             android:layout_width="0.0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center_vertical"
             android:text="暂时没有关注"
@@ -152,15 +152,15 @@
     </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
         android:background="@color/grey_white"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/fans"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dp"
         android:background="@color/color_yellow_fcf3cd"
@@ -169,7 +169,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:drawableLeft="@drawable/user_fans"
             android:gravity="center_vertical"
             android:paddingLeft="16.0dp"
@@ -181,7 +181,7 @@
         <TextView
             android:id="@+id/fans_number"
             android:layout_width="0.0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center_vertical"
             android:text="暂时没有粉丝"
@@ -190,15 +190,15 @@
     </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
         android:background="@color/grey_white"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/article"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dp"
         android:background="@color/color_yellow_fcf3cd"
@@ -206,7 +206,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:drawableLeft="@drawable/user_article"
             android:gravity="center_vertical"
             android:paddingLeft="16.0dp"
@@ -218,7 +218,7 @@
         <TextView
             android:id="@+id/article_number"
             android:layout_width="0.0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center_vertical"
             android:text="暂时没有文章"
@@ -227,14 +227,14 @@
     </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
         android:background="@color/grey_white" />
 
     <LinearLayout
         android:id="@+id/draft"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dp"
         android:background="@color/color_yellow_fcf3cd"
@@ -242,7 +242,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:drawableLeft="@drawable/user_draft"
             android:gravity="center_vertical"
             android:paddingLeft="16.0dp"
@@ -254,7 +254,7 @@
         <TextView
             android:id="@+id/draft_number"
             android:layout_width="0.0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center_vertical"
             android:text="暂时没有草稿"
@@ -263,14 +263,14 @@
     </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
         android:background="@color/grey_white" />
 
     <LinearLayout
         android:id="@+id/favorite"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5.0dp"
         android:background="@color/color_yellow_fcf3cd"
@@ -279,7 +279,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:drawableLeft="@drawable/user_favorite"
             android:gravity="center_vertical"
             android:paddingLeft="16.0dp"
@@ -291,7 +291,7 @@
         <TextView
             android:id="@+id/favorite_number"
             android:layout_width="0.0dp"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center_vertical"
             android:text="暂时没有收藏"
@@ -300,15 +300,15 @@
     </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1.0dp"
         android:layout_marginTop="3.0dp"
         android:background="@color/grey_white"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/user_logout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200.0dp"
         android:background="#ffff0000"

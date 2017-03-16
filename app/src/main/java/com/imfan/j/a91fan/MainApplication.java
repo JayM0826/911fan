@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import com.blankj.utilcode.utils.Utils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
+import com.imfan.j.a91fan.chatroom.EaseUI;
 import com.imfan.j.a91fan.entity.DaoMaster;
 import com.imfan.j.a91fan.entity.DaoSession;
 import com.imfan.j.a91fan.netease.UserPreferences;
@@ -152,7 +153,7 @@ public class MainApplication extends Application {
         EMClient.getInstance().init(this, options);
         //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
         EMClient.getInstance().setDebugMode(true);
-
+        EaseUI.getInstance().init(getApplicationContext(), options);
         // Utils常用代码初始化
         Utils.init(this);
         // 极光初始化

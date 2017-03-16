@@ -274,9 +274,7 @@ public class EditTextActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (data != null) {
-                if (requestCode == 1){
-                    //处理调用系统图库
-                } else if (requestCode == PhotoPicker.REQUEST_CODE){
+               if (requestCode == PhotoPicker.REQUEST_CODE){
                     //异步方式插入图片
                     insertImagesSync(data);
                 }

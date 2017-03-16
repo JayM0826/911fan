@@ -27,7 +27,7 @@
                 android:id="@+id/long_click_copy"
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
-                android:layout_marginLeft="20dip"
+                android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/user_head_image"
                 android:orientation="vertical">
 
@@ -45,8 +45,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/color_black_ff666666"
-                    android:textSize="18sp"
-                    />
+                    android:textSize="18sp" />
             </LinearLayout>
 
 
@@ -84,8 +83,6 @@
             layout="@layout/user_profile_item" />
 
 
-
-
         <LinearLayout
             android:id="@+id/toggle_layout"
             android:layout_width="match_parent"
@@ -108,7 +105,7 @@
                 android:id="@+id/begin_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/nim_team_create_btn_selector"
                 android:minHeight="50dp"
                 android:text="@string/begin_chat"

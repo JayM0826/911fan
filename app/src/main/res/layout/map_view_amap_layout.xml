@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/g_child_page_bg_color">
 
     <android.support.design.widget.AppBarLayout
@@ -62,13 +62,13 @@
         android:layout_width="@dimen/friend_map_btn_height"
         android:layout_height="@dimen/friend_map_btn_height"
         android:layout_above="@+id/assist_my_location"
-        android:layout_marginLeft="12dip"
+        android:layout_marginLeft="12dp"
         android:background="@drawable/btn_location_selector" />
 
     <View
         android:id="@+id/assist_my_location"
         android:layout_width="match_parent"
-        android:layout_height="24dip"
+        android:layout_height="24dp"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

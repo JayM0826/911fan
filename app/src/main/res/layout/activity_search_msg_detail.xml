@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/global_search_root"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -29,15 +29,15 @@
         android:layout_below="@id/app_bar_layout"
         android:background="@color/white"
         android:ellipsize="end"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:singleLine="true"
-        android:textColor="#999999"/>
+        android:textColor="#999999" />
 
     <com.netease.nim.uikit.common.ui.listview.AutoRefreshListView
         android:id="@+id/search_result_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/search_result_tip"
         android:background="@color/white"
         android:cacheColorHint="@color/transparent"

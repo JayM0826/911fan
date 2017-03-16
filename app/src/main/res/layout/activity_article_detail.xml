@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     android:background="@null">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_text_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_text_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab_create_text"
@@ -24,8 +23,6 @@
         fab:fab_colorRipple="@color/ripple"
         fab:fab_shadow="true"
         fab:fab_type="normal" />
-
-
 
 
 </FrameLayout>

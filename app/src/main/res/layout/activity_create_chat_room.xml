@@ -7,32 +7,31 @@
     android:layout_gravity="center"
     android:background="@drawable/login_bg"
     android:orientation="vertical">
+
     <TextView
         android:id="@+id/tv_create_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/create_room"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/create_room"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_size_20"
-        />
+        android:textSize="@dimen/text_size_20" />
 
 
-
-        <com.imfan.j.a91fan.uiabout.CustomEditText
-            android:id="@+id/et_room_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/text_hint"
-            android:layout_below="@id/tv_create_room"
-            android:layout_marginTop="100dp"
-            android:background="@null"
-            android:gravity="center"
-            android:textSize="@dimen/text_size_24"
-            android:maxLength="10"/>
+    <com.imfan.j.a91fan.uiabout.CustomEditText
+        android:id="@+id/et_room_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_create_room"
+        android:layout_marginTop="100dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="@string/text_hint"
+        android:maxLength="10"
+        android:textSize="@dimen/text_size_24" />
 
     <Button
         android:id="@+id/btn_ok"
@@ -43,8 +42,8 @@
         android:layout_marginBottom="16dp"
         android:background="@color/colorAccent"
         android:gravity="center"
-        android:text="@string/ok"
         android:padding="5dp"
+        android:text="@string/ok"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
 </RelativeLayout>

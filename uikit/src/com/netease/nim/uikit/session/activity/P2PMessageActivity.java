@@ -111,7 +111,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
             unregisterUserInfoObserver();
         }
         // NIMClient.getService(MsgServiceObserve.class).observeCustomNotification(commandObserver, register);
-        FriendDataCache.getInstance().registerFriendDataChangedObserver(friendDataChangedObserver, register);
+        // FriendDataCache.getInstance().registerFriendDataChangedObserver(friendDataChangedObserver, register);
     }
 
     private void registerUserInfoObserver() {
@@ -135,27 +135,7 @@ public class P2PMessageActivity extends BaseMessageActivity {
         }
     }
 
-    // 可以查看对方发送消息的状态
-    /*protected void showCommandMessage(CustomNotification message) {
-        if (!isResume) {
-            return;
-        }
 
-        String content = message.getContent();
-        try {
-            JSONObject json = JSON.parseObject(content);
-            int id = json.getIntValue("id");
-            if (id == 1) {
-                // 正在输入
-                Toast.makeText(P2PMessageActivity.this, "对方正在输入...", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(P2PMessageActivity.this, "command: " + content, Toast.LENGTH_SHORT).show();
-            }
-
-        } catch (Exception e) {
-
-        }
-    }*/
 
     // 这里才是主角
     @Override
