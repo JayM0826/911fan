@@ -1,4 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /*
+  ~  * Created by J on  2017.
+  ~  * Copyright (c) 2017.  All rights reserved.
+  ~  *
+  ~  * Last modified 17-3-16 上午9:32
+  ~  *
+  ~  * Project name: 911fan
+  ~  *
+  ~  * Contact me:
+  ~  * WeChat:  worromoT_
+  ~  * Email: 2212131349@qq.com
+  ~  *
+  ~  * Warning:If my code is same as yours, then i copy you!
+  ~  */
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.imfan.j.a91fan">
@@ -239,7 +254,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".textabout.CreateGroupActivitry"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/TipDialog" />
         <activity
             android:name=".textabout.EditTextActivity"
             android:theme="@style/AppTheme" />
@@ -253,7 +268,10 @@
             android:name=".textabout.PreviewActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".chatroom.EaseShowBigImageActivity" />
-        <activity android:name=".chatroom.ChatActivity"
+        <activity
+            android:name=".chatroom.ChatActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".textabout.BlogListActivity"
             android:theme="@style/AppTheme"></activity>
     </application>
 

@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /*
+  ~  * Created by J on  2017.
+  ~  * Copyright (c) 2017.  All rights reserved.
+  ~  *
+  ~  * Last modified 17-3-13 上午11:12
+  ~  *
+  ~  * Project name: 911fan
+  ~  *
+  ~  * Contact me:
+  ~  * WeChat:  worromoT_
+  ~  * Email: 2212131349@qq.com
+  ~  *
+  ~  * Warning:If my code is same as yours, then i copy you!
+  ~  */
+  -->
+
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@drawable/message_plus_rts_pressed" android:state_pressed="true"/>

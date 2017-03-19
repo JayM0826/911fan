@@ -1,3 +1,20 @@
+<!--
+  ~ /*
+  ~  * Created by J on  2017.
+  ~  * Copyright (c) 2017.  All rights reserved.
+  ~  *
+  ~  * Last modified 17-3-13 上午11:12
+  ~  *
+  ~  * Project name: 911fan
+  ~  *
+  ~  * Contact me:
+  ~  * WeChat:  worromoT_
+  ~  * Email: 2212131349@qq.com
+  ~  *
+  ~  * Warning:If my code is same as yours, then i copy you!
+  ~  */
+  -->
+
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

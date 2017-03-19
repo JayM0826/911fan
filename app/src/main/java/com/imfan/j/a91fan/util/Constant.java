@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.util;
 
 /**
@@ -6,6 +23,10 @@ package com.imfan.j.a91fan.util;
  */
 
 public class Constant {
+
+    // 本地服务器
+    public static final String BASE_SERVER = "http://192.168.191.1:80/api/v1/";
+
 
     // 微信的相关数据
     public static final String WX_APP_ID = "wxbf4adad4b62dda38"; //

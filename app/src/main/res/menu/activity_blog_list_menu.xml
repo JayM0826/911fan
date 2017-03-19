@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~  * Created by J on  2017.
+  ~  * Copyright (c) 2017.  All rights reserved.
+  ~  *
+  ~  * Last modified 17-3-19 下午12:52
+  ~  *
+  ~  * Project name: 911fan
+  ~  *
+  ~  * Contact me:
+  ~  * WeChat:  worromoT_
+  ~  * Email: 2212131349@qq.com
+  ~  *
+  ~  * Warning:If my code is same as yours, then i copy you!
+  ~  */
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/post" app:showAsAction="always" android:title="@string/post_blog"/>
+</menu>

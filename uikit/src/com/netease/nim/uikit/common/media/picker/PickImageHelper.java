@@ -29,6 +29,7 @@ public class PickImageHelper {
 
 
         CustomAlertDialog dialog = new CustomAlertDialog(context);
+        // 这里是原来点击图片时的最上面的标题
         dialog.setTitle(option.titleResId);
 
 

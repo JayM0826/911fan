@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.main.fragment;
 
 import android.content.ClipboardManager;
@@ -7,16 +24,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.utils.StringUtils;
+import com.bumptech.glide.Glide;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileSettingActivity;
 import com.imfan.j.a91fan.entity.DaoType;
 import com.imfan.j.a91fan.netease.LogoutManager;
 import com.imfan.j.a91fan.main.model.MainTab;
+import com.imfan.j.a91fan.textabout.BlogListActivity;
 import com.imfan.j.a91fan.textabout.GroupListActivity;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.common.ui.imageview.HeadImageView;
+import com.netease.nim.uikit.common.util.string.StringUtil;
 import com.netease.nim.uikit.contact.core.model.IContact;
 import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
@@ -49,7 +70,8 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
     @Override
     protected void onInit() {
 
-
+       /* Glide.with(getActivity()).load(Preferences.getWxHeadimgurl().substring(0, Preferences.getWxHeadimgurl().length() - 2))
+        .into(userHead);*/
         findViews();
         initEvents();
 
@@ -114,16 +136,17 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
                 UserProfileSettingActivity.start(getContext(), Preferences.getUserAccount().toLowerCase());
                 break;
             case R.id.blog:
-                intent = new Intent(getContext(), GroupListActivity.class);
-                bundle = null;
+                intent = new Intent(getContext(), BlogListActivity.class);
+               /* bundle = null;
                 bundle = new Bundle();
                 bundle.putSerializable("type", DaoType.BLOG);
 
                 intent.putExtras(bundle);
                 intent.putExtra("title", getResources().getString(R.string.user_blog));
-                // startActivity(intent);
+
                 CustomToast.show(getContext(), "此功能并未开发");
-                intent = null;
+                intent = null;*/
+                startActivity(intent);
                 break;
             case R.id.following:
                 CustomToast.show(getContext(), "将要查看我关注的人");
@@ -204,7 +227,7 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
 
         userHead.loadBuddyAvatar(Preferences.getUserAccount().toLowerCase());
         fanNickName.setText(userInfo.getName());
-        fanID.setText(Preferences.getUserAccount().toLowerCase());
+        fanID.setText("fan" + Preferences.getFanId());
 
     }
 }

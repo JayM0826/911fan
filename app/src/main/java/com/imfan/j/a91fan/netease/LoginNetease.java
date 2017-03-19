@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.netease;
 
 import android.content.Context;
@@ -57,15 +74,11 @@ public class LoginNetease {
 
 
     public  void registerNetease(final Context context){
-
-
-
-
         curTime = String.valueOf((new Date()).getTime() / 1000L);
         checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
 
         RequestParams params = new RequestParams();
-        params.add("accid", Preferences.getUserAccount().toLowerCase());
+        params.add("accid", "fan" + Preferences.getFanId());
         params.add("name", Preferences.getWxNickname());
         // params.add("token", "1"); 由网易自动生成
         addHeaders();
@@ -75,17 +88,17 @@ public class LoginNetease {
             @Override
             public void onStart() {
                 // called before request is started
-                LogUtil.i("Register：", "开始注册");
+                LogUtil.i("Register：", "网易开始注册");
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject object) {
                 // called when response HTTP status is "200 OK"
-                LogUtil.i("Register：", "通信成功" + statusCode);
+                LogUtil.i("Register：", "网易通信成功" + statusCode);
                 try {
                     // 这里重复注册同一个id会使得code变为414
                     int code = object.getInt("code");
-                    LogUtil.i("注册返回JSON：", "Json" + code);
+                    LogUtil.i("网易注册返回JSON：", "Json" + code);
                     if (code == 414) { // 说明我们只需要去更新我们的token就可以了
                         refreshNeteaseToken(context);
                     } else {
@@ -105,20 +118,8 @@ public class LoginNetease {
 
                         LogUtil.i("微信注册页账户:", accid);
                         LogUtil.i("微信注册页昵称:", name);
-
-                        /*// 这里是注册环信
-                        try{
-                            EMClient.getInstance().createAccount(Preferences.getUserAccount().toLowerCase(), Preferences.getWxNickname());//同步方法
-
-                        }catch (HyphenateException e){
-                            if (e.getErrorCode() == EMError.USER_ALREADY_EXISTS);
-                        }*/
                         login(context);
                         // 初始化消息提醒配置
-
-
-
-
                     }
 
 
@@ -210,7 +211,7 @@ public class LoginNetease {
         NimUIKit.doLogin(new LoginInfo(Preferences.getUserAccount().toLowerCase(), Preferences.getNeteaseToken()), new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {
-                LogUtil.i(TAG, "login success登录成功");
+                LogUtil.i(TAG, "login success网易登录成功");
                 initNotificationConfig();
                 // 进入主界面
                 MainActivity.start(context, null);
@@ -219,17 +220,15 @@ public class LoginNetease {
             @Override
             public void onFailed(int code) {
                 if (code == 302 || code == 404) {
-                    LogUtil.e(TAG + "账号与密码：", Preferences.getUserAccount() + "    " + Preferences.getNeteaseToken());
-
-
+                    LogUtil.e(TAG + "网易账号与密码：", Preferences.getUserAccount() + "    " + Preferences.getNeteaseToken());
                 } else {
-                    CustomToast.show(context, "登录失败: " + code);
+                    CustomToast.show(context, "网易登录失败: " + code);
                 }
             }
 
             @Override
             public void onException(Throwable exception) {
-                CustomToast.show(context, "无效输入");
+                CustomToast.show(context, "网易无效输入");
             }
         });
     }
@@ -249,19 +248,20 @@ public class LoginNetease {
     }
 
     private void huanxinLoginAndRegister(){
+        LogUtil.i("环信创建账户：", Preferences.getUserAccount().toLowerCase());
         Thread thread = new Thread(){
             @Override
             public void run() {
                 super.run();
                 try {
-
+                    LogUtil.i("环信创建账户：", Preferences.getUserAccount().toLowerCase());
+                    LogUtil.i("环信创建密码：", MD5.getStringMD5(Preferences.getUserAccount().toLowerCase()));
                     EMClient.getInstance().createAccount(Preferences.getUserAccount().toLowerCase(), MD5.getStringMD5(Preferences.getUserAccount().toLowerCase()));//同步方法
-
                 } catch (HyphenateException e) {
                     if (e.getErrorCode() == EMError.USER_ALREADY_EXIST)
-                        Log.d("TAG", "已经注册了");
+                        Log.d("TAG", "环信已经注册了");
                     else {
-                        Log.d("TAG", "注册失败208错误" + e.getErrorCode() + "  " + e.getDescription());
+                        Log.d("TAG", "环信注册失败208错误" + e.getErrorCode() + "  " + e.getDescription());
                     }
                 }
 

@@ -31,28 +31,6 @@ import java.util.List;
  */
 public class P2PMessageActivity extends BaseMessageActivity {
 
-    FriendDataCache.FriendDataChangedObserver friendDataChangedObserver = new FriendDataCache.FriendDataChangedObserver() {
-        @Override
-        public void onAddedOrUpdatedFriends(List<String> accounts) { // 注：sessionId就是account
-            setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
-        }
-
-        @Override
-        public void onDeletedFriends(List<String> accounts) {
-            setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
-        }
-
-        @Override
-        public void onAddUserToBlackList(List<String> account) {
-            setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
-        }
-
-        @Override
-        public void onRemoveUserFromBlackList(List<String> account) {
-            setTitle(UserInfoHelper.getUserTitleName(sessionId, SessionTypeEnum.P2P));
-        }
-    };
-
     private boolean isResume = false;
 
 

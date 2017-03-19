@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-16 下午3:42
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.chatroom;
 
 import android.app.Activity;
@@ -17,6 +34,8 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.DateUtils;
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.util.Preferences;
+import com.netease.nim.uikit.common.ui.imageview.CircleImageView;
 
 import java.util.Date;
 
@@ -115,10 +134,11 @@ public abstract class EaseChatRow extends LinearLayout {
         }
         //set nickname and avatar
         if(message.direct() == EMMessage.Direct.SEND){
-            EaseUserUtils.setUserAvatar(context, EMClient.getInstance().getCurrentUser(), userAvatarView);
+            // EaseUserUtils.setUserAvatar(context, EMClient.getInstance().getCurrentUser(), userAvatarView);
         }else{
-            EaseUserUtils.setUserAvatar(context, message.getFrom(), userAvatarView);
-            EaseUserUtils.setUserNick(message.getFrom(), usernickView);
+            // 设置对方的昵称与头像
+            // EaseUserUtils.setUserAvatar(context, message.getFrom(), R.drawable.cov);
+            EaseUserUtils.setUserNick(Preferences.getWxNickname(), usernickView);
         }
 
         if(deliveredView != null){

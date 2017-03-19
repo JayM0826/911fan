@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-16 下午2:09
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.chatroom;
 
 import android.content.Intent;
@@ -33,6 +50,7 @@ import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
 
 import static com.imfan.j.a91fan.chatroom.EaseConstant.CHATTYPE_CHATROOM;
+import static com.imfan.j.a91fan.chatroom.EaseConstant.EXTRA_CHAT_TYPE;
 import static com.imfan.j.a91fan.chatroom.EaseConstant.EXTRA_USER_ID;
 
 /**
@@ -123,7 +141,7 @@ public class ChatRoomFragment extends Fragment {
                 intent.putExtra("roomname", ((EMChatRoom) items.get(position)).getName());
                 intent.putExtra("title", ((EMChatRoom) items.get(position)).getName());
                 intent.putExtra("owner", ((EMChatRoom) items.get(position)).getOwner());
-                intent.putExtra(EXTRA_USER_ID, CHATTYPE_CHATROOM);
+                intent.putExtra(EXTRA_CHAT_TYPE, CHATTYPE_CHATROOM);
                 intent.putExtra(EaseConstant.EXTRA_USER_ID, ((EMChatRoom) items.get(position)).getId());
                 startActivity(intent);
             }

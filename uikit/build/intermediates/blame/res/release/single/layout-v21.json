@@ -1,17 +1,5 @@
 [
     {
-        "merged": "C:\\home\\jay\\AndroidStudioProjects\\91fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_action.xml",
-        "source": "C:\\home\\jay\\AndroidStudioProjects\\91fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_action.xml"
-    },
-    {
-        "merged": "C:\\home\\jay\\AndroidStudioProjects\\91fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_template_icon_group.xml",
-        "source": "C:\\home\\jay\\AndroidStudioProjects\\91fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_template_icon_group.xml"
-    },
-    {
-        "merged": "C:\\home\\jay\\AndroidStudioProjects\\91fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_action_tombstone.xml",
-        "source": "C:\\home\\jay\\AndroidStudioProjects\\91fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_action_tombstone.xml"
-    },
-    {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_action_tombstone.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_action_tombstone.xml"
     },
@@ -26,9 +14,5 @@
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_template_icon_group.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_template_icon_group.xml"
-    },
-    {
-        "merged": "C:\\home\\jay\\AndroidStudioProjects\\91fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout-v21\\notification_template_custom_big.xml",
-        "source": "C:\\home\\jay\\AndroidStudioProjects\\91fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout-v21\\notification_template_custom_big.xml"
     }
 ]

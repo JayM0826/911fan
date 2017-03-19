@@ -3,6 +3,7 @@ package com.netease.nim.uikit.session.actions;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.netease.nim.uikit.R;
 import com.netease.nim.uikit.session.module.Container;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -31,7 +32,7 @@ public abstract class BaseAction implements Serializable {
      */
     protected BaseAction(int iconResId, int titleId) {
         this.iconResId = iconResId;
-        this.titleId = titleId;
+        this.titleId = R.string.choose;
     }
 
     public Activity getActivity() {

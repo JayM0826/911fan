@@ -204,7 +204,7 @@
     <string name="image_show_error">图片显示异常</string>
     <string name="memory_out">内存不足</string>
     <string name="choose_from_photo_album">从手机相册选择</string>
-    <string name="choose">选取</string>
+    <string name="choose">照片</string>
     <string name="edit">编辑</string>
     <string name="crop">裁剪</string>
 

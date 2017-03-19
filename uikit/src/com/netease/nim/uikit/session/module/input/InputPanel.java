@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import com.netease.nim.uikit.common.util.string.StringUtil;
 import com.netease.nim.uikit.recent.AitHelper;
 import com.netease.nim.uikit.session.SessionCustomization;
 import com.netease.nim.uikit.session.actions.BaseAction;
+import com.netease.nim.uikit.session.actions.ImageAction;
 import com.netease.nim.uikit.session.emoji.EmoticonPickerView;
 import com.netease.nim.uikit.session.emoji.IEmoticonSelectedListener;
 import com.netease.nim.uikit.session.emoji.MoonUtil;
@@ -77,7 +79,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     protected FrameLayout textAudioSwitchLayout; // 切换文本，语音按钮布局
     protected View switchToTextButtonInInputBar;// 文本消息选择按钮
     protected View switchToAudioButtonInInputBar;// 语音消息选择按钮
-    protected View moreFuntionButtonInInputBar;// 更多消息选择按钮
+    protected View imageButtonInInputBar;// 更多消息选择按钮
     protected View sendMessageButtonInInputBar;// 发送消息按钮
     protected View emojiButtonInInputBar;// 发送消息按钮
     protected View messageInputBar;
@@ -139,8 +141,11 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
                 onTextMessageSendButtonPressed();
             } else if (v == switchToAudioButtonInInputBar) {
                 switchToAudioLayout();
-            } else if (v == moreFuntionButtonInInputBar) {
-                toggleActionPanelLayout();
+            } else if (v == imageButtonInInputBar) {
+                ImageAction imageAction = new ImageAction();
+                imageAction.setContainer(container);
+                imageAction.setIndex(1);
+                imageAction.onClick();
             } else if (v == emojiButtonInInputBar) {
                 toggleEmojiLayout();
             }
@@ -148,6 +153,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     };
     private Runnable hideAllInputLayoutRunnable;
 
+    // 这个构造方法只在下面的构造方法里使用
     public InputPanel(Container container, View view, List<BaseAction> actions, boolean isTextAudioSwitchShow) {
         this.container = container;
         this.view = view;
@@ -221,11 +227,14 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
 
     private void initViews() {
         // input bar
+        // 整体的编辑区
         messageActivityBottomLayout = (LinearLayout) view.findViewById(R.id.messageActivityBottomLayout);
+
+
         messageInputBar = view.findViewById(R.id.textMessageLayout);
         switchToTextButtonInInputBar = view.findViewById(R.id.buttonTextMessage);
         switchToAudioButtonInInputBar = view.findViewById(R.id.buttonAudioMessage);
-        moreFuntionButtonInInputBar = view.findViewById(R.id.buttonMoreFuntionInText);
+        imageButtonInInputBar = view.findViewById(R.id.buttonMoreFuntionInText);
         emojiButtonInInputBar = view.findViewById(R.id.emoji_button);
         sendMessageButtonInInputBar = view.findViewById(R.id.buttonSendMessage);
         messageEditText = (EditText) view.findViewById(R.id.editTextMessage);
@@ -258,7 +267,7 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         switchToAudioButtonInInputBar.setOnClickListener(clickListener);
         emojiButtonInInputBar.setOnClickListener(clickListener);
         sendMessageButtonInInputBar.setOnClickListener(clickListener);
-        moreFuntionButtonInInputBar.setOnClickListener(clickListener);
+        imageButtonInInputBar.setOnClickListener(clickListener);
     }
 
     private void initTextEdit() {
@@ -394,14 +403,14 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
         switchToTextButtonInInputBar.setVisibility(View.VISIBLE);
     }
 
-    // 点击“+”号按钮，切换更多布局和键盘
+    /*// 点击“+”号按钮，切换更多布局和键盘
     private void toggleActionPanelLayout() {
         if (actionPanelBottomLayout == null || actionPanelBottomLayout.getVisibility() == View.GONE) {
             showActionPanelLayout();
         } else {
             hideActionPanelLayout();
         }
-    }
+    }*/
 
     // 点击表情，切换到表情布局
     private void toggleEmojiLayout() {
@@ -519,11 +528,11 @@ public class InputPanel implements IEmoticonSelectedListener, IAudioRecordCallba
     private void checkSendButtonEnable(EditText editText) {
         String textMessage = editText.getText().toString();
         if (!TextUtils.isEmpty(StringUtil.removeBlanks(textMessage)) && editText.hasFocus()) {
-            moreFuntionButtonInInputBar.setVisibility(View.GONE);
+            imageButtonInInputBar.setVisibility(View.GONE);
             sendMessageButtonInInputBar.setVisibility(View.VISIBLE);
         } else {
             sendMessageButtonInInputBar.setVisibility(View.GONE);
-            moreFuntionButtonInInputBar.setVisibility(View.VISIBLE);
+            imageButtonInInputBar.setVisibility(View.VISIBLE);
         }
     }
 

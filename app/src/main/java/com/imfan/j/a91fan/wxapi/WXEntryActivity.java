@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.wxapi;
 
 import android.Manifest;
@@ -10,8 +27,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
+import com.google.gson.GsonBuilder;
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.myserver.User;
 import com.imfan.j.a91fan.netease.LoginNetease;
+import com.imfan.j.a91fan.retrofit.RetrofitService;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
@@ -37,8 +57,18 @@ import org.json.JSONObject;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Observer;
+import rx.schedulers.Schedulers;
 
 import static com.imfan.j.a91fan.MainApplication.api;
+import static com.imfan.j.a91fan.util.Constant.BASE_SERVER;
 import static com.imfan.j.a91fan.util.Constant.WX_APP_ID;
 import static com.imfan.j.a91fan.util.Constant.accessTokenUrl1;
 import static com.imfan.j.a91fan.util.Constant.accessTokenUrl2;
@@ -100,6 +130,10 @@ private int i = -1;
 
         requestBasicPermission();
 
+
+
+
+
         //注册微信API
         api = WXAPIFactory.createWXAPI(this, WX_APP_ID);
         api.handleIntent(getIntent(), this);
@@ -117,7 +151,7 @@ private int i = -1;
                 pDialog.setCancelable(false);
 
 
-                new CountDownTimer(200 * 7, 200) {
+                new CountDownTimer(300 * 7, 300) {
                     public void onTick(long millisUntilFinished) {
 
                         // you can change the progress bar color by ProgressHelper every 800 millis
@@ -265,10 +299,41 @@ private int i = -1;
                     unionid = response.getString("unionid");
                     Preferences.setWxUnionid(unionid);
 
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(BASE_SERVER)
+                            .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())//支持RxJava
+                            .build();
+                    RetrofitService service = retrofit.create(RetrofitService.class);
+                    LogUtil.i("WxEntryActivity:retrofit", "在自己服务器上创建用户昵称" + nickname);
+                    Observable<User> call =  service.createUser(unionid, nickname);
+                    call.subscribeOn(Schedulers.io())//请求数据的事件发生在io线程
+                    .subscribe(new Observer<User>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                            LogUtil.i("WxEntryActivity:retrofit", "在自己服务器上创建用户失败");
+                        }
+
+                        @Override
+                        public void onNext(User user) {
+                            if (user == null){
+                                LogUtil.i("WxEntryActivity:retrofit", "在自己服务器上返回的用户为空");
+                                return;
+                            }
+                            Preferences.setFanId(user.getUser().getId());
+                            LogUtil.i("WxEntryActivity:retrofit", "在自己服务器上创建用户成功" + user.getUser().getNickname());
+
+
+                        }
+                    });
+
                     Cache.setAccount(unionid.toLowerCase());
-
-
-
                     LoginNetease.getInstance().registerNetease(WXEntryActivity.this);
 
 

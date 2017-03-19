@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.main.fragment;
 
 import android.os.Bundle;
@@ -40,13 +57,7 @@ public class HomeFragment extends TFragment implements View.OnClickListener,
     private List<ChangeColorIconWithText> tabIndicators = new ArrayList<ChangeColorIconWithText>();
 
     private ChangeColorIconWithText chatRoom, message, blogWall, contact, myProfile;
-    private Observer<Integer> sysMsgUnreadCountChangedObserver = new Observer<Integer>() {
-        @Override
-        public void onEvent(Integer unreadCount) {
-            SystemMessageUnreadManager.getInstance().setSysMsgUnreadCount(unreadCount);
-            // ReminderManager.getInstance().updateContactUnreadNum(unreadCount);
-        }
-    };
+
 
     public HomeFragment() {
         setContainerId(R.id.home_container); // 在MainActivity的唯一组件里占上位置

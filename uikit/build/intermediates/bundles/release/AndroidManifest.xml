@@ -3,7 +3,7 @@
     package="com.netease.nim.uikit" >
 
     <uses-sdk
-        android:minSdkVersion="18"
+        android:minSdkVersion="21"
         android:targetSdkVersion="25" />
 
     <application>

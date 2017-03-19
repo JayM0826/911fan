@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~  * Created by J on  2017.
+  ~  * Copyright (c) 2017.  All rights reserved.
+  ~  *
+  ~  * Last modified 17-3-14 下午11:04
+  ~  *
+  ~  * Project name: 911fan
+  ~  *
+  ~  * Contact me:
+  ~  * WeChat:  worromoT_
+  ~  * Email: 2212131349@qq.com
+  ~  *
+  ~  * Warning:If my code is same as yours, then i copy you!
+  ~  */
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/multiport_notify_bar"
     android:layout_width="match_parent"

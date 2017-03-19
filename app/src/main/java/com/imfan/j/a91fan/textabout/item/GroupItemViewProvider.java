@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.textabout.item;
 
 import android.content.Intent;
@@ -51,6 +68,8 @@ public class GroupItemViewProvider
         holder.tv_create_time.setText(groupItem.createTime);
     }
 
+
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.iv_group_cover)
@@ -64,9 +83,6 @@ public class GroupItemViewProvider
 
         @BindView(R.id.group_time)
         TextView tv_create_time;
-
-
-
 
         ViewHolder(View itemView) {
             super(itemView);

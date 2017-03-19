@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
@@ -21,23 +38,14 @@ public class Blog {
     @Property(nameInDb = "CONTENT")
     private String content;
 
-    @Property(nameInDb = "TYPE")
-    private String type;
-
-    @Property(nameInDb = "IMAGE_PATH")
-    private String image_path;
-
     @NotNull
     @Property(nameInDb = "CREATE_TIME")
-    private String createTime;
+    private long createTime;
 
-    @Generated(hash = 403767426)
-    public Blog(Long id, String content, String type, String image_path,
-            @NotNull String createTime) {
+    @Generated(hash = 891513764)
+    public Blog(Long id, String content, long createTime) {
         this.id = id;
         this.content = content;
-        this.type = type;
-        this.image_path = image_path;
         this.createTime = createTime;
     }
 
@@ -61,30 +69,12 @@ public class Blog {
         this.content = content;
     }
 
-    public String getType() {
-        return this.type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getImage_path() {
-        return this.image_path;
-    }
-
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
-    }
-
-    public String getCreateTime() {
+    public long getCreateTime() {
         return this.createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
-
-
 
 }

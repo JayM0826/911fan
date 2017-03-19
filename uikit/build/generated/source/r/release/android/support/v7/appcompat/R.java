@@ -518,18 +518,18 @@ public final class R {
 		public static int abc_textfield_search_default_mtrl_alpha = 0x7f020050;
 		public static int abc_textfield_search_material = 0x7f020051;
 		public static int abc_vector_test = 0x7f020052;
-		public static int notification_action_background = 0x7f020112;
-		public static int notification_bg = 0x7f020113;
-		public static int notification_bg_low = 0x7f020114;
-		public static int notification_bg_low_normal = 0x7f020115;
-		public static int notification_bg_low_pressed = 0x7f020116;
-		public static int notification_bg_normal = 0x7f020117;
-		public static int notification_bg_normal_pressed = 0x7f020118;
-		public static int notification_icon_background = 0x7f020119;
-		public static int notification_template_icon_bg = 0x7f020128;
-		public static int notification_template_icon_low_bg = 0x7f020129;
-		public static int notification_tile_bg = 0x7f02011a;
-		public static int notify_panel_notification_icon_bg = 0x7f02011b;
+		public static int notification_action_background = 0x7f020113;
+		public static int notification_bg = 0x7f020114;
+		public static int notification_bg_low = 0x7f020115;
+		public static int notification_bg_low_normal = 0x7f020116;
+		public static int notification_bg_low_pressed = 0x7f020117;
+		public static int notification_bg_normal = 0x7f020118;
+		public static int notification_bg_normal_pressed = 0x7f020119;
+		public static int notification_icon_background = 0x7f02011a;
+		public static int notification_template_icon_bg = 0x7f020129;
+		public static int notification_template_icon_low_bg = 0x7f02012a;
+		public static int notification_tile_bg = 0x7f02011b;
+		public static int notify_panel_notification_icon_bg = 0x7f02011c;
 	}
 	public static final class id {
 		public static int action0 = 0x7f0d01b4;
@@ -550,7 +550,7 @@ public final class R {
 		public static int action_mode_bar_stub = 0x7f0d0073;
 		public static int action_mode_close_button = 0x7f0d0058;
 		public static int action_text = 0x7f0d01b3;
-		public static int actions = 0x7f0d01c1;
+		public static int actions = 0x7f0d01c0;
 		public static int activity_chooser_view_content = 0x7f0d0059;
 		public static int add = 0x7f0d0027;
 		public static int alertTitle = 0x7f0d0065;
@@ -576,7 +576,7 @@ public final class R {
 		public static int home = 0x7f0d0009;
 		public static int homeAsUp = 0x7f0d001c;
 		public static int icon = 0x7f0d005e;
-		public static int icon_group = 0x7f0d01c2;
+		public static int icon_group = 0x7f0d01c1;
 		public static int ifRoom = 0x7f0d0045;
 		public static int image = 0x7f0d005b;
 		public static int info = 0x7f0d01be;
@@ -597,7 +597,7 @@ public final class R {
 		public static int progress_circular = 0x7f0d000c;
 		public static int progress_horizontal = 0x7f0d000d;
 		public static int radio = 0x7f0d0070;
-		public static int right_icon = 0x7f0d01c0;
+		public static int right_icon = 0x7f0d01c2;
 		public static int right_side = 0x7f0d01bb;
 		public static int screen = 0x7f0d0029;
 		public static int scrollIndicatorDown = 0x7f0d006a;

@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-15 上午1:02
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 apply plugin: 'com.android.application'
 
 android {
@@ -5,7 +22,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.imfan.j.a91fan"
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.1"
@@ -57,7 +74,6 @@ dependencies {
     })
     //RxJava的依赖包（我使用的最新版本）
     //RxAndroid的依赖包
-    compile 'com.hudomju:swipe-to-dismiss-undo:1.0'
     compile 'com.hudomju:swipe-to-dismiss-undo:1.0'
     compile 'com.android.support:design:25.1.0'
     compile 'com.loopj.android:android-async-http:1.4.9'

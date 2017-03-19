@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.main.activity;
 
 import android.content.Context;
@@ -78,7 +95,6 @@ public class MainActivity extends UI {
 
         //注册一个监听连接状态的listener
         EMClient.getInstance().addConnectionListener(new MyConnectionListener());
-        EMClient.getInstance().groupManager().loadAllGroups();
         EMClient.getInstance().chatManager().loadAllConversations();
         registerSystemMessageObservers(true);
         requestSystemMessageUnreadCount();
@@ -115,7 +131,7 @@ public class MainActivity extends UI {
 
 
     private void loginHuanxin() {
-        Thread thread = new Thread(){
+        Thread loginthread = new Thread(){
             @Override
             public void run() {
                 super.run();
@@ -138,7 +154,7 @@ public class MainActivity extends UI {
                 });
             }
         };
-        thread.start();
+        loginthread.start();
     }
 
 

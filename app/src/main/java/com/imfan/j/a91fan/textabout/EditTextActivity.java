@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-16 上午8:45
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.textabout;
 
 import android.app.ActivityManager;
@@ -17,6 +34,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.ScreenUtils;
+import com.bumptech.glide.Glide;
 import com.imfan.j.a91fan.MainApplication;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.entity.Article;
@@ -64,8 +82,6 @@ import static com.blankj.utilcode.utils.TimeUtils.getNowTimeString;
 //          ┗━┻━┛   ┗━┻━┛
 
 
-
-
 public class EditTextActivity extends AppCompatActivity {
 
 
@@ -109,8 +125,6 @@ public class EditTextActivity extends AppCompatActivity {
     }
 
 
-
-
     private void initView() {
 
         screenWidth = ScreenUtils.getScreenWidth();
@@ -133,89 +147,15 @@ public class EditTextActivity extends AppCompatActivity {
         groupID = getIntent().getLongExtra("groupID", 0);
 
 
-
-        if (daoType == DaoType.DRAFT){
-            draftDao = ((MainApplication)getApplication()).getDaoSession().getDraftDao();
-            /*et_content.post(new Runnable() {
-                @Override
-                public void run() {
-                    //showEditData(note.getContent());
-                    et_content.clearAllLayout();
-                    showDataSync(note.getContent());
-                }
-            });*/
-        } else if(daoType == DaoType.ARTICLE) {
-            articleDao = ((MainApplication)getApplication()).getDaoSession().getArticleDao();
+        if (daoType == DaoType.DRAFT) {
+            draftDao = ((MainApplication) getApplication()).getDaoSession().getDraftDao();
+        } else if (daoType == DaoType.ARTICLE) {
+            articleDao = ((MainApplication) getApplication()).getDaoSession().getArticleDao();
         }
         tv_time.setText(getNowTimeString());
         tv_group.setText(groupName);
     }
 
-    /**
-     * 异步方式显示数据
-     * @param html
-     */
-    /*private void showDataSync(final String html){
-        loadingDialog.show();
-
-        subsLoading = Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                showEditData(subscriber, html);
-            }
-        })
-                .onBackpressureBuffer()
-                .subscribeOn(Schedulers.io())//生产事件在io
-                .observeOn(AndroidSchedulers.mainThread())//消费事件在UI线程
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onCompleted() {
-                        loadingDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        loadingDialog.dismiss();
-                        CustomToast.show(EditTextActivity.this, "解析错误：图片不存在或已损坏");
-                    }
-
-                    @Override
-                    public void onNext(String text) {
-                        if (text.contains(SDCardUtil.getPictureDir())){
-                            et_content.addImageViewAtIndex(et_content.getLastIndex(), text);
-                        } else {
-                            et_content.addEditTextAtIndex(et_content.getLastIndex(), text);
-                        }
-                    }
-                });
-    }*/
-
-    /**
-     * 显示数据
-     */
-    /*protected void showEditData(Subscriber<? super String> subscriber, String html) {
-        try{
-            List<String> textList = StringUtils.cutStringByImgTag(html);
-            for (int i = 0; i < textList.size(); i++) {
-                String text = textList.get(i);
-                if (text.contains("<img")) {
-                    String imagePath = StringUtils.getImgSrc(text);
-                    if (new File(imagePath).exists()) {
-                        subscriber.onNext(imagePath);
-                    } else {
-                        showToast("图片"+i+"已丢失，请重新插入！");
-                    }
-                } else {
-                    subscriber.onNext(text);
-                }
-
-            }
-            subscriber.onCompleted();
-        }catch (Exception e){
-            e.printStackTrace();
-            subscriber.onError(e);
-        }
-    }*/
 
     /**
      * 将所有数据进行转换
@@ -265,6 +205,7 @@ public class EditTextActivity extends AppCompatActivity {
 
     /**
      * 处理选择的图片
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -274,42 +215,46 @@ public class EditTextActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (data != null) {
-               if (requestCode == PhotoPicker.REQUEST_CODE){
+                if (requestCode == PhotoPicker.REQUEST_CODE) {
                     //异步方式插入图片
                     insertImagesSync(data);
                 }
             }
         }
     }
+
     /**
      * 异步方式插入图片
+     *
      * @param data
      */
-    private void insertImagesSync(final Intent data){
+    private void insertImagesSync(final Intent data) {
 
         final SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
                 .setTitleText("插入图片").setContentText("正在努力插入图片，请稍等");
         sweetAlertDialog.show();
 
-            Observable.create(new Observable.OnSubscribe<String>() {
+        Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(rx.Subscriber<? super String> subscriber) {
-                try{
+                try {
                     et_content.measure(0, 0);
                     int width = ScreenUtils.getScreenWidth();
                     int height = ScreenUtils.getScreenHeight();
+                    // photopicker获取的是路径，然后自己再去路径去照片
                     ArrayList<String> photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
                     //可以同时插入多张图片
                     for (String imagePath : photos) {
                         //Log.i("NewActivity", "###path=" + imagePath);
-                        Bitmap bitmap = getBitmap(imagePath, width, height);//压缩图片
+
+                        Bitmap bitmap = getBitmap(imagePath);//压缩图片
                         //bitmap = BitmapFactory.decodeFile(imagePath);
                         imagePath = SDCardUtil.saveToSdCard(bitmap);
                         //Log.i("NewActivity", "###imagePath="+imagePath);
                         subscriber.onNext(imagePath);
                     }
                     subscriber.onCompleted();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     subscriber.onError(e);
                 }
@@ -346,7 +291,7 @@ public class EditTextActivity extends AppCompatActivity {
     /**
      * 调用图库选择
      */
-    private void pickPhoto(){
+    private void pickPhoto() {
         PhotoPicker.builder()
                 .setPhotoCount(9)//可选择图片数量
                 .setShowCamera(true)//是否显示拍照按钮
@@ -365,14 +310,14 @@ public class EditTextActivity extends AppCompatActivity {
         // 内容
         String noteContent = getEditData();
 
-        if(noteTitle.equals("") || noteTitle == null){
+        if (noteTitle.equals("") || noteTitle == null) {
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                     .setConfirmText("OK").setContentText("可能忘了填写标题")
                     .setTitleText("Warning..").show();
             return;
         }
 
-        if(noteContent.equals("") || noteTitle == null){
+        if (noteContent.equals("") || noteTitle == null) {
             new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
                     .setConfirmText("OK").setContentText("可能忘了写笔记")
                     .setTitleText("Warning..").show();
@@ -380,12 +325,11 @@ public class EditTextActivity extends AppCompatActivity {
         }
 
 
-
-        if (daoType == DaoType.ARTICLE){ // 存储在Article表内
-            Article article = new Article(null, null, noteTitle, noteContent,  groupID, groupName, "html", getNowTimeString(), getNowTimeString("yyyy-MM-dd"));
+        if (daoType == DaoType.ARTICLE) { // 存储在Article表内
+            Article article = new Article(null, null, noteTitle, noteContent, groupID, groupName, "html", getNowTimeString(), getNowTimeString("yyyy-MM-dd"));
             articleDao.insert(article);
 
-        }else {// 存储在Draft表内
+        } else {// 存储在Draft表内
             Draft draft = new Draft(null, null, noteTitle, noteContent, groupID, groupName, "html", getNowTimeString(), getNowTimeString("yyyy-MM-dd"));
             draftDao.insert(draft);
         }
@@ -412,7 +356,7 @@ public class EditTextActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.insert_photo:
                 pickPhoto();
                 break;
@@ -428,13 +372,14 @@ public class EditTextActivity extends AppCompatActivity {
         super.onStop();
         //如果APP处于后台，或者手机锁屏，则启用密码锁
         if (isAppOnBackground(getApplicationContext()) ||
-                isScreenLock()){
+                isScreenLock()) {
             saveNoteData();//处于后台时保存数据
         }
     }
 
     /**
      * 判断应用是否处于后台
+     *
      * @param context
      * @return
      */

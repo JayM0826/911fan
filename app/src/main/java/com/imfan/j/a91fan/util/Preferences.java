@@ -1,3 +1,20 @@
+/*
+ *
+ *  * Created by J on  2017.
+ *  * Copyright (c) 2017.  All rights reserved.
+ *  *
+ *  * Last modified 17-3-13 上午11:12
+ *  *
+ *  * Project name: 911fan
+ *  *
+ *  * Contact me:
+ *  * WeChat:  worromoT_
+ *  * Email: 2212131349@qq.com
+ *  *
+ *  * Warning:If my code is same as yours, then i copy you!
+ *
+ */
+
 package com.imfan.j.a91fan.util;
 
 import android.content.Context;
@@ -37,12 +54,12 @@ public class Preferences {
     private static String WX_HEADIMGURL = "headimgurl";
     private static String WX_UNIONID = "unionid";
 
-    public static String getFanId(){
-        return getString(FAN_ID);
+    public static long getFanId(){
+        return getLong(FAN_ID);
     }
 
-    public static void setFanId(String fanId){
-        saveString(FAN_ID, fanId);
+    public static void setFanId(long fanId){
+        saveLong(FAN_ID, fanId);
     }
 
     public static String getUserAccount() {
@@ -195,8 +212,19 @@ public class Preferences {
         editor.commit();
     }
 
+    // 保存string类型的数据
+    private static void saveLong(String key, long value) {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putLong(key, value);
+        editor.commit();
+    }
+
     private static int getInt(String key) {
         return getSharedPreferences().getInt(key, 0);
+    }
+
+    private static long getLong(String key) {
+        return getSharedPreferences().getLong(key, 0);
     }
 
 

@@ -1,8 +1,10 @@
 package com.netease.nim.uikit.session.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,13 +55,34 @@ public class MessageFragment extends TFragment implements ModuleProxy {
             if (messages == null || messages.isEmpty()) {
                 return;
             }
-
             messageListPanel.onIncomingMessage(messages);
             // sendMsgReceipt(); // 发送已读回执
         }
     };
     private View rootView;
     private SessionCustomization customization;
+
+    /**
+     * ***************************** life cycle *******************************
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        /*加载的是整个会话界面。消息区和编辑区*/
+        rootView = inflater.inflate(R.layout.nim_message_fragment, container, false);
+        return rootView;
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -68,23 +91,8 @@ public class MessageFragment extends TFragment implements ModuleProxy {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.nim_message_fragment, container, false);
-        return rootView;
-    }
-
-    /**
-     * ***************************** life cycle *******************************
-     */
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE,
-                SessionTypeEnum.None);
-        inputPanel.onPause();
-        messageListPanel.onPause();
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -95,12 +103,28 @@ public class MessageFragment extends TFragment implements ModuleProxy {
         getActivity().setVolumeControlStream(AudioManager.STREAM_VOICE_CALL); // 默认使用听筒播放
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE,
+                SessionTypeEnum.None);
+        // 两大面板
+        inputPanel.onPause();
+        messageListPanel.onPause();
+    }
+
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         messageListPanel.onDestroy();
         registerObservers(false);
     }
+
+    // 以上生命周期是按照顺序来写的
 
     public boolean onBackPressed() {
         if (inputPanel.collapse(true)) {
@@ -125,6 +149,7 @@ public class MessageFragment extends TFragment implements ModuleProxy {
         customization = (SessionCustomization) getArguments().getSerializable(Extras.EXTRA_CUSTOMIZATION);
         Container container = new Container(getActivity(), sessionId, sessionType, this);
 
+        // 两大布局，一个消息区，一个底部编辑区
         if (messageListPanel == null) {
             messageListPanel = new MessageListPanel(container, rootView, anchor, false, false);
         } else {
@@ -140,6 +165,7 @@ public class MessageFragment extends TFragment implements ModuleProxy {
 
         registerObservers(true);
 
+        // 自定义的设置背景
         if (customization != null) {
             messageListPanel.setChattingBackground(customization.backgroundUri, customization.backgroundColor);
         }
@@ -227,17 +253,4 @@ public class MessageFragment extends TFragment implements ModuleProxy {
         return actions;
     }
 
-    /**
-     * 发送已读回执
-     */
-    private void sendMsgReceipt() {
-        messageListPanel.sendReceipt();
-    }
-
-    /**
-     * 收到已读回执
-     */
-    public void receiveReceipt() {
-        messageListPanel.receiveReceipt();
-    }
 }
