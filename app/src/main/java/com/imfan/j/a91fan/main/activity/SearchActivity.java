@@ -52,13 +52,12 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.search.model.MsgIndexRecord;
 
 /**
- * 目前只用来搜索用户`
+ * 目前只用来搜索网易SDK的一切
  */
 public class SearchActivity extends UI implements AdapterView.OnItemClickListener {
 
     static public boolean hasData;
 
-    // 第一个搜索用户，第二个不搜索用户
     IContactDataProvider dataProvider = new ContactDataProvider(ItemTypes.USER,ItemTypes.TEAM_UNJOIN, ItemTypes.TEAM, ItemTypes.MSG);
     private ListView lvContacts;
     private SearchView searchView;

@@ -17,23 +17,25 @@
 
 package com.imfan.j.a91fan.textabout;
 
-import android.content.Context;
-import android.os.Looper;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.myserver.CommentOfServer;
 import com.imfan.j.a91fan.myserver.User;
 import com.imfan.j.a91fan.retrofit.RetrofitServiceInstance;
+import com.imfan.j.a91fan.textabout.item.BlogItem;
 import com.imfan.j.a91fan.textabout.item.CommentItem;
 import com.imfan.j.a91fan.textabout.item.CommentItemViewProvider;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.netease.nim.uikit.common.util.log.LogUtil;
+import com.netease.nim.uikit.common.util.sys.NetworkUtil;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,18 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class CommentListActivity extends AppCompatActivity {
+    // 实现一个比较器
+    Comparator<Object> comparator = new Comparator<Object>(){
+        public int compare(Object blog1, Object blog2) {
+            if (((CommentItem)blog1).getTime() <((CommentItem)blog2).getTime()){
+                return 1;
+            }else if (((CommentItem)blog1).getTime() == ((CommentItem)blog2).getTime()){
+                return 0;
+            }else {
+                return -1;
+            }
+        }
+    };
 
     @BindView(R.id.comment_list)
     RecyclerView comment_list;
@@ -63,6 +77,10 @@ public class CommentListActivity extends AppCompatActivity {
      * 就是直接服务器请求数据，本地不进行缓存
      */
     private void initData() {
+        if (!NetworkUtil.isNetAvailable(this)) {
+            CustomToast.show(this, R.string.network_is_not_available);
+            return;
+        }
 
         RetrofitServiceInstance.getInstance().
                 readCommentFromServer(getIntent().getLongExtra("blogID", 0))
@@ -81,7 +99,7 @@ public class CommentListActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(CommentOfServer commentOfServer) { // 成功时回调,这就是我们想要的;
+                    public void onNext(final CommentOfServer commentOfServer) { // 成功时回调,这就是我们想要的;
                         if (commentOfServer.getStatus() == 200) {
                             LogUtil.i("成功", "成功获取某个blog的所有评论:" + commentOfServer.getMessage());
                             if (commentOfServer.getObject().size() == 0) {
@@ -100,7 +118,7 @@ public class CommentListActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onCompleted() {
                                                     // 无论成功与失败，这里都会调用，只要onnext执行了，这里就一定会执行
-                                                    // LogUtil.e("获取Id的昵称成功：", o.getFanId() + "");
+                                                    LogUtil.e("获取Id的昵称过程完成：", "完成仅代表通信成功，不代表正确获取");
                                                 }
 
                                                 @Override
@@ -118,7 +136,8 @@ public class CommentListActivity extends AppCompatActivity {
                                                         if (user.getUser() == null){
                                                             LogUtil.e("获取的UsergetUser()为空", "原来只是内部的真实user为空");
                                                         }else {
-                                                            items.add(new CommentItem(o.getContent(), user.getUser().getNickname(), o.getUpdateTime()));
+                                                            items.add(new CommentItem(o.getContent(), user.getUser().getNickname(), o.getUpdateTime(), user.getUser().getWxUnion().toLowerCase()));
+                                                            Collections.sort(items, comparator);
                                                             adapter.notifyDataSetChanged();
                                                         }
 
@@ -140,8 +159,6 @@ public class CommentListActivity extends AppCompatActivity {
         actionBar.setTitle("所有评论");
         ButterKnife.bind(this);
         items = new Items();
-
-
         adapter = new MultiTypeAdapter(items);
         adapter.register(CommentItem.class, new CommentItemViewProvider());
         comment_list.setLayoutManager(new LinearLayoutManager(this));

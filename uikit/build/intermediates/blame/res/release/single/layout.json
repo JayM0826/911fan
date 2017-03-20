@@ -4,16 +4,16 @@
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\notification_template_media_custom.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_advanced_team_member_info_layout.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\layout\\nim_advanced_team_member_info_layout.xml"
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_popup_menu_black_layout.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\layout\\nim_popup_menu_black_layout.xml"
     },
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_screen_content_include.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\abc_screen_content_include.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_popup_menu_black_layout.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\layout\\nim_popup_menu_black_layout.xml"
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_advanced_team_member_info_layout.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\layout\\nim_advanced_team_member_info_layout.xml"
     },
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_select_dialog_material.xml",
@@ -32,28 +32,28 @@
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_title_item.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\abc_action_bar_title_item.xml"
-    },
-    {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_contact_text_item.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\layout\\nim_contact_text_item.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\abc_activity_chooser_view.xml"
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\abc_action_bar_title_item.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_item_material.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\select_dialog_item_material.xml"
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_read_recipt_layout.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\layout\\nim_read_recipt_layout.xml"
     },
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_advanced_team_info_divider_item.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\layout\\nim_advanced_team_info_divider_item.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_read_recipt_layout.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\layout\\nim_read_recipt_layout.xml"
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\layout\\abc_activity_chooser_view.xml"
     },
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\layout\\nim_message_item_video.xml",

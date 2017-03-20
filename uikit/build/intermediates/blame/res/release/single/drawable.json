@@ -24,36 +24,36 @@
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\drawable\\abc_text_cursor_material.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_message_button_bottom_audio_selector.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_message_button_bottom_audio_selector.xml"
-    },
-    {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_ic_clear_material.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\drawable\\abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_message_button_bottom_audio_selector.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_message_button_bottom_audio_selector.xml"
     },
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_team_create_btn_selector.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_team_create_btn_selector.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_switch_thumb_material.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\drawable\\abc_switch_thumb_material.xml"
-    },
-    {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_message_item_left_selector.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_message_item_left_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\abc_switch_thumb_material.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\drawable\\abc_switch_thumb_material.xml"
     },
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\notification_bg.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\drawable\\notification_bg.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_recent_contact_sticky_selecter.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_recent_contact_sticky_selecter.xml"
-    },
-    {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_emoji_item_selector.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_emoji_item_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_recent_contact_sticky_selecter.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_recent_contact_sticky_selecter.xml"
     },
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_message_unread_news_icon_selector.xml",
@@ -148,12 +148,12 @@
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.0.0\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_bottom_divider_match_parent_selector.xml",
-        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_bottom_divider_match_parent_selector.xml"
-    },
-    {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_message_plus_video_selector.xml",
         "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_message_plus_video_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\nim_bottom_divider_match_parent_selector.xml",
+        "source": "C:\\Users\\J\\Desktop\\911fan\\uikit\\res\\drawable\\nim_bottom_divider_match_parent_selector.xml"
     },
     {
         "merged": "C:\\Users\\J\\Desktop\\911fan\\uikit\\build\\intermediates\\res\\merged\\release\\drawable\\design_fab_background.xml",

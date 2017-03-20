@@ -19,12 +19,14 @@ package com.imfan.j.a91fan.retrofit;
 
 import com.imfan.j.a91fan.myserver.CommentOfServer;
 import com.imfan.j.a91fan.myserver.Common;
-import com.imfan.j.a91fan.myserver.MyBlogOfServer;
+import com.imfan.j.a91fan.myserver.BlogOfServer;
+import com.imfan.j.a91fan.myserver.SuccessOfServer;
 import com.imfan.j.a91fan.myserver.User;
 
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -45,7 +47,7 @@ public interface RetrofitService {
 
     @Headers("Content-type:application/json")
     @GET("blog/myblog.action")
-    Observable<MyBlogOfServer> getMyBlogFromServer(@Query("fanID") long fanID);
+    Observable<BlogOfServer> getMyBlogFromServer(@Query("fanID") long fanID);
 
     /**
      * 读取某个blog下面的所有评论
@@ -62,5 +64,25 @@ public interface RetrofitService {
     @GET("user/retrieve.get")
     Observable<User> getUserFromServerByFanID(@Query("id") long id);
 
+
+    @Headers("Content-type:application/json")
+    @GET("blog/all.action")
+    Observable<BlogOfServer> getAllBlogFromServer();
+
+    @Headers("Content-type:application/json")
+    @PUT("user/update.put")
+    Observable<SuccessOfServer> updateMyNickname(@Query("id") long id,
+                                                 @Query("nickname") String nickname);
+
+
+    @Headers("Content-type:application/json")
+    @GET("blog/refresh.action")
+    Observable<BlogOfServer> refreshBlog(@Query("updateTime") long updateTime);
+
+
+    //
+    @Headers("Content-type:application/json")
+    @GET("blog/getbynetease.action")
+    Observable<BlogOfServer> getBlogByWxunion(@Query("wxunion") String wxunion);
 
 }

@@ -78,7 +78,7 @@ public class LoginNetease {
         checkSum = CheckSumBuilder.getCheckSum(NetEaseAPP_SECRET, nonce, curTime);
 
         RequestParams params = new RequestParams();
-        params.add("accid", "fan" + Preferences.getFanId());
+        params.add("accid", Preferences.getUserAccount());
         params.add("name", Preferences.getWxNickname());
         // params.add("token", "1"); 由网易自动生成
         addHeaders();
@@ -89,6 +89,7 @@ public class LoginNetease {
             public void onStart() {
                 // called before request is started
                 LogUtil.i("Register：", "网易开始注册");
+
             }
 
             @Override

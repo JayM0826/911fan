@@ -103,7 +103,9 @@ dependencies {
     compile 'com.github.sendtion:XRichText:1.1'
     compile 'me.iwf.photopicker:PhotoPicker:0.9.5@aar'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.github.liuguangqiang.swipeback:library:1.0.2@aar'
 }
 

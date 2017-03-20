@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ /*
   ~  * Created by J on  2017.
   ~  * Copyright (c) 2017.  All rights reserved.
@@ -16,12 +15,56 @@
   ~  */
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <com.yalantis.phoenix.PullToRefreshView
+        android:id="@+id/pull_to_refresh_blog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello"/>
+        >
 
-</LinearLayout>
+        <com.imfan.j.a91fan.textabout.ScrollRecyclerView
+            android:id="@+id/list_blog"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.yalantis.phoenix.PullToRefreshView>
+
+    <LinearLayout
+        android:id="@+id/layout_blog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:minHeight="50dp"
+        android:orientation="horizontal"
+        android:background="@color/material_deep_teal_20"
+
+        >
+
+        <EditText
+            android:id="@+id/edit_blog"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:hint="@string/new_blog"
+            android:minHeight="50dp"
+            android:textSize="@dimen/text_size_24" />
+
+        <TextView
+            android:id="@+id/post_blog"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="发表" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -43,11 +43,15 @@ import android.widget.Toast;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.constant.UserConstant;
 import com.imfan.j.a91fan.contact.helper.UserUpdateHelper;
+import com.imfan.j.a91fan.myserver.SuccessOfServer;
+import com.imfan.j.a91fan.retrofit.RetrofitServiceInstance;
 import com.imfan.j.a91fan.util.CustomToast;
+import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.cache.FriendDataCache;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.ui.widget.ClearableEditTextWithIcon;
+import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.sys.NetworkUtil;
 import com.netease.nim.uikit.common.util.sys.TimeUtil;
 import com.netease.nim.uikit.model.ToolBarOptions;
@@ -65,6 +69,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class UserProfileEditItemActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -343,6 +351,38 @@ public class UserProfileEditItemActivity extends AppCompatActivity implements Vi
                 if (key == UserConstant.KEY_NICKNAME && TextUtils.isEmpty(editText.getText().toString().trim())) {
                     CustomToast.show(UserProfileEditItemActivity.this, R.string.nickname_empty);
                     break;
+                }
+
+                if (key == UserConstant.KEY_NICKNAME){
+                    LogUtil.i("上传昵称到自己服务器", editText.getText().toString());
+                    // 并且上传到自己的服务器
+                    RetrofitServiceInstance.getInstance()
+                            .updateMyNickname(Preferences.getFanId(), editText.getText().toString())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .onBackpressureBuffer()
+                            .subscribeOn(Schedulers.io())
+                            .subscribe(new Subscriber<SuccessOfServer>() {
+                                @Override
+                                public void onCompleted() {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    LogUtil.e("更新昵称失败", "在自己服务器上的昵称更新失败");
+                                }
+
+                                @Override
+                                public void onNext(SuccessOfServer successOfServer) {
+
+                                    if (successOfServer.getStatus() == 200){
+                                        LogUtil.i("更新昵称成功", "在自己服务器上的昵称更新成功");
+                                        Preferences.setWxNickname(editText.getText().toString());
+                                    }else {
+                                        LogUtil.i("更新昵称失败", "在自己服务器上的昵称更新失败");
+                                    }
+                                }
+                            });
                 }
                 if (key == UserConstant.KEY_BIRTH) {
                     update(birthText.getText().toString());

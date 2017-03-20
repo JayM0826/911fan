@@ -25,14 +25,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.TimeUtils;
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
 import com.imfan.j.a91fan.textabout.CommentListActivity;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.common.util.sys.TimeUtil;
+import com.netease.nim.uikit.contact.core.item.ContactItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,8 +68,9 @@ public class BlogItemViewProvider
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull BlogItem blogItem) {
         holder.blog_content.setText(blogItem.getContent());
         holder.time.setText(TimeUtils.millis2String(blogItem.getTime()));
-        holder.nickname.setText(Preferences.getWxNickname());
+        holder.nickname.setText(blogItem.getNickname());
         holder.blogID = (long)blogItem.getServerBlogID();
+        holder.account = blogItem.getWxunion();
     }
 
       /*一般非静态外部类可以随意访问其外部类的成员变量以及方法（包括声明为private的方法），
@@ -76,6 +80,15 @@ public class BlogItemViewProvider
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         long blogID;
+        String account;
+
+        @BindView(R.id.layout_avatar_nick)
+        RelativeLayout layout_avatar_nick;
+
+        @OnClick(R.id.layout_avatar_nick)
+        void goToUserDetail(){
+            UserProfileActivity.start(context, account);
+        }
 
         @BindView(R.id.func_up)
         ImageView func_up;

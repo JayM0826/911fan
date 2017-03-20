@@ -137,15 +137,7 @@ public class MyProfileFragment extends MainFragment implements View.OnClickListe
                 break;
             case R.id.blog:
                 intent = new Intent(getContext(), BlogListActivity.class);
-               /* bundle = null;
-                bundle = new Bundle();
-                bundle.putSerializable("type", DaoType.BLOG);
 
-                intent.putExtras(bundle);
-                intent.putExtra("title", getResources().getString(R.string.user_blog));
-
-                CustomToast.show(getContext(), "此功能并未开发");
-                intent = null;*/
                 startActivity(intent);
                 break;
             case R.id.following:

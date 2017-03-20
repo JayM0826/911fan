@@ -21,9 +21,19 @@ package com.imfan.j.a91fan.textabout.item;
  * Created by J on 2017/3/19 0019.
  */
 public class CommentItem {
+    public String getWxunion() {
+        return wxunion;
+    }
 
-    public CommentItem(String content, String nickname, long time) {
+    public void setWxunion(String wxunion) {
+        this.wxunion = wxunion;
+    }
+
+    private String wxunion;
+
+    public CommentItem(String content, String nickname, long time, String wxunion) {
         this.content = content;
+        this.wxunion = wxunion;
         this.nickname = nickname;
         this.time = time;
     }

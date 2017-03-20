@@ -44,6 +44,8 @@ import android.widget.Toast;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.constant.UserConstant;
 import com.imfan.j.a91fan.session.SessionHelper;
+import com.imfan.j.a91fan.textabout.BlogListActivity;
+import com.imfan.j.a91fan.textabout.UserBlogListActivity;
 import com.imfan.j.a91fan.util.Cache;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Extras;
@@ -397,10 +399,24 @@ public class UserProfileActivity extends AppCompatActivity {
         nickText.setText("昵称：" + NimUserInfoCache.getInstance().getUserName(account));
         
         blogLayout.setVisibility(View.VISIBLE);
-        blogText.setText("暂时没有动态");
+        blogText.setText("查看动态请点击");
+        blogLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                if (account.toLowerCase().equals(Preferences.getUserAccount().toLowerCase())){
+                    intent = new Intent(UserProfileActivity.this, BlogListActivity.class);
+                }else{
+                    intent = new Intent(UserProfileActivity.this, UserBlogListActivity.class);
+                    intent.putExtra("account", account);
+                    intent.putExtra("nickname", NimUserInfoCache.getInstance().getUserName(account));
+                }
+                startActivity(intent);
+            }
+        });
 
         articleLayout.setVisibility(View.VISIBLE);
-        articleText.setText("暂时没有文章");
+        articleText.setText("查看用户文章功能并未开放");
 
     }
 

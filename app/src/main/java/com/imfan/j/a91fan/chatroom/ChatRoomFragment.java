@@ -176,7 +176,7 @@ public class ChatRoomFragment extends Fragment {
                     @Override
                     public void run() {
                         mRefreshRoom.setRefreshing(false);
-                        CustomToast.show(getContext(), "刷新成功");
+                        CustomToast.show(getContext(), "刷新了一下，看看有房间了吗");
                         if (items.isEmpty())
                             initData();
                     }

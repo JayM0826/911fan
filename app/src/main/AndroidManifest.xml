@@ -274,8 +274,12 @@
         <activity
             android:name=".textabout.BlogListActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".textabout.CommentListActivity"
+        <activity
+            android:name=".textabout.CommentListActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".textabout.UserBlogListActivity"
             android:theme="@style/AppTheme"></activity>
+
     </application>
 
 </manifest>

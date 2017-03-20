@@ -23,9 +23,29 @@ package com.imfan.j.a91fan.textabout.item;
  */
 public class BlogItem {
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    private String nickname;
+
     private String content;
     private long time;
     private int serverBlogID;
+
+    public String getWxunion() {
+        return wxunion;
+    }
+
+    public void setWxunion(String wxunion) {
+        this.wxunion = wxunion;
+    }
+
+    private String wxunion;
 
     public int getServerBlogID() {
         return serverBlogID;
@@ -36,11 +56,12 @@ public class BlogItem {
     }
 
 
-
-    public BlogItem(String content, long time, int blogID) {
+    public BlogItem(String content, long time, int blogID, String nickname, String wxunion) {
         this.content = content;
         this.time = time;
+        this.wxunion = wxunion;
         this.serverBlogID = blogID;
+        this.nickname = nickname;
 
     }
 

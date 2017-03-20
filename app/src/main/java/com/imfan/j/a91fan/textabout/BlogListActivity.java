@@ -19,7 +19,6 @@ package com.imfan.j.a91fan.textabout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,22 +27,29 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.blankj.utilcode.utils.KeyboardUtils;
 import com.imfan.j.a91fan.MainApplication;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.entity.Blog;
 import com.imfan.j.a91fan.entity.BlogDao;
+import com.imfan.j.a91fan.myserver.BlogOfServer;
 import com.imfan.j.a91fan.myserver.Common;
-import com.imfan.j.a91fan.myserver.MyBlogOfServer;
 import com.imfan.j.a91fan.retrofit.RetrofitServiceInstance;
 import com.imfan.j.a91fan.textabout.item.BlogItem;
 import com.imfan.j.a91fan.textabout.item.BlogItemViewProvider;
-import com.imfan.j.a91fan.uiabout.CustomEditText;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 
+import java.util.Collections;
+import java.util.Comparator;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
@@ -56,31 +62,47 @@ import static com.blankj.utilcode.utils.StringUtils.isEmpty;
 
 public class BlogListActivity extends AppCompatActivity {
 
+    // 实现一个比较器
+    Comparator<Object> comparator = new Comparator<Object>() {
+        public int compare(Object blog1, Object blog2) {
+            if (((BlogItem) blog1).getTime() < ((BlogItem) blog2).getTime()) {
+                return 1;
+            } else if (((BlogItem) blog1).getTime() == ((BlogItem) blog2).getTime()) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+    };
+
     // 适配器
     public MultiTypeAdapter multiTypeAdapter;
 
     // 每一条内容
     Items items;
-
-
+    @BindView(R.id.list_blog)
     ScrollRecyclerView blog_list;
 
+    @BindView(R.id.new_blog)
+    EditText newBlog;
 
-    CustomEditText blog_new;
+    @BindView(R.id.post_blog)
+    TextView blog_new;
+
+    @BindView(R.id.layout_blog)
+    LinearLayout layoutBlog;
+
+    @OnClick(R.id.post_blog)
+    void postBlog(){
+        doPostBlog();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_list);
-        blog_list = (ScrollRecyclerView) findViewById(R.id.list_blog);
-        blog_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtil.i("列表的的点击事件", "键盘应该隐藏");
-                KeyboardUtils.hideSoftInput(BlogListActivity.this);
-            }
-        });
-        blog_new = (CustomEditText) findViewById(R.id.new_blog);
+        ButterKnife.bind(this);
+
         initView();
 
     }
@@ -94,28 +116,31 @@ public class BlogListActivity extends AppCompatActivity {
         items = new Items();
 
         BlogDao blogDao = ((MainApplication) getApplication()).getDaoSession().getBlogDao();
-        if (blogDao.loadAll().size() == 0) {
+        if (blogDao.loadAll().size() == 0) { // 本地数据库无动态情况下，可能是没有动态，也可能是重新安装了,这时候去服务器拉取
             sweetDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
                     .setTitleText("加载中").setContentText("Ooops,本地数据库没有动态，正在快马去服务器拉取");
+            sweetDialog.show();
             getMyBlogFromServer();
 
-        } else {
+        } else { // 直接加载本地的东西，本地和服务器是同步的
             for (Blog blog : blogDao.loadAll()) {
-                items.add(new BlogItem(blog.getContent(), blog.getCreateTime(), blog.getBlogID()));
+                items.add(new BlogItem(blog.getContent(), blog.getCreateTime(), blog.getBlogID(), Preferences.getWxNickname(), Preferences.getUserAccount()));
+                Collections.sort(items, comparator);
             }
         }
 
 
         multiTypeAdapter = new MultiTypeAdapter(items);
         multiTypeAdapter.register(BlogItem.class, new BlogItemViewProvider(this));
+        Collections.sort(items, comparator);
         blog_list.setLayoutManager(new LinearLayoutManager(this));
         blog_list.setAdapter(multiTypeAdapter);
-        blog_new.clearFocus();
-        blog_new.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        newBlog.clearFocus();
+        newBlog.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    KeyboardUtils.showSoftInput(blog_new);
+                    KeyboardUtils.showSoftInput(newBlog);
                 } else {
                     KeyboardUtils.hideSoftInput(BlogListActivity.this);
                 }
@@ -131,18 +156,20 @@ public class BlogListActivity extends AppCompatActivity {
 
             @Override
             public void onScrollUp(ScrollRecyclerView recycler, int dy) {
-                blog_new.setVisibility(View.VISIBLE);
+                layoutBlog.setVisibility(View.VISIBLE);
                 KeyboardUtils.hideSoftInput(BlogListActivity.this);
             }
 
             @Override
             public void onScrollToBottom() {
+                // CustomToast.show(BlogListActivity.this, "谁都有底线，我也不例外");
+                layoutBlog.setVisibility(View.VISIBLE);
                 LogUtil.i("底部", "已经到了最底部了，不要再滑动了");
             }
 
             @Override
             public void onScrollDown(ScrollRecyclerView recycler, int dy) {
-                blog_new.setVisibility(View.GONE);
+                layoutBlog.setVisibility(View.GONE);
                 KeyboardUtils.hideSoftInput(BlogListActivity.this);
             }
 
@@ -158,11 +185,11 @@ public class BlogListActivity extends AppCompatActivity {
      */
     private void getMyBlogFromServer() {
 
-        Observable<MyBlogOfServer> observable = RetrofitServiceInstance.getInstance().getMyBlogFromServer(Preferences.getFanId());
+        Observable<BlogOfServer> observable = RetrofitServiceInstance.getInstance().getMyBlogFromServer(Preferences.getFanId());
         observable.subscribeOn(Schedulers.io())
                 .onBackpressureBuffer()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<MyBlogOfServer>() {
+                .subscribe(new Subscriber<BlogOfServer>() {
                     @Override
                     public void onCompleted() {
                         LogUtil.i("获取完毕", "从服务器获取自己的blog完成");
@@ -171,19 +198,21 @@ public class BlogListActivity extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                        CustomToast.show(BlogListActivity.this, "获取自己的Blog时出现错误");
                     }
 
                     @Override
-                    public void onNext(MyBlogOfServer myBlogOfServer) {
-                        if (myBlogOfServer.getStatus() == 200) {
+                    public void onNext(BlogOfServer blogOfServer) {
+                        if (blogOfServer.getStatus() == 200) {
                             if (sweetDialog != null) {
                                 sweetDialog.dismiss();
                             }
-                            if (myBlogOfServer.getObject().size() == 0) {
+                            if (blogOfServer.getObject().size() == 0) {
                                 CustomToast.show(BlogListActivity.this, "服务器里也没有欸");
                             } else {
-                                for (MyBlogOfServer.ObjectBean o : myBlogOfServer.getObject()) {
-                                    items.add(new BlogItem(o.getContent(), o.getUpdateTime(), o.getId()));
+                                for (BlogOfServer.ObjectBean o : blogOfServer.getObject()) {
+                                    items.add(new BlogItem(o.getContent(), o.getUpdateTime(), o.getId(), Preferences.getWxNickname(), Preferences.getUserAccount()));
+                                    Collections.sort(items, comparator);
                                     addBlogToLocalDB(o.getContent(), o.getUpdateTime(), o.getId());
                                 }
                                 multiTypeAdapter.notifyDataSetChanged();
@@ -198,46 +227,6 @@ public class BlogListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initData();
-    }
-
-    private void initData() {
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflate = getMenuInflater();
         inflate.inflate(R.menu.activity_blog_list_menu, menu);
@@ -246,16 +235,22 @@ public class BlogListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final String text = blog_new.getText().toString();
+        doPostBlog();
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void doPostBlog() {
+        final String text = newBlog.getText().toString();
         if (isEmpty(text)) {
             CustomToast.show(this, "请填写动态内容");
-            blog_new.requestFocus();
+            newBlog.requestFocus();
         } else {
-            KeyboardUtils.hideSoftInput(this);
-            blog_new.clearFocus();
-            blog_new.setText("");
-            final long time = System.currentTimeMillis();
 
+            newBlog.clearFocus();
+
+
+            final long time = System.currentTimeMillis();
+            KeyboardUtils.hideSoftInput(this);
             Observable<Common> observable = RetrofitServiceInstance.getInstance().createBlog(Preferences.getFanId(), text, time);
             observable.observeOn(AndroidSchedulers.mainThread())
                     .onBackpressureBuffer()
@@ -266,8 +261,10 @@ public class BlogListActivity extends AppCompatActivity {
                         @Override
                         public void onCompleted() {
                             // 从服务器那里获取了blogID后，再加入到本地数据库
-                            items.add(new BlogItem(text, time, blogID));
+                            items.add(new BlogItem(text, time, blogID, Preferences.getWxNickname(), Preferences.getUserAccount()));
+                            Collections.sort(items, comparator);
                             multiTypeAdapter.notifyDataSetChanged();
+                            newBlog.setText(""); // 成功了才清空，不成功还可以继续发，这时候就不用重新打了
                             addBlogToLocalDB(text, time, blogID);
                         }
 
@@ -286,11 +283,7 @@ public class BlogListActivity extends AppCompatActivity {
                             }
                         }
                     });
-
-
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -334,4 +327,6 @@ public class BlogListActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 }

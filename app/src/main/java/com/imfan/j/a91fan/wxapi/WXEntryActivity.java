@@ -299,6 +299,7 @@ private int i = -1;
                     .subscribe(new Observer<User>() {
                         @Override
                         public void onCompleted() {
+                            Cache.setAccount(unionid.toLowerCase());
 
                         }
 
@@ -314,14 +315,11 @@ private int i = -1;
                                 LogUtil.i("WxEntryActivity:retrofit", "在自己服务器上返回的用户为空");
                                 return;
                             }
-                            Preferences.setFanId(user.getUser().getId());
+                            Preferences.setFanId((long)user.getUser().getId());
                             LogUtil.i("WxEntryActivity:retrofit", "在自己服务器上创建用户成功" + user.getUser().getNickname());
                         }
                     });
-
-                    Cache.setAccount(unionid.toLowerCase());
                     LoginNetease.getInstance().registerNetease(WXEntryActivity.this);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
