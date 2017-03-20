@@ -271,7 +271,10 @@
         <activity
             android:name=".chatroom.ChatActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".textabout.BlogListActivity"
+        <activity
+            android:name=".textabout.BlogListActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".textabout.CommentListActivity"
             android:theme="@style/AppTheme"></activity>
     </application>
 

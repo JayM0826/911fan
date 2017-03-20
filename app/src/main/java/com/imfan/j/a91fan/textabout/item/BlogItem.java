@@ -25,10 +25,23 @@ public class BlogItem {
 
     private String content;
     private long time;
+    private int serverBlogID;
 
-    public BlogItem(String content, long time) {
+    public int getServerBlogID() {
+        return serverBlogID;
+    }
+
+    public void setServerBlogID(int serverBlogID) {
+        this.serverBlogID = serverBlogID;
+    }
+
+
+
+    public BlogItem(String content, long time, int blogID) {
         this.content = content;
         this.time = time;
+        this.serverBlogID = blogID;
+
     }
 
     public BlogItem() {

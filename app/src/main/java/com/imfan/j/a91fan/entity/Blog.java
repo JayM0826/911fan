@@ -27,7 +27,7 @@ import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by jay on 17-3-5.
- * 动态
+ * 动态,这里就是往本地数据库存的形式
  */
 
 @Entity
@@ -42,11 +42,16 @@ public class Blog {
     @Property(nameInDb = "CREATE_TIME")
     private long createTime;
 
-    @Generated(hash = 891513764)
-    public Blog(Long id, String content, long createTime) {
+    @NotNull
+    @Property(nameInDb = "BLOG_ID")
+    private int blogID;
+
+    @Generated(hash = 1215796344)
+    public Blog(Long id, String content, long createTime, int blogID) {
         this.id = id;
         this.content = content;
         this.createTime = createTime;
+        this.blogID = blogID;
     }
 
     @Generated(hash = 1388801592)
@@ -76,5 +81,17 @@ public class Blog {
     public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
+
+    public int getBlogID() {
+        return this.blogID;
+    }
+
+    public void setBlogID(int blogID) {
+        this.blogID = blogID;
+    }
+
+
+
+
 
 }

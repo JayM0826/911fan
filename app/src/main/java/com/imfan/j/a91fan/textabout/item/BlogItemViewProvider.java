@@ -18,6 +18,7 @@
 package com.imfan.j.a91fan.textabout.item;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,7 +29,9 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.utils.TimeUtils;
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.textabout.CommentListActivity;
 import com.imfan.j.a91fan.util.CustomToast;
+import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.common.util.sys.TimeUtil;
 
 import butterknife.BindView;
@@ -62,6 +65,8 @@ public class BlogItemViewProvider
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull BlogItem blogItem) {
         holder.blog_content.setText(blogItem.getContent());
         holder.time.setText(TimeUtils.millis2String(blogItem.getTime()));
+        holder.nickname.setText(Preferences.getWxNickname());
+        holder.blogID = (long)blogItem.getServerBlogID();
     }
 
       /*一般非静态外部类可以随意访问其外部类的成员变量以及方法（包括声明为private的方法），
@@ -69,6 +74,8 @@ public class BlogItemViewProvider
     静态内部类不能访问其外部类的非静态成员变量和方法*/
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+
+        long blogID;
 
         @BindView(R.id.func_up)
         ImageView func_up;
@@ -96,9 +103,10 @@ public class BlogItemViewProvider
 
         @OnClick(R.id.func_comment)
         void createComment(){
-            CustomToast.show(context, "发表评论成功");
+            Intent intent = new Intent(context, CommentListActivity.class);
+            intent.putExtra("blogID", blogID);
+            context.startActivity(intent);
         }
-
 
         ViewHolder(View itemView) {
             super(itemView);

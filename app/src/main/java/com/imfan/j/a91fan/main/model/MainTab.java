@@ -31,7 +31,7 @@ import com.imfan.j.a91fan.main.fragment.MyProfileFragment;
 public enum MainTab {
     CHAT_ROOM(0,  ChatRoomListFragment.class,  R.layout.fragment_list_chatroom),
     MESSAGE(1,  MessageFragment.class,  R.layout.fragment_message),
-    BLOG_WALL(2,  BlogWallFragment.class,  R.layout.fragment_blog),
+    BLOG_WALL(2,  BlogWallFragment.class,  R.layout.activity_blog_list),
     PROFILE(3,  MyProfileFragment.class,  R.layout.fragment_profile);
 
     public final int tabIndex;

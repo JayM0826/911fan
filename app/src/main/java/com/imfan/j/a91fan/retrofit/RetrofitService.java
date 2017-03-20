@@ -17,11 +17,11 @@
 
 package com.imfan.j.a91fan.retrofit;
 
-import com.imfan.j.a91fan.entity.Article;
-import com.imfan.j.a91fan.entity.Blog;
+import com.imfan.j.a91fan.myserver.CommentOfServer;
+import com.imfan.j.a91fan.myserver.Common;
+import com.imfan.j.a91fan.myserver.MyBlogOfServer;
 import com.imfan.j.a91fan.myserver.User;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -36,4 +36,31 @@ public interface RetrofitService {
     @POST("user/create.post")
     Observable<User> createUser(@Query("wxunion") String wxunion,
                                 @Query("nickname") String nickname);
+
+    @Headers("Content-type:application/json")
+    @POST("blog/create.action")
+    Observable<Common> createBlog(@Query("fanID") long fanID,
+                                  @Query("content") String content,
+                                  @Query("time") long time);
+
+    @Headers("Content-type:application/json")
+    @GET("blog/myblog.action")
+    Observable<MyBlogOfServer> getMyBlogFromServer(@Query("fanID") long fanID);
+
+    /**
+     * 读取某个blog下面的所有评论
+     *
+     * @param blogID 要读取的blog的id，是服务器那边的id
+     * @return
+     */
+    @Headers("Content-type:application/json")
+    @GET("comment/read.action")
+    Observable<CommentOfServer> readCommentFromServer(@Query("blogID") long blogID);
+
+
+    @Headers("Content-type:application/json")
+    @GET("user/retrieve.get")
+    Observable<User> getUserFromServerByFanID(@Query("id") long id);
+
+
 }

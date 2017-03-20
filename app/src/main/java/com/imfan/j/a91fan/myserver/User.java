@@ -23,6 +23,12 @@ package com.imfan.j.a91fan.myserver;
 
 public class User {
 
+
+    /**
+     * user : {"id":11,"nickname":"又土又逗，简称土逗。","wxUnion":"oPXUEwJCJZXKEnamdhBozBI98Ico"}
+     * status : 200
+     */
+
     private UserBean user;
     private int status;
 
@@ -44,9 +50,9 @@ public class User {
 
     public static class UserBean {
         /**
-         * id : 4
-         * nickname : 哎呦哥哥的完美主义
-         * wxUnion : 123456789
+         * id : 11
+         * nickname : 又土又逗，简称土逗。
+         * wxUnion : oPXUEwJCJZXKEnamdhBozBI98Ico
          */
 
         private int id;

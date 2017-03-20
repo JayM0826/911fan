@@ -18,22 +18,16 @@
 package com.imfan.j.a91fan.uiabout;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.widget.Button;
-import android.widget.EditText;
-
-import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.util.CustomToast;
 
 /**
  * Created by jay on 17-2-26.
  */
 
-public class CustomEditText extends EditText {
+public class CustomEditText extends android.support.v7.widget.AppCompatEditText {
 
     private Paint paint;
 
@@ -47,7 +41,7 @@ public class CustomEditText extends EditText {
         paint.setStyle(Paint.Style.STROKE);
         //可以自定义画笔的颜色，我这里设置成黑色
         paint.setColor(Color.BLUE);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(15);
     }
 
     @Override
