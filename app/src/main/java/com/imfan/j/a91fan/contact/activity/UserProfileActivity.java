@@ -20,12 +20,10 @@ package com.imfan.j.a91fan.contact.activity;
 import android.annotation.TargetApi;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -35,14 +33,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
-import com.imfan.j.a91fan.contact.constant.UserConstant;
 import com.imfan.j.a91fan.session.SessionHelper;
 import com.imfan.j.a91fan.textabout.BlogListActivity;
 import com.imfan.j.a91fan.textabout.UserBlogListActivity;
@@ -52,10 +47,6 @@ import com.imfan.j.a91fan.util.Extras;
 import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.cache.FriendDataCache;
 import com.netease.nim.uikit.cache.NimUserInfoCache;
-import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
-import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialog;
-import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialogHelper;
-import com.netease.nim.uikit.common.ui.dialog.EasyEditDialog;
 import com.netease.nim.uikit.common.ui.imageview.HeadImageView;
 import com.netease.nim.uikit.common.ui.widget.SwitchButton;
 import com.netease.nim.uikit.common.util.log.LogUtil;
@@ -66,20 +57,16 @@ import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.friend.FriendService;
 import com.netease.nimlib.sdk.friend.FriendServiceObserve;
-import com.netease.nimlib.sdk.friend.constant.VerifyType;
-import com.netease.nimlib.sdk.friend.model.AddFriendData;
-import com.netease.nimlib.sdk.friend.model.Friend;
 import com.netease.nimlib.sdk.friend.model.MuteListChangedNotify;
-import com.netease.nimlib.sdk.uinfo.constant.GenderEnum;
 import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends SwipeBackActivity {
 
     private static final String TAG = UserProfileActivity.class.getSimpleName();
     private final String KEY_BLACK_LIST = "black_list";
@@ -404,9 +391,10 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent;
+                // 是自己的资料的时候
                 if (account.toLowerCase().equals(Preferences.getUserAccount().toLowerCase())){
                     intent = new Intent(UserProfileActivity.this, BlogListActivity.class);
-                }else{
+                }else{ // 是其他用户的时候
                     intent = new Intent(UserProfileActivity.this, UserBlogListActivity.class);
                     intent.putExtra("account", account);
                     intent.putExtra("nickname", NimUserInfoCache.getInstance().getUserName(account));

@@ -213,19 +213,18 @@ public class BlogWallFragment extends MainFragment {
         pullToRefreshBlog.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (sweetDialog == null){
+                    sweetDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE)
+                            .setTitleText("加载中").setContentText("正在快马去服务器拉取动态");
+                }
+                // 开始刷新动态，从已有动态基础上添加，而不是再次去服务器去获取全部数据
+                refreshBlog();
                 pullToRefreshBlog.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         pullToRefreshBlog.setRefreshing(false);
-                        CustomToast.show(getContext(), "刷新了一下，看看刷出什么了");
-                        // 开始刷新动态，从已有动态基础上添加，而不是再次去服务器去获取全部数据
-                        if (sweetDialog == null){
-                            sweetDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE)
-                                    .setTitleText("加载中").setContentText("正在快马去服务器拉取动态");
-                        }
-                        refreshBlog();
                     }
-                }, 300);
+                }, 200);
             }
         });
         newBlog.addTextChangedListener(new TextWatcher() {
@@ -290,7 +289,7 @@ public class BlogWallFragment extends MainFragment {
             @Override
             public void onScrollToBottom() {
                 newBlog.clearFocus();
-                layout_blog.setVisibility(View.VISIBLE);
+                layout_blog.setVisibility(View.GONE);
                 KeyboardUtils.hideSoftInput(getActivity());
                 LogUtil.i("底部", "已经到了最底部了，不要再滑动了");
             }
@@ -370,16 +369,22 @@ public class BlogWallFragment extends MainFragment {
             RetrofitServiceInstance.getInstance()
                     .refreshBlog(((BlogItem)items.get(0)).getTime())
                     .onBackpressureBuffer()
-                    .observeOn(Schedulers.io())
-                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<BlogOfServer>() {
                         @Override
                         public void onCompleted() {
+                            if (sweetDialog != null) {
+                                sweetDialog.dismiss();
+                            }
                             LogUtil.i("refreshBlog()中", "刷新完了，不知道有没有数据");
                         }
 
                         @Override
                         public void onError(Throwable e) {
+                            if (sweetDialog != null) {
+                                sweetDialog.dismiss();
+                            }
                             LogUtil.e("refreshBlog()中", "刷新动态出现错误");
                             e.printStackTrace();
 
@@ -397,9 +402,10 @@ public class BlogWallFragment extends MainFragment {
                                     for (BlogOfServer.ObjectBean o : blogOfServer.getObject()) {
                                         getNicknameOfEveryBlog(o);
                                     }
+                                    CustomToast.show(getActivity(), "终于有新动态了");
                                 }
-                            } else {
-                                CustomToast.show(getActivity(), "获取失败");
+                            } else if (blogOfServer.getStatus() == 400){
+                                CustomToast.show(getActivity(), "没有新动态了");
                             }
                         }
                     });

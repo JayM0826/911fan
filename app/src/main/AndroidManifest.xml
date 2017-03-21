@@ -158,13 +158,13 @@
             android:windowSoftInputMode="stateUnspecified" />
         <activity
             android:name=".contact.activity.UserProfileSettingActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyTheme" />
         <activity
             android:name=".contact.activity.UserProfileEditItemActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyTheme" />
         <activity
             android:name=".contact.activity.UserProfileActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyTheme" />
         <activity android:name=".main.activity.SearchMsgDetailActivity" />
         <activity android:name=".team.AdvancedTeamJoinActivity" />
         <activity android:name=".main.activity.TeamListActivity" />
@@ -248,10 +248,10 @@
 
         <activity
             android:name=".textabout.GroupListActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyTheme" />
         <activity
             android:name=".textabout.ArticleListActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/MyTheme" />
         <activity
             android:name=".textabout.CreateGroupActivitry"
             android:theme="@style/TipDialog" />
@@ -277,9 +277,11 @@
         <activity
             android:name=".textabout.CommentListActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".textabout.UserBlogListActivity"
+        <activity
+            android:name=".textabout.UserBlogListActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".textabout.UserCommentListActivity"
             android:theme="@style/AppTheme"></activity>
-
     </application>
 
 </manifest>

@@ -180,7 +180,7 @@ public class ChatRoomFragment extends Fragment {
                         if (items.isEmpty())
                             initData();
                     }
-                }, 500);
+                }, 200);
             }
         });
         // 设置数据源

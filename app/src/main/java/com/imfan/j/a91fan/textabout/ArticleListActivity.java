@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -53,16 +52,19 @@ import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
  * Article或者Draft中某一个分组的所有文章列表
  */
-public class ArticleListActivity extends AppCompatActivity {
+    public class ArticleListActivity extends SwipeBackActivity {
+
+
     MultiTypeAdapter multiTypeAdapter;
     private Long groupID; // 所属组的id
 
@@ -111,6 +113,7 @@ public class ArticleListActivity extends AppCompatActivity {
 
 
     private void initView() {
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(groupName = getIntent().getStringExtra("title")); // groupname

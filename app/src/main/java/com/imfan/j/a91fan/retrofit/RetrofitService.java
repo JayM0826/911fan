@@ -85,4 +85,16 @@ public interface RetrofitService {
     @GET("blog/getbynetease.action")
     Observable<BlogOfServer> getBlogByWxunion(@Query("wxunion") String wxunion);
 
+    @Headers("Content-type:application/json")
+    @POST("comment/create.action")
+    Observable<SuccessOfServer> postComment(@Query("content") String content,
+                                            @Query("fanID") long fanID,
+                                            @Query("time") long time,
+                                            @Query("blogID") long blogID);
+
+    @Headers("Content-type:application/json")
+    @GET("comment/refresh.action")
+    Observable<CommentOfServer> refreshCommentFromServer(@Query("blogID") long blogID,
+                                                      @Query("updateTime") long updateTime);
+
 }

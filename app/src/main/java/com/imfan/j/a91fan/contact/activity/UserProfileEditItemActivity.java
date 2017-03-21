@@ -21,9 +21,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -34,11 +33,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.constant.UserConstant;
@@ -48,13 +45,11 @@ import com.imfan.j.a91fan.retrofit.RetrofitServiceInstance;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
 import com.netease.nim.uikit.cache.FriendDataCache;
-import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nim.uikit.common.ui.dialog.DialogMaker;
 import com.netease.nim.uikit.common.ui.widget.ClearableEditTextWithIcon;
 import com.netease.nim.uikit.common.util.log.LogUtil;
 import com.netease.nim.uikit.common.util.sys.NetworkUtil;
 import com.netease.nim.uikit.common.util.sys.TimeUtil;
-import com.netease.nim.uikit.model.ToolBarOptions;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallbackWrapper;
 import com.netease.nimlib.sdk.ResponseCode;
@@ -70,11 +65,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class UserProfileEditItemActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserProfileEditItemActivity extends SwipeBackActivity implements View.OnClickListener {
 
     public static final int REQUEST_CODE = 1000;
     private static final String EXTRA_KEY = "EXTRA_KEY";
@@ -358,7 +353,6 @@ public class UserProfileEditItemActivity extends AppCompatActivity implements Vi
                     // 并且上传到自己的服务器
                     RetrofitServiceInstance.getInstance()
                             .updateMyNickname(Preferences.getFanId(), editText.getText().toString())
-                            .observeOn(AndroidSchedulers.mainThread())
                             .onBackpressureBuffer()
                             .subscribeOn(Schedulers.io())
                             .subscribe(new Subscriber<SuccessOfServer>() {

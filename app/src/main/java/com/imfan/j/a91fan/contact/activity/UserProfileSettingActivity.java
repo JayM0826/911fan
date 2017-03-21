@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,7 +54,9 @@ import com.netease.nimlib.sdk.uinfo.model.NimUserInfo;
 
 import java.io.File;
 
-public class UserProfileSettingActivity extends AppCompatActivity implements View.OnClickListener {
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
+public class UserProfileSettingActivity extends SwipeBackActivity implements View.OnClickListener {
     // constant
     private static final int PICK_AVATAR_REQUEST = 0x0E;
     private static final int AVATAR_TIME_OUT = 30000;
@@ -100,8 +101,9 @@ public class UserProfileSettingActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_user_profile_setting);
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);   //设置显示向上导航按钮
-        actionBar.setDisplayShowTitleEnabled(false);
         actionBar.show();
+        // setDragEdge(SwipeBackLayout.DragEdge.LEFT);
+        actionBar.setTitle("详细资料");
 
 
         account = getIntent().getStringExtra(Extras.EXTRA_ACCOUNT);

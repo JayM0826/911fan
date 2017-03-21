@@ -17,19 +17,23 @@
 
 package com.imfan.j.a91fan.textabout.item;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.utils.TimeUtils;
 import com.imfan.j.a91fan.R;
+import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import me.drakeet.multitype.ItemViewProvider;
 
 /**
@@ -37,6 +41,16 @@ import me.drakeet.multitype.ItemViewProvider;
  */
 public class CommentItemViewProvider
         extends ItemViewProvider<CommentItem, CommentItemViewProvider.ViewHolder> {
+    static private Context context;
+
+
+
+    public CommentItemViewProvider() {
+    }
+
+    public CommentItemViewProvider(Context context) {
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -46,6 +60,8 @@ public class CommentItemViewProvider
         return new ViewHolder(root);
     }
 
+
+
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull CommentItem commentItem) {
         holder.comment_content.setText(commentItem.getContent());
@@ -53,11 +69,20 @@ public class CommentItemViewProvider
         // 昵称还需要在构造CommentItem时临时去服务器取最新的来
         holder.nickname.setText(commentItem.getNickname());
         holder.time.setText(TimeUtils.millis2String(commentItem.getTime()));
+        holder.account = commentItem.getWxunion().toLowerCase();
 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        String account;
+        @BindView(R.id.layout_avatar_nick)
+        RelativeLayout layout_avatar_nick;
+
+        @OnClick(R.id.layout_avatar_nick)
+        void goToUserDetail(){
+            UserProfileActivity.start(context, account);
+        }
 
         @BindView(R.id.comment_content)
         TextView comment_content;

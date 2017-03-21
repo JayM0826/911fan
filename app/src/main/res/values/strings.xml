@@ -546,4 +546,5 @@
     <string name="new_blog">新建动态</string>
     <string name="post_blog">发表</string>
     <string name="blog_my">我的动态</string>
+    <string name="new_comment">添加评论</string>
 </resources>

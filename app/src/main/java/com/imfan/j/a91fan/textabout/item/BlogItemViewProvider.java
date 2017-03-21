@@ -31,9 +31,13 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.TimeUtils;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
+import com.imfan.j.a91fan.textabout.BlogListActivity;
 import com.imfan.j.a91fan.textabout.CommentListActivity;
+import com.imfan.j.a91fan.textabout.UserBlogListActivity;
+import com.imfan.j.a91fan.textabout.UserCommentListActivity;
 import com.imfan.j.a91fan.util.CustomToast;
 import com.imfan.j.a91fan.util.Preferences;
+import com.netease.nim.uikit.cache.NimUserInfoCache;
 import com.netease.nim.uikit.common.util.sys.TimeUtil;
 import com.netease.nim.uikit.contact.core.item.ContactItem;
 
@@ -48,7 +52,7 @@ import me.drakeet.multitype.ItemViewProvider;
 public class BlogItemViewProvider
         extends ItemViewProvider<BlogItem, BlogItemViewProvider.ViewHolder> {
 
-    static public Context context;
+    static private Context context;
 
     public BlogItemViewProvider() {
     }
@@ -116,7 +120,13 @@ public class BlogItemViewProvider
 
         @OnClick(R.id.func_comment)
         void createComment(){
-            Intent intent = new Intent(context, CommentListActivity.class);
+            Intent intent;
+            // 是自己的资料的时候
+            if (account.toLowerCase().equals(Preferences.getUserAccount().toLowerCase())){
+                intent = new Intent(context, CommentListActivity.class);
+            }else{ // 是其他用户的时候
+                intent = new Intent(context, UserCommentListActivity.class);
+            }
             intent.putExtra("blogID", blogID);
             context.startActivity(intent);
         }

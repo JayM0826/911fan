@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr format="reference" name="SwipeBackLayoutStyle"/>
+    <declare-styleable name="SwipeBackLayout"><attr format="dimension" name="EdgeSize"/><attr format="enum" name="EdgeFlag"/><attr format="reference" name="ShadowLeft"/><attr format="reference" name="ShadowRight"/><attr format="reference" name="ShadowBottom"/></declare-styleable>
+    <style name="SwipeBackLayout">
+        <item name="EdgeSize">20dip</item>
+        <item name="ShadowLeft">@drawable/shadow_left</item>
+        <item name="ShadowRight">@drawable/shadow_right</item>
+        <item name="ShadowBottom">@drawable/shadow_bottom</item>
+    </style>
+</resources>

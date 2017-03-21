@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.utils.TimeUtils;
 import com.imfan.j.a91fan.R;
 import com.imfan.j.a91fan.contact.activity.UserProfileActivity;
-import com.imfan.j.a91fan.textabout.CommentListActivity;
+import com.imfan.j.a91fan.textabout.UserCommentListActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,7 +95,7 @@ static public Context context;
 
         @OnClick(R.id.func_comment)
         void createComment(){
-            Intent intent = new Intent(context, CommentListActivity.class);
+            Intent intent = new Intent(context, UserCommentListActivity.class);
             intent.putExtra("blogID", blogID);
             context.startActivity(intent);
         }

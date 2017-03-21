@@ -24,7 +24,9 @@ import com.netease.nim.uikit.model.ToolBarOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UI extends AppCompatActivity {
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+
+public abstract class UI extends SwipeBackActivity {
 
     private static Handler handler;
     private boolean destroyed = false;

@@ -48,6 +48,7 @@ import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
@@ -81,7 +82,7 @@ import static com.blankj.utilcode.utils.TimeUtils.getNowTimeString;
  * 用来显示草稿或者文章中的所有组名，可复用
  */
 
-public class GroupListActivity extends AppCompatActivity {
+public class GroupListActivity extends SwipeBackActivity {
 
 
     private DaoType daoType;
@@ -125,6 +126,7 @@ public class GroupListActivity extends AppCompatActivity {
         String title = getIntent().getStringExtra("title");
         daoType = (DaoType) getIntent().getSerializableExtra("type");
         actionBar.setTitle(title);
+
 
         items = new Items();
         multiTypeAdapter = new MultiTypeAdapter(items);

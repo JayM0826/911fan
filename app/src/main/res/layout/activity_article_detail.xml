@@ -21,11 +21,12 @@
     android:id="@+id/fl_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@null">
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_text_list"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
     <com.melnykov.fab.FloatingActionButton

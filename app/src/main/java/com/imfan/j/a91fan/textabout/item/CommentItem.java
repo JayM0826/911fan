@@ -36,6 +36,7 @@ public class CommentItem {
         this.wxunion = wxunion;
         this.nickname = nickname;
         this.time = time;
+        this.wxunion = wxunion;
     }
 
     public String getContent() {

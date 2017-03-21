@@ -53,6 +53,7 @@ import butterknife.OnClick;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.drakeet.multitype.Items;
 import me.drakeet.multitype.MultiTypeAdapter;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -60,7 +61,7 @@ import rx.schedulers.Schedulers;
 
 import static com.blankj.utilcode.utils.StringUtils.isEmpty;
 
-public class BlogListActivity extends AppCompatActivity {
+public class BlogListActivity extends SwipeBackActivity {
 
     // 实现一个比较器
     Comparator<Object> comparator = new Comparator<Object>() {
@@ -93,7 +94,7 @@ public class BlogListActivity extends AppCompatActivity {
     LinearLayout layoutBlog;
 
     @OnClick(R.id.post_blog)
-    void postBlog(){
+    void postBlog() {
         doPostBlog();
     }
 
@@ -125,14 +126,13 @@ public class BlogListActivity extends AppCompatActivity {
         } else { // 直接加载本地的东西，本地和服务器是同步的
             for (Blog blog : blogDao.loadAll()) {
                 items.add(new BlogItem(blog.getContent(), blog.getCreateTime(), blog.getBlogID(), Preferences.getWxNickname(), Preferences.getUserAccount()));
-                Collections.sort(items, comparator);
             }
+            Collections.sort(items, comparator);
         }
 
 
         multiTypeAdapter = new MultiTypeAdapter(items);
         multiTypeAdapter.register(BlogItem.class, new BlogItemViewProvider(this));
-        Collections.sort(items, comparator);
         blog_list.setLayoutManager(new LinearLayoutManager(this));
         blog_list.setAdapter(multiTypeAdapter);
         newBlog.clearFocus();
@@ -151,18 +151,19 @@ public class BlogListActivity extends AppCompatActivity {
             @Override
             public void onStateChanged(ScrollRecyclerView recycler, int state) {
                 LogUtil.i("滑啊滑", "我的滑板鞋，根本停不下来");
-                KeyboardUtils.hideSoftInput(BlogListActivity.this);
+                // KeyboardUtils.hideSoftInput(BlogListActivity.this);
             }
 
             @Override
             public void onScrollUp(ScrollRecyclerView recycler, int dy) {
                 layoutBlog.setVisibility(View.VISIBLE);
-                KeyboardUtils.hideSoftInput(BlogListActivity.this);
+                // KeyboardUtils.hideSoftInput(BlogListActivity.this);
             }
 
             @Override
             public void onScrollToBottom() {
                 // CustomToast.show(BlogListActivity.this, "谁都有底线，我也不例外");
+
                 layoutBlog.setVisibility(View.VISIBLE);
                 LogUtil.i("底部", "已经到了最底部了，不要再滑动了");
             }
@@ -175,6 +176,7 @@ public class BlogListActivity extends AppCompatActivity {
 
             @Override
             public void onScrollToTop() {
+                layoutBlog.setVisibility(View.VISIBLE);
                 LogUtil.i("底部", "已经到了最顶部了，不要再滑动了");
             }
         });
@@ -192,11 +194,17 @@ public class BlogListActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<BlogOfServer>() {
                     @Override
                     public void onCompleted() {
+                        if (sweetDialog != null) {
+                            sweetDialog.dismiss();
+                        }
                         LogUtil.i("获取完毕", "从服务器获取自己的blog完成");
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        if (sweetDialog != null) {
+                            sweetDialog.dismiss();
+                        }
                         e.printStackTrace();
                         CustomToast.show(BlogListActivity.this, "获取自己的Blog时出现错误");
                     }
@@ -212,9 +220,9 @@ public class BlogListActivity extends AppCompatActivity {
                             } else {
                                 for (BlogOfServer.ObjectBean o : blogOfServer.getObject()) {
                                     items.add(new BlogItem(o.getContent(), o.getUpdateTime(), o.getId(), Preferences.getWxNickname(), Preferences.getUserAccount()));
-                                    Collections.sort(items, comparator);
                                     addBlogToLocalDB(o.getContent(), o.getUpdateTime(), o.getId());
                                 }
+                                Collections.sort(items, comparator);
                                 multiTypeAdapter.notifyDataSetChanged();
                             }
                         } else {
